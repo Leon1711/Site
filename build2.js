@@ -296,7 +296,7 @@ function assessment(prodKey) {
     });
     // modo de atuação
     const yy = my + 1.4;
-    s.addText('MODO DE ATUAÇÃO (INTENSIDADE) — ortogonal à oferta', { x: MX, y: yy, w: 8, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 2 });
+    s.addText('MODO DE ATUAÇÃO (INTENSIDADE) — exclusivo do PM&GO integrado', { x: MX, y: yy, w: 9, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 2 });
     MODOS_ATUACAO.forEach((m, i) => {
       const y = yy + 0.3 + i * 0.4;
       s.addShape('roundRect', { x: MX, y, w: 1.5, h: 0.32, rectRadius: 0.06, fill: { color: C.navy } });

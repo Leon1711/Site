@@ -1528,8 +1528,15 @@ function renderFit(prod, el){
     desc='Aconselhamento pontual, métodos e templates, sem estrutura dedicada.';
     porque='Nenhum eixo aparece alto (A '+fmt(avgA)+' · B '+fmt(avgB)+' · C '+fmt(avgC)+'): o momento pede <b>suporte leve</b>, não uma frente dedicada.';
   }
-  const modo = avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0);
+  // modo de atuação é EXCLUSIVO do PM&GO integrado — só existe quando a oferta é PM&GO
+  const isPmgo = rec==='PM&GO';
+  const modo = isPmgo ? (avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0)) : null;
   store.pmgo={tipo:'fit',rec,modo,avgA:+avgA.toFixed(2),avgB:+avgB.toFixed(2),avgC:+avgC.toFixed(2),answers:vals.slice()};
+  const modoHTML = isPmgo
+    ? '<h4 style="font-family:Fraunces;color:var(--navy);margin:10px 0 4px">Modo de atuação recomendado <span style="font-size:11px;color:var(--gray);font-weight:400">— intensidade da Obliant no PM&GO</span></h4>'+
+      '<div class="modo-strip">'+DATA.modos.map((m,i)=>
+        '<div class="m'+(i===modo?' on':'')+'"><b>'+m.nome+'</b>'+m.desc+'</div>').join('')+'</div>'
+    : '';
   const axis=(nm,sub,val,hi,c)=>'<div class="axis-card'+(hi?' hi':'')+'"><h5>'+nm+'</h5><div class="v">'+fmt(val)+'</div>'+
     '<div class="'+(hi?'tag-hi':'tag-lo')+'">'+(hi?'Alta':'Baixa/moderada')+'</div>'+
     '<div style="font-size:11px;color:var(--gray)">'+sub+' · corte '+fmt(c)+'</div></div>';
@@ -1547,9 +1554,7 @@ function renderFit(prod, el){
           axis('Eixo B · adoção','necessidade de adoção',avgB,hiB,cut)+
           axis('Eixo C · integração','interdependência',avgC,hiC,cutC)+
         '</div>'+
-        '<h4 style="font-family:Fraunces;color:var(--navy);margin:10px 0 4px">Modo de atuação recomendado</h4>'+
-        '<div class="modo-strip">'+DATA.modos.map((m,i)=>
-          '<div class="m'+(i===modo?' on':'')+'"><b>'+m.nome+'</b>'+m.desc+'</div>').join('')+'</div>'+
+        modoHTML+
       '</div>'+
     '</div>'+
     (primeiros
@@ -1641,8 +1646,8 @@ function dossieFront(c,p){
   }
   return '<div class="dfront"><div class="df-sig">'+P.sigla+' · fit</div>'+
     '<div class="df-rec">'+dd.rec+'</div>'+
-    '<div class="df-lvl">Modo '+DATA.modos[dd.modo].nome+'</div>'+
-    '<div class="df-axes">Eixo A '+fmt(dd.avgA)+' · Eixo B '+fmt(dd.avgB)+'</div></div>';
+    (dd.modo!=null ? '<div class="df-lvl">Modo '+DATA.modos[dd.modo].nome+'</div>' : '')+
+    '<div class="df-axes">A '+fmt(dd.avgA)+' · B '+fmt(dd.avgB)+(dd.avgC!=null?' · C '+fmt(dd.avgC):'')+'</div></div>';
 }
 function renderDossie(id){
   const c=DB.clients[id]; if(!c) return;
