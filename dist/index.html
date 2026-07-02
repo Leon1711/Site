@@ -39,39 +39,67 @@ button{font:inherit}
 .tab.on :is(.grid,.road,.mat,.layers,.arch,.howto,.gloss,.ass-pick)>*:nth-child(5){animation-delay:.24s}
 .tab.on :is(.grid,.road,.mat,.layers,.arch,.howto,.gloss,.ass-pick)>*:nth-child(n+6){animation-delay:.3s}
 
-/* ---------- header ---------- */
-header{background:linear-gradient(135deg,var(--navy) 0%,#3d4d61 100%);color:var(--cream);padding:34px 0 0}
+/* ---------- header (hero) ---------- */
+header{background:linear-gradient(135deg,var(--navy) 0%,#3d4d61 100%);color:var(--cream);padding:38px 0 32px}
 .brand{display:flex;align-items:baseline;gap:12px;letter-spacing:.28em;font-size:13px;font-weight:600}
 .brand b{color:var(--gold)}
-header h1{font-size:clamp(26px,4vw,40px);margin:18px 0 6px;font-weight:600}
-header p.sub{color:#c9d2de;max-width:640px;font-size:15px}
-.chip-row{display:flex;gap:8px;margin:16px 0 26px;flex-wrap:wrap}
+header h1{font-size:clamp(26px,4vw,38px);margin:16px 0 8px;font-weight:600}
+header p.sub{color:#c9d2de;max-width:620px;font-size:14.5px}
+.chip-row{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
 .chip{border:1px solid rgba(255,253,246,.35);color:var(--cream);border-radius:999px;padding:4px 14px;font-size:12px;letter-spacing:.06em;transition:.25s}
 .chip:hover{border-color:var(--gold);transform:translateY(-1px)}
 .chip em{color:var(--gold);font-style:normal;font-weight:600}
 
-/* ---------- top tabs ---------- */
-nav.top{display:flex;gap:2px;flex-wrap:wrap}
+/* ---------- navbar fixa ---------- */
+.navbar{position:sticky;top:0;z-index:60;background:var(--navy);box-shadow:0 8px 20px -14px rgba(0,0,0,.55)}
+.navbar .wrap{display:flex;align-items:center;gap:20px}
+.navbar .mini{font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--cream);white-space:nowrap}
+.navbar .mini b{color:var(--gold)}
+@media(max-width:760px){.navbar .mini{display:none}}
+nav.top{display:flex;gap:0;flex-wrap:wrap;flex:1}
 nav.top button{appearance:none;border:0;cursor:pointer;font-size:13.5px;font-weight:600;
-  padding:12px 20px;background:transparent;color:#b9c3d0;border-radius:10px 10px 0 0;letter-spacing:.02em;transition:color .2s}
+  padding:15px 16px;background:transparent;color:#b9c3d0;letter-spacing:.02em;transition:color .2s;position:relative}
 nav.top button:hover{color:var(--cream)}
-nav.top button.on{background:var(--cream);color:var(--navy)}
+nav.top button.on{color:#fff}
+nav.top button::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:2px 2px 0 0;background:transparent;transition:background .25s}
+nav.top button.on::after{background:var(--gold)}
 
 /* ---------- sections ---------- */
 main{padding:34px 0 70px}
 section.tab{display:none}
 section.tab.on{display:block;animation:fade .3s ease}
 
-.prod-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
-.prod-head h2{font-size:30px;color:var(--navy)}
+/* ---------- hero de produto ---------- */
+.prod-hero{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--white) 55%,#fbf9f2);border:1px solid var(--line);
+  border-left:5px solid var(--navy);border-radius:16px;padding:22px 26px;margin-bottom:22px}
+.prod-hero.gold{border-left-color:var(--gold)}
+.prod-hero .ph-k{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.prod-hero h2{font-size:30px;color:var(--navy);margin:2px 0}
+.prod-hero .ph-t{font-size:14px;color:var(--ink);max-width:560px}
+.prod-hero .ph-n{font-size:12.5px;color:var(--gray);font-style:italic;margin-top:6px;max-width:560px}
 .badge{background:var(--navy);color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.12em;
   padding:4px 12px;border-radius:999px;text-transform:uppercase}
 .badge.gold{background:var(--gold)}
-p.lead{color:var(--gray);max-width:720px;margin:6px 0 20px}
+p.lead{color:var(--gray);max-width:680px;margin:6px 0 20px;font-size:14.5px}
 p.note{font-size:12.5px;color:var(--gray);font-style:italic;margin-top:10px}
+
+/* ---------- cabeçalho de seção padrão ---------- */
+.sect-head{margin:34px 0 16px}
+.sect-head:first-child{margin-top:0}
+.sect-head .kicker{margin-bottom:4px}
+.sect-head h3{color:var(--navy);font-size:20px}
+.sect-head p{color:var(--gray);font-size:13.5px;max-width:680px;margin-top:4px}
+
+/* ---------- banner CTA ---------- */
+.cta{background:linear-gradient(135deg,var(--navy),#3d4d61);color:var(--cream);border-radius:16px;
+  padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:38px}
+.cta h3{color:var(--cream);font-size:21px}
+.cta p{color:#c9d2de;font-size:13px;max-width:520px;margin-top:4px}
 
 /* ---------- sub tabs ---------- */
 nav.sub{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:10px 0 24px}
+@media(min-width:900px){nav.sub{position:sticky;top:48px;background:var(--cream);z-index:40}}
 nav.sub button{appearance:none;border:0;background:none;cursor:pointer;font-size:13px;font-weight:600;
   color:var(--gray);padding:9px 14px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.2s}
 nav.sub button:hover{color:var(--navy)}
@@ -107,13 +135,19 @@ ul.clean li:last-child{border-bottom:0}
 ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 
 /* ---------- roadmap ---------- */
-.road{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media(max-width:900px){.road{grid-template-columns:1fr}}
-.road .col{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s}
+.road .col{background:var(--white);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s}
 .road .col:hover{transform:translateY(-3px);box-shadow:0 12px 26px -16px rgba(46,57,71,.4)}
-.road .col header{background:var(--ice);color:var(--navy);padding:12px 14px}
+.road .col:not(:last-child)::before{content:'›';position:absolute;right:-13px;top:22px;z-index:2;
+  font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
+@media(max-width:900px){.road .col:not(:last-child)::before{content:'⌄';right:auto;left:50%;top:auto;bottom:-16px}}
+.road .col header{background:var(--ice);color:var(--navy);padding:12px 14px;border-radius:13px 13px 0 0}
 .road .col header .lvl{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
 .road .col header .nm{font-family:'Fraunces';font-size:17px}
+.road .col header .dots{display:flex;gap:4px;margin-top:7px}
+.road .col header .dots i{width:14px;height:4px;border-radius:2px;background:rgba(122,132,148,.28)}
+.road .col header .dots i.f{background:var(--gold)}
 .road .col.hot header{background:var(--navy);color:var(--cream)}
 .road ul{list-style:none;padding:8px 14px 14px}
 .road li{font-size:12.5px;padding:7px 0 7px 16px;position:relative;border-bottom:1px solid var(--ice);color:var(--ink)}
@@ -183,7 +217,7 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
   font-weight:700;border-radius:999px;padding:3px 10px;letter-spacing:.05em}
 
 /* ---------- assessment: wizard ---------- */
-.wizard{max-width:760px}
+.wizard{max-width:720px;margin:0 auto}
 .wiz-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .wiz-prog{flex:1;height:8px;background:var(--ice);border-radius:4px;overflow:hidden}
 .wiz-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--navy));border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.3,1)}
@@ -192,7 +226,6 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .wiz-card .qn{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
 .wiz-card .qt{font-family:'Fraunces';font-size:21px;color:var(--navy);margin:10px 0 22px;line-height:1.35}
 .opts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-@media(max-width:700px){.opts{grid-template-columns:1fr}}
 .opts button{appearance:none;cursor:pointer;background:var(--cream);border:1px solid var(--line);border-radius:12px;
   padding:14px 8px;text-align:center;transition:.2s}
 .opts button:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -200,6 +233,15 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .opts button .v{font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
 .opts button .l{display:block;font-size:10.5px;color:var(--gray);margin-top:6px;line-height:1.3}
 .opts button.sel .l{color:#c9d2de}
+@media(max-width:700px){
+  .opts{grid-template-columns:1fr;gap:8px}
+  .opts button{display:flex;align-items:center;gap:14px;text-align:left;padding:10px 16px}
+  .opts button .l{margin-top:0;font-size:12px}
+}
+.kbd-hint{text-align:center;font-size:11.5px;color:var(--gray);margin-top:12px}
+.kbd-hint b{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+  padding:0 6px;font-size:10.5px;color:var(--navy);background:var(--white)}
+@media(max-width:700px){.kbd-hint{display:none}}
 .wiz-nav{display:flex;gap:12px;align-items:center;margin-top:16px}
 .wiz-nav .spacer{flex:1}
 .linkish{appearance:none;background:none;border:0;cursor:pointer;color:var(--gray);font-size:12.5px;text-decoration:underline;text-underline-offset:3px}
@@ -315,18 +357,25 @@ h3.sect:first-child{margin-top:0}
       <span class="chip">Framework + Roadmap + Diagnóstico</span>
       <span class="chip">Régua única · 5 níveis</span>
     </div>
+  </div>
+</header>
+<div class="navbar">
+  <div class="wrap">
+    <span class="mini">OBLIANT <b>DIGITAL</b></span>
     <nav class="top">
       <button class="on" data-tab="visao">Visão geral</button><button class="" data-tab="epp">EPP</button><button class="" data-tab="gmo">GMO</button><button class="" data-tab="pmgo">PM&GO</button><button class="" data-tab="assessment">Assessment</button><button class="" data-tab="glossario">Glossário</button>
     </nav>
   </div>
-</header>
+</div>
 <main>
   <div class="wrap">
     <section class="tab on" data-tab="visao">
-  <div class="kicker">Arquitetura da metodologia</div>
-  <h2 class="serif" style="color:var(--navy);font-size:28px">Três produtos, uma metodologia, uma régua</h2>
-  <p class="lead">Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está. Cada produto se descreve em três camadas empilhadas — <b>Framework + Roadmap + Diagnóstico</b> — e todos correm na mesma régua de maturidade.</p>
-
+  
+  <div class="sect-head">
+    <div class="kicker">01 · Arquitetura</div>
+    <h3 class="serif">Três produtos, uma metodologia, uma régua</h3>
+    <p>Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está.</p>
+  </div>
   <div class="arch">
     
     <div class="p">
@@ -355,16 +404,35 @@ h3.sect:first-child{margin-top:0}
     </div>
   </div>
 
-  <h3 class="sect">As três camadas de cada produto</h3>
-  <p class="lead" style="margin-top:-6px">Não é "framework = roadmap = diagnóstico". São <b>três camadas distintas</b> que se empilham e juntas formam o documento completo.</p>
-  <div class="layers">
-    <div class="l"><b>1 · Framework</b><span>Objetivo, escopo, pilares e entregáveis</span></div>
-    <div class="l"><b>2 · Roadmap</b><span>Iniciativas organizadas por nível de maturidade — jornada de evolução, não lista de serviços</span></div>
-    <div class="l"><b>3 · Diagnóstico (Assessment)</b><span>Posiciona o cliente na régua e devolve o roadmap recomendado</span></div>
+  
+  <div class="sect-head">
+    <div class="kicker">02 · Estrutura</div>
+    <h3 class="serif">Como o material se organiza</h3>
+    <p>Não é "framework = roadmap = diagnóstico": são três camadas distintas que se empilham. E cada produto se lê pela mesma sequência de cinco blocos, A–E.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3>As três camadas</h3>
+      <div class="layers" style="margin:12px 0 0;max-width:none">
+        <div class="l"><b>1 · Framework</b><span>Objetivo, escopo, pilares e entregáveis</span></div>
+        <div class="l"><b>2 · Roadmap</b><span>Iniciativas por nível de maturidade — jornada de evolução, não lista de serviços</span></div>
+        <div class="l"><b>3 · Diagnóstico (Assessment)</b><span>Posiciona o cliente na régua e devolve o roadmap recomendado</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Os cinco blocos de leitura</h3>
+      <ul class="clean" style="margin-top:12px">
+        <li><b style="color:var(--gold);font-family:Fraunces">A</b> · <b>Framework</b> — Objetivo, escopo, pilares e entregáveis do produto</li><li><b style="color:var(--gold);font-family:Fraunces">B</b> · <b>Roadmap</b> — Iniciativas organizadas por nível de maturidade — uma jornada, não uma lista de serviços</li><li><b style="color:var(--gold);font-family:Fraunces">C</b> · <b>Maturidade</b> — A régua única de 5 níveis aplicada à frente</li><li><b style="color:var(--gold);font-family:Fraunces">D</b> · <b>Assessment</b> — Diagnóstico que posiciona o cliente na régua e devolve o roadmap recomendado</li><li><b style="color:var(--gold);font-family:Fraunces">E</b> · <b>RACI</b> — Papéis e responsabilidades entre Obliant, cliente e estruturas de governança</li>
+      </ul>
+    </div>
   </div>
 
-  <h3 class="sect">Régua de maturidade única</h3>
-  <p class="lead" style="margin-top:-6px">As três frentes usam a mesma escala — é isso que transforma três roadmaps soltos em uma metodologia: com escala compartilhada dá para posicionar o cliente e comparar as frentes entre si.</p>
+  
+  <div class="sect-head">
+    <div class="kicker">03 · Escala</div>
+    <h3 class="serif">Régua de maturidade única</h3>
+    <p>As três frentes usam a mesma escala — é isso que transforma três roadmaps soltos em uma metodologia: com escala compartilhada dá para posicionar o cliente e comparar as frentes entre si.</p>
+  </div>
   
   <div class="mat">
     
@@ -400,25 +468,35 @@ h3.sect:first-child{margin-top:0}
     </div>
   </div>
 
-  <h3 class="sect">Como ler cada produto — 5 blocos padrão</h3>
-  <div class="howto">
-    <div class="b"><div class="id">A</div><b>Framework</b><span>Objetivo, escopo, pilares e entregáveis do produto</span></div><div class="b"><div class="id">B</div><b>Roadmap</b><span>Iniciativas organizadas por nível de maturidade — uma jornada, não uma lista de serviços</span></div><div class="b"><div class="id">C</div><b>Maturidade</b><span>A régua única de 5 níveis aplicada à frente</span></div><div class="b"><div class="id">D</div><b>Assessment</b><span>Diagnóstico que posiciona o cliente na régua e devolve o roadmap recomendado</span></div><div class="b"><div class="id">E</div><b>RACI</b><span>Papéis e responsabilidades entre Obliant, cliente e estruturas de governança</span></div>
+  
+  <div class="sect-head">
+    <div class="kicker">04 · Intensidade</div>
+    <h3 class="serif">Modo de atuação — eixo exclusivo do PM&amp;GO</h3>
+    <p>Além da maturidade, o PM&amp;GO define a intensidade com que a Obliant atua — de leve a mão na massa — em função da maturidade e da criticidade do momento.</p>
   </div>
-
-  <h3 class="sect">Eixo exclusivo do PM&amp;GO — modo de atuação</h3>
-  <p class="lead" style="margin-top:-6px">Além da maturidade, o PM&amp;GO define a <b>intensidade</b> com que a Obliant atua — de leve a mão na massa — em função da maturidade <b>e</b> da criticidade do momento.</p>
   <div class="grid c3">
     
     <div class="card"><div class="kicker">Modo 1</div><h3>Suporte</h3><p>Atuação leve: aconselhamento, métodos e templates. O cliente conduz; a Obliant orienta.</p><p class="note">Maturidade razoável e criticidade baixa a média.</p></div>
     <div class="card"><div class="kicker">Modo 2</div><h3>Controle</h3><p>Atuação estruturante: a Obliant opera a governança, ritos e indicadores lado a lado com o cliente.</p><p class="note">Maturidade em construção ou criticidade relevante.</p></div>
     <div class="card"><div class="kicker">Modo 3</div><h3>Diretivo</h3><p>Atuação mão na massa: a Obliant assume a condução da entrega e da adoção até a estabilização.</p><p class="note">Baixa maturidade e alta criticidade — momentos decisivos.</p></div>
-  </div></section><section class="tab" data-tab="epp">
-  <div class="prod-head">
-    <h2>EPP</h2>
-    <span class="badge">Entrega</span>
-    <span style="color:var(--gray);font-size:14px">Escritório de Projetos e Processos</span>
   </div>
-  <p class="lead">Estrutura, controla e entrega: método, portfólio, processos e indicadores. <i style="color:var(--gold)">O EPP é o produto; quem o opera é um PMO (time/estrutura).</i></p>
+
+  <div class="cta">
+    <div>
+      <h3 class="serif">Posicione o cliente na régua em minutos</h3>
+      <p>Responda o diagnóstico ao vivo com o cliente e receba na hora o nível de maturidade, o detalhamento por dimensão e o roadmap recomendado — com link compartilhável.</p>
+    </div>
+    <button class="btn gold" onclick="showTab('assessment')">Começar o assessment →</button>
+  </div></section><section class="tab" data-tab="epp">
+  <div class="prod-hero">
+    <div>
+      <div class="ph-k">Entrega · Escritório de Projetos e Processos</div>
+      <h2>EPP</h2>
+      <p class="ph-t">Estrutura, controla e entrega: método, portfólio, processos e indicadores.</p>
+      <p class="ph-n">O EPP é o produto; quem o opera é um PMO (time/estrutura).</p>
+    </div>
+    <button class="btn gold" onclick="goAssessment('epp')">Diagnóstico EPP →</button>
+  </div>
   <nav class="sub" data-prod="epp">
     <button class="on" data-sub="framework">Framework</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
   </nav>
@@ -457,27 +535,42 @@ h3.sect:first-child{margin-top:0}
     
       <div class="col" data-col="1">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <header>
+          <div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div>
+          <div class="dots"><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Inventário de projetos e processos existentes</li><li>Definição de patrocínio e papéis mínimos de gestão</li><li>Padrão único de status report para iniciativas prioritárias</li><li>Quick wins de padronização (templates essenciais)</li><li>Canvas de escopo para os projetos críticos</li></ul>
       </div>
       <div class="col" data-col="2">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <header>
+          <div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Metodologia básica de projetos (ciclo de vida em fases)</li><li>Kit de templates: TAP, cronograma, matriz de riscos, status report</li><li>Ritos de acompanhamento (reunião de status e comitê mensal)</li><li>Mapeamento dos processos críticos (AS-IS)</li><li>Indicadores essenciais de prazo e custo por projeto</li></ul>
       </div>
       <div class="col" data-col="3">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Gestão de portfólio com critérios de priorização</li><li>Formalização do PMO (mandato, time e cadência)</li><li>Gestão estruturada de riscos e mudanças de escopo</li><li>Redesenho dos processos críticos (TO-BE) com donos definidos</li><li>Painel executivo de indicadores de entrega</li></ul>
       </div>
       <div class="col" data-col="4">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i></div>
+        </header>
         <ul><li>Integração portfólio ↔ orçamento e planejamento anual</li><li>Gestão de capacidade e alocação de recursos</li><li>Automação de fluxos de trabalho e coleta de indicadores</li><li>Gestão de benefícios: metas de valor por iniciativa</li><li>Auditorias periódicas de qualidade de método</li></ul>
       </div>
       <div class="col" data-col="5">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <header>
+          <div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div>
+        </header>
         <ul><li>Gestão por valor: portfólio dirigido por benefícios realizados</li><li>Analytics preditivo de prazo, custo e risco</li><li>Melhoria contínua institucionalizada do método</li><li>Inovação de práticas (ágil, híbrido, IA aplicada à gestão)</li><li>Benchmark externo e certificação de excelência</li></ul>
       </div>
   </div></div><div class="subpane" data-pane="epp-maturidade">
@@ -546,12 +639,15 @@ h3.sect:first-child{margin-top:0}
     </tbody>
   </table></div>
   <div class="legend"><span><b>R</b> Responsável</span><span><b>A</b> Aprovador</span><span><b>C</b> Consultado</span><span><b>I</b> Informado</span></div></div></section><section class="tab" data-tab="gmo">
-  <div class="prod-head">
-    <h2>GMO</h2>
-    <span class="badge">Adoção</span>
-    <span style="color:var(--gray);font-size:14px">Gestão da Mudança Organizacional</span>
+  <div class="prod-hero">
+    <div>
+      <div class="ph-k">Adoção · Gestão da Mudança Organizacional</div>
+      <h2>GMO</h2>
+      <p class="ph-t">Trata o lado humano da transformação — adoção e sustentação.</p>
+      <p class="ph-n">Pilares proprietários Obliant. Referências de mercado (ADKAR, Kotter, ACMP, SAP/Oracle OCM) apenas como base conceitual.</p>
+    </div>
+    <button class="btn gold" onclick="goAssessment('gmo')">Diagnóstico GMO →</button>
   </div>
-  <p class="lead">Trata o lado humano da transformação — adoção e sustentação. <i style="color:var(--gold)">Pilares proprietários Obliant. Referências de mercado (ADKAR, Kotter, ACMP, SAP/Oracle OCM) apenas como base conceitual.</i></p>
   <nav class="sub" data-prod="gmo">
     <button class="on" data-sub="framework">Framework</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
   </nav>
@@ -590,27 +686,42 @@ h3.sect:first-child{margin-top:0}
     
       <div class="col" data-col="1">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <header>
+          <div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div>
+          <div class="dots"><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Mapeamento inicial de stakeholders e públicos impactados</li><li>Avaliação de prontidão para mudança (change readiness)</li><li>Alinhamento e ativação do patrocínio executivo</li><li>Comunicação de partida (kick-off) da transformação</li><li>Levantamento do histórico de mudanças da organização</li></ul>
       </div>
       <div class="col" data-col="2">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <header>
+          <div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Plano de comunicação estruturado por público e canal</li><li>Avaliação de impactos organizacionais (impact assessment)</li><li>Formação da rede de agentes de mudança</li><li>Plano de engajamento de lideranças intermediárias</li><li>Canais de escuta e FAQ vivos da transformação</li></ul>
       </div>
       <div class="col" data-col="3">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Estratégia integrada de stakeholders com plano por segmento</li><li>Trilhas de capacitação por perfil e papel</li><li>Gestão ativa de resistências (identificação e tratamento)</li><li>Rituais de reforço com lideranças e times</li><li>Pesquisa de pulso periódica de engajamento</li></ul>
       </div>
       <div class="col" data-col="4">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i></div>
+        </header>
         <ul><li>Métricas de adoção e uso integradas aos projetos (gates de adoção)</li><li>Programa de champions e multiplicadores</li><li>Painel de sustentação pós-implantação</li><li>Ciclo de feedback estruturado com ajustes de rota</li><li>Integração da GMO ao ciclo de vida de todo projeto</li></ul>
       </div>
       <div class="col" data-col="5">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <header>
+          <div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div>
+        </header>
         <ul><li>Cultura de mudança contínua institucionalizada</li><li>Capacidade interna de OCM formada e autônoma</li><li>Análise preditiva de adoção e risco de regressão</li><li>Comunidade de prática de gestão da mudança</li><li>Melhoria contínua do método com benchmark externo</li></ul>
       </div>
   </div></div><div class="subpane" data-pane="gmo-maturidade">
@@ -679,12 +790,15 @@ h3.sect:first-child{margin-top:0}
     </tbody>
   </table></div>
   <div class="legend"><span><b>R</b> Responsável</span><span><b>A</b> Aprovador</span><span><b>C</b> Consultado</span><span><b>I</b> Informado</span></div></div></section><section class="tab" data-tab="pmgo">
-  <div class="prod-head">
-    <h2>PM&amp;GO</h2>
-    <span class="badge gold">Integração</span>
-    <span style="color:var(--gray);font-size:14px">Governança Integrada de Projetos e Mudança</span>
+  <div class="prod-hero gold">
+    <div>
+      <div class="ph-k">Integração · Governança Integrada de Projetos e Mudança</div>
+      <h2>PM&amp;GO</h2>
+      <p class="ph-t">Governa um projeto combinando EPP (entrega) + GMO (adoção).</p>
+      <p class="ph-n">Eixo exclusivo: modo de atuação da Obliant — Suporte → Controle → Diretivo.</p>
+    </div>
+    <button class="btn gold" onclick="goAssessment('pmgo')">Diagnóstico PM&amp;GO →</button>
   </div>
-  <p class="lead">Governa um projeto combinando EPP (entrega) + GMO (adoção). <i style="color:var(--gold)">Eixo exclusivo: modo de atuação da Obliant — Suporte → Controle → Diretivo.</i></p>
   <nav class="sub" data-prod="pmgo">
     <button class="on" data-sub="framework">Framework</button><button class="" data-sub="venn">Venn</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
   </nav>
@@ -742,27 +856,42 @@ h3.sect:first-child{margin-top:0}
     
       <div class="col" data-col="1">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <header>
+          <div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div>
+          <div class="dots"><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Diagnóstico rápido do projeto: entrega e adoção</li><li>Definição de sponsor único e mandato da governança</li><li>Mapa unificado de stakeholders do projeto</li><li>Ritos mínimos de governança integrada</li><li>Definição inicial do modo de atuação da Obliant</li></ul>
       </div>
       <div class="col" data-col="2">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <header>
+          <div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Plano integrado de projeto (entrega + adoção)</li><li>Matriz de riscos unificada (entrega e adoção)</li><li>Plano de comunicação do projeto por público</li><li>Cadência de comitês com pauta dupla (entrega × adoção)</li><li>Etiquetagem das atividades: PMO, GMO ou compartilhado</li></ul>
       </div>
       <div class="col" data-col="3">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i><i class=""></i></div>
+        </header>
         <ul><li>Painel duplo operante: % entrega × % adoção</li><li>Gates de fase condicionados a critérios de adoção</li><li>Gestão ativa de resistências dentro do projeto</li><li>Trilhas de capacitação sincronizadas ao cronograma</li><li>Revisão periódica do modo de atuação</li></ul>
       </div>
       <div class="col" data-col="4">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <header>
+          <div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class=""></i></div>
+        </header>
         <ul><li>Integração do projeto ao portfólio e ao orçamento</li><li>Métricas de benefício: valor entregue × valor adotado</li><li>Programa de champions dentro do projeto</li><li>Auditoria integrada de qualidade (método + adoção)</li><li>Playbook de transição para operação</li></ul>
       </div>
       <div class="col" data-col="5">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <header>
+          <div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div>
+          <div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div>
+        </header>
         <ul><li>Governança integrada como padrão de todo projeto crítico</li><li>Analytics preditivo de entrega e de adoção</li><li>Transferência de capacidade: cliente autônomo no modelo</li><li>Melhoria contínua do playbook integrado</li><li>Benchmark externo de governança de projetos</li></ul>
       </div>
   </div></div><div class="subpane" data-pane="pmgo-maturidade">
@@ -1010,7 +1139,8 @@ function renderStep(prod){
     '<div class="qt">'+q.pergunta+'</div>'+
     '<div class="opts">'+[1,2,3,4,5].map(v=>
       '<button onclick="answer(\''+prod+'\','+v+')" class="'+(w.answers[w.i]===v?'sel':'')+'">'+
-      '<span class="v">'+v+'</span><span class="l">'+labels[v-1]+'</span></button>').join('')+'</div>';
+      '<span class="v">'+v+'</span><span class="l">'+labels[v-1]+'</span></button>').join('')+'</div>'+
+    '<div class="kbd-hint">Dica: use as teclas <b>1</b>–<b>5</b> para responder</div>';
   requestAnimationFrame(()=>{ wr.querySelector('.wiz-prog i').style.width = (w.i/n*100)+'%'; });
 }
 function answer(prod, val){
@@ -1213,6 +1343,14 @@ function shareResult(prod){
     .then(()=>toast('Link copiado — abra em qualquer navegador para rever este diagnóstico'))
     .catch(()=>{ prompt('Copie o link do diagnóstico:', url); });
 }
+// ------- teclado: 1–5 respondem o wizard ativo -------
+document.addEventListener('keydown', e=>{
+  if(e.key<'1'||e.key>'5') return;
+  if(!document.querySelector('section.tab[data-tab="assessment"]').classList.contains('on')) return;
+  const w=$$('.wizard').find(x=>x.style.display!=='none');
+  if(w) answer(w.dataset.wizard, +e.key);
+});
+
 (function restoreFromHash(){
   const m=location.hash.match(/#d=(epp|gmo|pmgo):([1-5]{6})/);
   if(!m) return;

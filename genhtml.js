@@ -53,39 +53,67 @@ button{font:inherit}
 .tab.on :is(.grid,.road,.mat,.layers,.arch,.howto,.gloss,.ass-pick)>*:nth-child(5){animation-delay:.24s}
 .tab.on :is(.grid,.road,.mat,.layers,.arch,.howto,.gloss,.ass-pick)>*:nth-child(n+6){animation-delay:.3s}
 
-/* ---------- header ---------- */
-header{background:linear-gradient(135deg,var(--navy) 0%,#3d4d61 100%);color:var(--cream);padding:34px 0 0}
+/* ---------- header (hero) ---------- */
+header{background:linear-gradient(135deg,var(--navy) 0%,#3d4d61 100%);color:var(--cream);padding:38px 0 32px}
 .brand{display:flex;align-items:baseline;gap:12px;letter-spacing:.28em;font-size:13px;font-weight:600}
 .brand b{color:var(--gold)}
-header h1{font-size:clamp(26px,4vw,40px);margin:18px 0 6px;font-weight:600}
-header p.sub{color:#c9d2de;max-width:640px;font-size:15px}
-.chip-row{display:flex;gap:8px;margin:16px 0 26px;flex-wrap:wrap}
+header h1{font-size:clamp(26px,4vw,38px);margin:16px 0 8px;font-weight:600}
+header p.sub{color:#c9d2de;max-width:620px;font-size:14.5px}
+.chip-row{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
 .chip{border:1px solid rgba(255,253,246,.35);color:var(--cream);border-radius:999px;padding:4px 14px;font-size:12px;letter-spacing:.06em;transition:.25s}
 .chip:hover{border-color:var(--gold);transform:translateY(-1px)}
 .chip em{color:var(--gold);font-style:normal;font-weight:600}
 
-/* ---------- top tabs ---------- */
-nav.top{display:flex;gap:2px;flex-wrap:wrap}
+/* ---------- navbar fixa ---------- */
+.navbar{position:sticky;top:0;z-index:60;background:var(--navy);box-shadow:0 8px 20px -14px rgba(0,0,0,.55)}
+.navbar .wrap{display:flex;align-items:center;gap:20px}
+.navbar .mini{font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--cream);white-space:nowrap}
+.navbar .mini b{color:var(--gold)}
+@media(max-width:760px){.navbar .mini{display:none}}
+nav.top{display:flex;gap:0;flex-wrap:wrap;flex:1}
 nav.top button{appearance:none;border:0;cursor:pointer;font-size:13.5px;font-weight:600;
-  padding:12px 20px;background:transparent;color:#b9c3d0;border-radius:10px 10px 0 0;letter-spacing:.02em;transition:color .2s}
+  padding:15px 16px;background:transparent;color:#b9c3d0;letter-spacing:.02em;transition:color .2s;position:relative}
 nav.top button:hover{color:var(--cream)}
-nav.top button.on{background:var(--cream);color:var(--navy)}
+nav.top button.on{color:#fff}
+nav.top button::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:2px 2px 0 0;background:transparent;transition:background .25s}
+nav.top button.on::after{background:var(--gold)}
 
 /* ---------- sections ---------- */
 main{padding:34px 0 70px}
 section.tab{display:none}
 section.tab.on{display:block;animation:fade .3s ease}
 
-.prod-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
-.prod-head h2{font-size:30px;color:var(--navy)}
+/* ---------- hero de produto ---------- */
+.prod-hero{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--white) 55%,#fbf9f2);border:1px solid var(--line);
+  border-left:5px solid var(--navy);border-radius:16px;padding:22px 26px;margin-bottom:22px}
+.prod-hero.gold{border-left-color:var(--gold)}
+.prod-hero .ph-k{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.prod-hero h2{font-size:30px;color:var(--navy);margin:2px 0}
+.prod-hero .ph-t{font-size:14px;color:var(--ink);max-width:560px}
+.prod-hero .ph-n{font-size:12.5px;color:var(--gray);font-style:italic;margin-top:6px;max-width:560px}
 .badge{background:var(--navy);color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.12em;
   padding:4px 12px;border-radius:999px;text-transform:uppercase}
 .badge.gold{background:var(--gold)}
-p.lead{color:var(--gray);max-width:720px;margin:6px 0 20px}
+p.lead{color:var(--gray);max-width:680px;margin:6px 0 20px;font-size:14.5px}
 p.note{font-size:12.5px;color:var(--gray);font-style:italic;margin-top:10px}
+
+/* ---------- cabeçalho de seção padrão ---------- */
+.sect-head{margin:34px 0 16px}
+.sect-head:first-child{margin-top:0}
+.sect-head .kicker{margin-bottom:4px}
+.sect-head h3{color:var(--navy);font-size:20px}
+.sect-head p{color:var(--gray);font-size:13.5px;max-width:680px;margin-top:4px}
+
+/* ---------- banner CTA ---------- */
+.cta{background:linear-gradient(135deg,var(--navy),#3d4d61);color:var(--cream);border-radius:16px;
+  padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:38px}
+.cta h3{color:var(--cream);font-size:21px}
+.cta p{color:#c9d2de;font-size:13px;max-width:520px;margin-top:4px}
 
 /* ---------- sub tabs ---------- */
 nav.sub{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:10px 0 24px}
+@media(min-width:900px){nav.sub{position:sticky;top:48px;background:var(--cream);z-index:40}}
 nav.sub button{appearance:none;border:0;background:none;cursor:pointer;font-size:13px;font-weight:600;
   color:var(--gray);padding:9px 14px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.2s}
 nav.sub button:hover{color:var(--navy)}
@@ -121,13 +149,19 @@ ul.clean li:last-child{border-bottom:0}
 ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 
 /* ---------- roadmap ---------- */
-.road{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media(max-width:900px){.road{grid-template-columns:1fr}}
-.road .col{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s}
+.road .col{background:var(--white);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s}
 .road .col:hover{transform:translateY(-3px);box-shadow:0 12px 26px -16px rgba(46,57,71,.4)}
-.road .col header{background:var(--ice);color:var(--navy);padding:12px 14px}
+.road .col:not(:last-child)::before{content:'›';position:absolute;right:-13px;top:22px;z-index:2;
+  font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
+@media(max-width:900px){.road .col:not(:last-child)::before{content:'⌄';right:auto;left:50%;top:auto;bottom:-16px}}
+.road .col header{background:var(--ice);color:var(--navy);padding:12px 14px;border-radius:13px 13px 0 0}
 .road .col header .lvl{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
 .road .col header .nm{font-family:'Fraunces';font-size:17px}
+.road .col header .dots{display:flex;gap:4px;margin-top:7px}
+.road .col header .dots i{width:14px;height:4px;border-radius:2px;background:rgba(122,132,148,.28)}
+.road .col header .dots i.f{background:var(--gold)}
 .road .col.hot header{background:var(--navy);color:var(--cream)}
 .road ul{list-style:none;padding:8px 14px 14px}
 .road li{font-size:12.5px;padding:7px 0 7px 16px;position:relative;border-bottom:1px solid var(--ice);color:var(--ink)}
@@ -197,7 +231,7 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
   font-weight:700;border-radius:999px;padding:3px 10px;letter-spacing:.05em}
 
 /* ---------- assessment: wizard ---------- */
-.wizard{max-width:760px}
+.wizard{max-width:720px;margin:0 auto}
 .wiz-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .wiz-prog{flex:1;height:8px;background:var(--ice);border-radius:4px;overflow:hidden}
 .wiz-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--navy));border-radius:4px;transition:width .45s cubic-bezier(.2,.7,.3,1)}
@@ -206,7 +240,6 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .wiz-card .qn{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
 .wiz-card .qt{font-family:'Fraunces';font-size:21px;color:var(--navy);margin:10px 0 22px;line-height:1.35}
 .opts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-@media(max-width:700px){.opts{grid-template-columns:1fr}}
 .opts button{appearance:none;cursor:pointer;background:var(--cream);border:1px solid var(--line);border-radius:12px;
   padding:14px 8px;text-align:center;transition:.2s}
 .opts button:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -214,6 +247,15 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .opts button .v{font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
 .opts button .l{display:block;font-size:10.5px;color:var(--gray);margin-top:6px;line-height:1.3}
 .opts button.sel .l{color:#c9d2de}
+@media(max-width:700px){
+  .opts{grid-template-columns:1fr;gap:8px}
+  .opts button{display:flex;align-items:center;gap:14px;text-align:left;padding:10px 16px}
+  .opts button .l{margin-top:0;font-size:12px}
+}
+.kbd-hint{text-align:center;font-size:11.5px;color:var(--gray);margin-top:12px}
+.kbd-hint b{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+  padding:0 6px;font-size:10.5px;color:var(--navy);background:var(--white)}
+@media(max-width:700px){.kbd-hint{display:none}}
 .wiz-nav{display:flex;gap:12px;align-items:center;margin-top:16px}
 .wiz-nav .spacer{flex:1}
 .linkish{appearance:none;background:none;border:0;cursor:pointer;color:var(--gray);font-size:12.5px;text-decoration:underline;text-underline-offset:3px}
@@ -320,13 +362,20 @@ h3.sect:first-child{margin-top:0}
 // ------------------------------------------------------------
 // Render: visão geral
 // ------------------------------------------------------------
+function sectHead(kicker, title, lead) {
+  return `
+  <div class="sect-head">
+    <div class="kicker">${kicker}</div>
+    <h3 class="serif">${title}</h3>
+    ${lead ? `<p>${lead}</p>` : ''}
+  </div>`;
+}
+
 function overviewHTML() {
   const p = PRODUCTS;
   return `
-  <div class="kicker">Arquitetura da metodologia</div>
-  <h2 class="serif" style="color:var(--navy);font-size:28px">Três produtos, uma metodologia, uma régua</h2>
-  <p class="lead">Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está. Cada produto se descreve em três camadas empilhadas — <b>Framework + Roadmap + Diagnóstico</b> — e todos correm na mesma régua de maturidade.</p>
-
+  ${sectHead('01 · Arquitetura', 'Três produtos, uma metodologia, uma régua',
+    'Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está.')}
   <div class="arch">
     ${[p.epp, p.pmgo, p.gmo].map((pr, i) => `
     <div class="p${i === 1 ? ' mid' : ''}">
@@ -339,28 +388,42 @@ function overviewHTML() {
     </div>`).join('')}
   </div>
 
-  <h3 class="sect">As três camadas de cada produto</h3>
-  <p class="lead" style="margin-top:-6px">Não é "framework = roadmap = diagnóstico". São <b>três camadas distintas</b> que se empilham e juntas formam o documento completo.</p>
-  <div class="layers">
-    <div class="l"><b>1 · Framework</b><span>Objetivo, escopo, pilares e entregáveis</span></div>
-    <div class="l"><b>2 · Roadmap</b><span>Iniciativas organizadas por nível de maturidade — jornada de evolução, não lista de serviços</span></div>
-    <div class="l"><b>3 · Diagnóstico (Assessment)</b><span>Posiciona o cliente na régua e devolve o roadmap recomendado</span></div>
+  ${sectHead('02 · Estrutura', 'Como o material se organiza',
+    'Não é "framework = roadmap = diagnóstico": são três camadas distintas que se empilham. E cada produto se lê pela mesma sequência de cinco blocos, A–E.')}
+  <div class="grid c2">
+    <div class="card">
+      <h3>As três camadas</h3>
+      <div class="layers" style="margin:12px 0 0;max-width:none">
+        <div class="l"><b>1 · Framework</b><span>Objetivo, escopo, pilares e entregáveis</span></div>
+        <div class="l"><b>2 · Roadmap</b><span>Iniciativas por nível de maturidade — jornada de evolução, não lista de serviços</span></div>
+        <div class="l"><b>3 · Diagnóstico (Assessment)</b><span>Posiciona o cliente na régua e devolve o roadmap recomendado</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Os cinco blocos de leitura</h3>
+      <ul class="clean" style="margin-top:12px">
+        ${HOWTO_BLOCKS.map(b => `<li><b style="color:var(--gold);font-family:Fraunces">${b.id}</b> · <b>${esc(b.titulo)}</b> — ${esc(b.desc)}</li>`).join('')}
+      </ul>
+    </div>
   </div>
 
-  <h3 class="sect">Régua de maturidade única</h3>
-  <p class="lead" style="margin-top:-6px">As três frentes usam a mesma escala — é isso que transforma três roadmaps soltos em uma metodologia: com escala compartilhada dá para posicionar o cliente e comparar as frentes entre si.</p>
+  ${sectHead('03 · Escala', 'Régua de maturidade única',
+    'As três frentes usam a mesma escala — é isso que transforma três roadmaps soltos em uma metodologia: com escala compartilhada dá para posicionar o cliente e comparar as frentes entre si.')}
   ${maturityStripHTML()}
 
-  <h3 class="sect">Como ler cada produto — 5 blocos padrão</h3>
-  <div class="howto">
-    ${HOWTO_BLOCKS.map(b => `<div class="b"><div class="id">${b.id}</div><b>${esc(b.titulo)}</b><span>${esc(b.desc)}</span></div>`).join('')}
-  </div>
-
-  <h3 class="sect">Eixo exclusivo do PM&amp;GO — modo de atuação</h3>
-  <p class="lead" style="margin-top:-6px">Além da maturidade, o PM&amp;GO define a <b>intensidade</b> com que a Obliant atua — de leve a mão na massa — em função da maturidade <b>e</b> da criticidade do momento.</p>
+  ${sectHead('04 · Intensidade', 'Modo de atuação — eixo exclusivo do PM&amp;GO',
+    'Além da maturidade, o PM&amp;GO define a intensidade com que a Obliant atua — de leve a mão na massa — em função da maturidade e da criticidade do momento.')}
   <div class="grid c3">
     ${MODOS_ATUACAO.map((m, i) => `
     <div class="card"><div class="kicker">Modo ${i + 1}</div><h3>${esc(m.nome)}</h3><p>${esc(m.desc)}</p><p class="note">${esc(m.quando)}</p></div>`).join('')}
+  </div>
+
+  <div class="cta">
+    <div>
+      <h3 class="serif">Posicione o cliente na régua em minutos</h3>
+      <p>Responda o diagnóstico ao vivo com o cliente e receba na hora o nível de maturidade, o detalhamento por dimensão e o roadmap recomendado — com link compartilhável.</p>
+    </div>
+    <button class="btn gold" onclick="showTab('assessment')">Começar o assessment →</button>
   </div>`;
 }
 
@@ -421,7 +484,10 @@ function roadmapHTML(prod) {
       return `
       <div class="col" data-col="${r.nivel}">
         <span class="mark" style="display:none"></span>
-        <header><div class="lvl">NÍVEL ${r.nivel}</div><div class="nm">${esc(lvl.nome)}</div></header>
+        <header>
+          <div class="lvl">NÍVEL ${r.nivel}</div><div class="nm">${esc(lvl.nome)}</div>
+          <div class="dots">${MATURITY_LEVELS.map(x => `<i class="${x.n <= r.nivel ? 'f' : ''}"></i>`).join('')}</div>
+        </header>
         <ul>${r.iniciativas.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
       </div>`;
     }).join('')}
@@ -518,12 +584,15 @@ function productTabHTML(prod) {
     { id: 'raci', label: 'RACI', html: raciHTML(prod) },
   ];
   return `
-  <div class="prod-head">
-    <h2>${esc(p.sigla)}</h2>
-    <span class="badge${prod === 'pmgo' ? ' gold' : ''}">${esc(p.papel)}</span>
-    <span style="color:var(--gray);font-size:14px">${esc(p.nome)}</span>
+  <div class="prod-hero${prod === 'pmgo' ? ' gold' : ''}">
+    <div>
+      <div class="ph-k">${esc(p.papel)} · ${esc(p.nome)}</div>
+      <h2>${esc(p.sigla)}</h2>
+      <p class="ph-t">${esc(p.tagline)}</p>
+      <p class="ph-n">${esc(p.nota)}</p>
+    </div>
+    <button class="btn gold" onclick="goAssessment('${prod}')">Diagnóstico ${esc(p.sigla)} →</button>
   </div>
-  <p class="lead">${esc(p.tagline)} <i style="color:var(--gold)">${esc(p.nota)}</i></p>
   <nav class="sub" data-prod="${prod}">
     ${subs.map((s, i) => `<button class="${i === 0 ? 'on' : ''}" data-sub="${s.id}">${s.label}</button>`).join('')}
   </nav>
@@ -700,7 +769,8 @@ function renderStep(prod){
     '<div class="qt">'+q.pergunta+'</div>'+
     '<div class="opts">'+[1,2,3,4,5].map(v=>
       '<button onclick="answer(\\''+prod+'\\','+v+')" class="'+(w.answers[w.i]===v?'sel':'')+'">'+
-      '<span class="v">'+v+'</span><span class="l">'+labels[v-1]+'</span></button>').join('')+'</div>';
+      '<span class="v">'+v+'</span><span class="l">'+labels[v-1]+'</span></button>').join('')+'</div>'+
+    '<div class="kbd-hint">Dica: use as teclas <b>1</b>–<b>5</b> para responder</div>';
   requestAnimationFrame(()=>{ wr.querySelector('.wiz-prog i').style.width = (w.i/n*100)+'%'; });
 }
 function answer(prod, val){
@@ -903,6 +973,14 @@ function shareResult(prod){
     .then(()=>toast('Link copiado — abra em qualquer navegador para rever este diagnóstico'))
     .catch(()=>{ prompt('Copie o link do diagnóstico:', url); });
 }
+// ------- teclado: 1–5 respondem o wizard ativo -------
+document.addEventListener('keydown', e=>{
+  if(e.key<'1'||e.key>'5') return;
+  if(!document.querySelector('section.tab[data-tab="assessment"]').classList.contains('on')) return;
+  const w=$$('.wizard').find(x=>x.style.display!=='none');
+  if(w) answer(w.dataset.wizard, +e.key);
+});
+
 (function restoreFromHash(){
   const m=location.hash.match(/#d=(epp|gmo|pmgo):([1-5]{6})/);
   if(!m) return;
@@ -952,11 +1030,16 @@ function pageHTML() {
       <span class="chip">Framework + Roadmap + Diagnóstico</span>
       <span class="chip">Régua única · 5 níveis</span>
     </div>
+  </div>
+</header>
+<div class="navbar">
+  <div class="wrap">
+    <span class="mini">${esc(WORDMARK.split(' ')[0])} <b>${esc(WORDMARK.split(' ').slice(1).join(' '))}</b></span>
     <nav class="top">
       ${tabs.map((t, i) => `<button class="${i === 0 ? 'on' : ''}" data-tab="${t.id}">${t.label}</button>`).join('')}
     </nav>
   </div>
-</header>
+</div>
 <main>
   <div class="wrap">
     ${tabs.map((t, i) => `<section class="tab${i === 0 ? ' on' : ''}" data-tab="${t.id}">${t.html}</section>`).join('')}
