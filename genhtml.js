@@ -295,8 +295,10 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .reco h4{color:var(--navy);font-family:'Fraunces';font-size:16px;margin-bottom:8px}
 .res-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .res-actions .btn{font-size:13px;padding:11px 20px}
-.axes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
-@media(max-width:640px){.axes{grid-template-columns:1fr}}
+.axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}
+.axis-card.hi{border-color:var(--gold);background:#fbf9f2}
+.axis-card .tag-hi{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--gold);text-transform:uppercase}
+.axis-card .tag-lo{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--gray);text-transform:uppercase}
 .axis-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--cream)}
 .axis-card h5{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
 .axis-card .v{font-family:'Fraunces';font-size:30px;color:var(--navy)}
@@ -308,6 +310,28 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--navy);color:var(--cream);
   font-size:13px;font-weight:600;border-radius:999px;padding:10px 22px;transition:transform .35s;z-index:99}
 .toast.on{transform:translate(-50%,0)}
+
+/* ---------- "por que" + como lemos ---------- */
+.why{background:#fbf9f2;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 18px;margin-top:16px}
+.why>b{display:block;font-family:'Inter';font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.why p{font-size:13.5px;color:var(--ink);line-height:1.5}
+.why p b{color:var(--navy);font-weight:700}
+.howread{background:var(--white);border:1px solid var(--line);border-radius:14px;margin-bottom:26px;overflow:hidden}
+.howread summary{cursor:pointer;list-style:none;padding:14px 18px;font-weight:700;color:var(--navy);font-size:13.5px;display:flex;align-items:center;gap:8px}
+.howread summary::-webkit-details-marker{display:none}
+.howread summary::before{content:'›';color:var(--gold);font-family:'Fraunces';font-size:20px;transition:transform .2s;display:inline-block}
+.howread[open] summary::before{transform:rotate(90deg)}
+.howread-body{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:4px 18px 20px}
+@media(max-width:760px){.howread-body{grid-template-columns:1fr}}
+.howread-body h4{font-family:'Fraunces';color:var(--navy);font-size:15px;margin-bottom:6px}
+.howread-body p{font-size:12.5px;color:var(--gray);line-height:1.5}
+.hr-scale{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hr-scale span{font-size:10.5px;color:var(--gray);background:var(--cream);border:1px solid var(--line);border-radius:7px;padding:3px 8px}
+.hr-scale b{color:var(--navy)}
+.hr-matrix{list-style:none;margin-top:8px;display:grid;gap:5px}
+.hr-matrix li{font-size:12px;color:var(--gray)}
+.hr-matrix li b{color:var(--navy)}
+.hr-matrix li span{color:var(--gold);font-weight:700}
 
 /* ---------- clientes: barra do cliente ativo ---------- */
 .clientbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--white);
@@ -435,7 +459,7 @@ function overviewHTML() {
   const p = PRODUCTS;
   return `
   ${sectHead('01 · Arquitetura', 'Três produtos, uma metodologia, uma régua',
-    'Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está.')}
+    'Padroniza EPP, GMO e PM&amp;GO em uma metodologia única: o que ofertar em cada disciplina e como identificar em que nível de maturidade o cliente está.')}
   <div class="arch">
     ${[p.epp, p.pmgo, p.gmo].map((pr, i) => `
     <div class="p${i === 1 ? ' mid' : ''}">
@@ -530,7 +554,7 @@ function frameworkHTML(prod) {
     ${p.dimensoes.map((d, i) => `
     <div class="card"><div class="num">${String(i + 1).padStart(2, '0')}</div><h4>${esc(d.nome)}</h4><p>${esc(d.desc)}</p></div>`).join('')}
   </div>
-  ${isPmgo ? `<p class="note" style="margin-top:14px">Cada entregável e atividade do PM&amp;GO é etiquetado — <span class="tag pmo">PMO</span> <span class="tag gmo">GMO</span> <span class="tag compartilhado">Compartilhado</span> — para o Venn ser operacional, não só conceitual.</p>` : ''}`;
+  ${isPmgo ? `<p class="note" style="margin-top:14px">Cada entregável e atividade do PM&amp;GO é etiquetado — <span class="tag pmo">PMO</span> <span class="tag gmo">GMO</span> <span class="tag compartilhado">Compartilhado</span> — para a divisão PMO × GMO ser operacional, não só conceitual.</p>` : ''}`;
 }
 
 function roadmapHTML(prod) {
@@ -576,12 +600,15 @@ function assessmentInfoHTML(prod) {
   return `
   <div class="kicker">Assessment de fit — bloco D</div>
   <p class="lead">${esc(a.intro)}</p>
-  <div class="grid c2">
-    <div class="card"><h3>Eixo A — necessidade de entrega</h3><ul class="clean">
+  <div class="grid c3">
+    <div class="card"><h3>Eixo A — entrega</h3><ul class="clean">
       ${a.perguntas.filter(q => q.eixo === 'A').map(q => `<li><b>${esc(q.nome)}.</b> ${esc(q.pergunta)}</li>`).join('')}</ul></div>
-    <div class="card"><h3>Eixo B — necessidade de adoção</h3><ul class="clean">
+    <div class="card"><h3>Eixo B — adoção</h3><ul class="clean">
       ${a.perguntas.filter(q => q.eixo === 'B').map(q => `<li><b>${esc(q.nome)}.</b> ${esc(q.pergunta)}</li>`).join('')}</ul></div>
+    <div class="card mid"><h3>Eixo C — integração</h3><ul class="clean">
+      ${a.perguntas.filter(q => q.eixo === 'C').map(q => `<li><b>${esc(q.nome)}.</b> ${esc(q.pergunta)}</li>`).join('')}</ul></div>
   </div>
+  <p class="note">É o eixo C (interdependência + criticidade) que separa <b>PM&amp;GO integrado</b> de <b>EPP + GMO apartados</b>: as duas frentes altas só justificam a governança única quando dependem uma da outra.</p>
   <div style="margin-top:20px"><button class="btn" onclick="goAssessment('pmgo')">Preencher o assessment interativo →</button></div>`;
 }
 
@@ -608,7 +635,7 @@ function raciHTML(prod) {
 function vennHTML() {
   const v = PRODUCTS.pmgo.venn;
   const svg = `
-  <svg width="460" height="252" viewBox="0 0 460 252" role="img" aria-label="Diagrama de Venn PMO × GMO">
+  <svg width="460" height="252" viewBox="0 0 460 252" role="img" aria-label="Diagrama PMO × GMO">
     <defs><clipPath id="clipPmo"><circle cx="178" cy="126" r="112"/></clipPath></defs>
     <circle data-zone="pmo" cx="178" cy="126" r="112" fill="${C.navy}" fill-opacity="0.9"/>
     <circle data-zone="gmo" cx="282" cy="126" r="112" fill="${C.gold}" fill-opacity="0.9"/>
@@ -621,7 +648,7 @@ function vennHTML() {
     <text x="230" y="139" fill="#c9d2de" font-family="Inter,sans-serif" font-size="9.5" text-anchor="middle" pointer-events="none">governança única</text>
   </svg>`;
   return `
-  <div class="kicker">Venn — o que é de quem</div>
+  <div class="kicker">PMO × GMO — o que é de quem</div>
   <p class="lead">O PM&amp;GO opera na intersecção: o que é só do PMO (entrega), o que é só do GMO (adoção) e o que é governado em conjunto. <b>Clique nas áreas do diagrama</b> (ou nos cards) para destacar cada zona.</p>
   <div class="vennfig">${svg}</div>
   <div class="venn-cols" id="vennCols">
@@ -638,7 +665,7 @@ function productTabHTML(prod) {
   const p = PRODUCTS[prod];
   const subs = [
     { id: 'framework', label: 'Framework', html: frameworkHTML(prod) },
-    ...(prod === 'pmgo' ? [{ id: 'venn', label: 'Venn', html: vennHTML() }] : []),
+    ...(prod === 'pmgo' ? [{ id: 'venn', label: 'PMO × GMO', html: vennHTML() }] : []),
     { id: 'roadmap', label: 'Roadmap', html: roadmapHTML(prod) },
     { id: 'maturidade', label: 'Maturidade', html: maturityHTML() },
     { id: 'assessment', label: 'Assessment', html: assessmentInfoHTML(prod) },
@@ -682,8 +709,33 @@ function assessmentHTML() {
   <div class="ass-pick">
     <button data-pick="epp" onclick="pickAssessment('epp')"><span class="done" style="display:none"></span><div class="t">EPP — maturidade</div><div class="d">6 dimensões de entrega · posiciona na régua e recomenda o próximo nível</div></button>
     <button data-pick="gmo" onclick="pickAssessment('gmo')"><span class="done" style="display:none"></span><div class="t">GMO — maturidade</div><div class="d">6 dimensões de adoção · posiciona na régua e recomenda o próximo nível</div></button>
-    <button data-pick="pmgo" onclick="pickAssessment('pmgo')"><span class="done" style="display:none"></span><div class="t">PM&amp;GO — fit</div><div class="d">6 perguntas em 2 eixos · recomenda o produto certo e o modo de atuação</div></button>
+    <button data-pick="pmgo" onclick="pickAssessment('pmgo')"><span class="done" style="display:none"></span><div class="t">PM&amp;GO — fit</div><div class="d">8 perguntas em 3 eixos · recomenda a oferta certa e o modo de atuação</div></button>
   </div>
+  <details class="howread">
+    <summary>Como lemos o diagnóstico</summary>
+    <div class="howread-body">
+      <div>
+        <h4>Maturidade — EPP e GMO</h4>
+        <p>A média das 6 dimensões (1–5) posiciona o cliente na <b>régua de 5 níveis</b>. O detalhamento mostra o que <b>puxa para baixo</b> e os <b>pontos de apoio</b>. A recomendação é sempre o <b>nível seguinte</b>: a régua é cumulativa — consolida-se um patamar antes de saltar.</p>
+        <div class="hr-scale">${MATURITY_THRESHOLDS.map((t, i) => {
+          const lo = i === 0 ? '1,0' : String(MATURITY_THRESHOLDS[i - 1].max).replace('.', ',');
+          const hi = i === MATURITY_THRESHOLDS.length - 1 ? '5,0' : String(t.max).replace('.', ',');
+          return `<span><b>N${t.nivel}</b> ${lo}–${hi}</span>`;
+        }).join('')}</div>
+      </div>
+      <div>
+        <h4>Fit — PM&amp;GO</h4>
+        <p>Três eixos (1–5): <b>A</b> entrega, <b>B</b> adoção, <b>C</b> interdependência. Alto = média ≥ 3,4. O eixo C é o que separa <b>integrado</b> de <b>apartado</b>.</p>
+        <ul class="hr-matrix">
+          <li><b>A alta</b> · B baixa → <span>Só EPP</span></li>
+          <li>A baixa · <b>B alta</b> → <span>Só GMO</span></li>
+          <li><b>A + B altas</b> · C baixa → <span>EPP + GMO apartados</span></li>
+          <li><b>A + B + C altas</b> → <span>PM&amp;GO integrado</span></li>
+          <li>Todas baixas → <span>Suporte leve</span></li>
+        </ul>
+      </div>
+    </div>
+  </details>
   ${['epp', 'gmo', 'pmgo'].map(prod => `
   <div class="wizard" data-wizard="${prod}" style="display:none">
     <div class="wiz-top">
@@ -765,6 +817,7 @@ const wiz = { epp:{i:0,answers:[]}, gmo:{i:0,answers:[]}, pmgo:{i:0,answers:[]} 
 const $  = s=>document.querySelector(s);
 const $$ = s=>Array.from(document.querySelectorAll(s));
 function fmt(x){ return x.toFixed(1).replace('.',','); }
+function mean(a){ return a.reduce((x,y)=>x+y,0)/a.length; }
 function esc2(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function uid(){ try{ if(crypto&&crypto.randomUUID) return crypto.randomUUID(); }catch(e){} return 'c'+Date.now()+Math.floor(Math.random()*1e5); }
 function stamp(){ return new Date().toISOString(); }
@@ -998,7 +1051,7 @@ function quadSVG(a,b,cut){
     '<rect x="'+P+'" y="'+P+'" width="'+w+'" height="'+w+'" fill="none" stroke="'+LINE+'"/>'+
     '<line x1="'+xc+'" y1="'+P+'" x2="'+xc+'" y2="'+(S-P)+'" stroke="'+GOLD+'" stroke-dasharray="4 4"/>'+
     '<line x1="'+P+'" y1="'+yc+'" x2="'+(S-P)+'" y2="'+yc+'" stroke="'+GOLD+'" stroke-dasharray="4 4"/>'+
-    lbl((xc+S-P)/2, (P+yc)/2 - 4, 'PM&GO', 1)+ lbl((xc+S-P)/2, (P+yc)/2+12, 'integração')+
+    lbl((xc+S-P)/2, (P+yc)/2 - 4, 'PM&GO', 1)+ lbl((xc+S-P)/2, (P+yc)/2+12, 'ou apartado')+
     lbl((xc+S-P)/2, (yc+S-P)/2+2, 'EPP', 1)+
     lbl((P+xc)/2, (P+yc)/2+2, 'GMO', 1)+
     lbl((P+xc)/2, (yc+S-P)/2+2, 'Suporte leve', 1)+
@@ -1050,6 +1103,15 @@ function renderMaturity(prod, el){
   const inits=p.roadmap.find(r=>r.nivel===next).iniciativas;
   const atTop=nivel===5;
   store[prod]={tipo:'maturidade',avg:+avg.toFixed(2),nivel,answers:vals.slice()};
+  // faixa do nível + dimensões que puxam para baixo / pontos de apoio
+  const th=DATA.thresholds, lo=nivel===1?'1,0':fmt(th[nivel-2].max), hi=nivel===5?'5,0':fmt(th[nivel-1].max);
+  const ord=p.qs.map((q,i)=>({nome:q.nome,v:vals[i]})).sort((a,b)=>a.v-b.v);
+  const baixas=ord.slice(0,2), altas=ord.slice(-2).reverse();
+  const porque='Sua média de <b>'+fmt(avg)+'</b> cai na faixa do <b>Nível '+nivel+'</b> ('+lo+'–'+hi+'). '+
+    'Puxam para baixo: '+baixas.map(d=>d.nome+' ('+d.v+')').join(', ')+'. '+
+    'Pontos de apoio: '+altas.map(d=>d.nome+' ('+d.v+')').join(', ')+'. '+
+    (atTop?'No topo da régua, o foco deixa de ser evoluir e passa a ser <b>sustentar a excelência</b>.'
+          :'O roadmap recomendado é o <b>Nível '+next+'</b> porque a régua é cumulativa — consolidar o próximo patamar antes de saltar.');
   el.innerHTML =
     '<div class="kicker">Diagnóstico '+p.sigla+'</div>'+
     '<div class="res-grid">'+
@@ -1064,6 +1126,7 @@ function renderMaturity(prod, el){
           '<div class="dimbar"><span>'+p.qs[i].nome+'</span><div class="tr"><i data-w="'+(v*20)+'"></i></div><b>'+v+'</b></div>').join('')+'</div>'+
       '</div>'+
     '</div>'+
+    '<div class="why"><b>Por que este nível</b><p>'+porque+'</p></div>'+
     '<div class="reco"><h4>'+(atTop
       ? 'Nível máximo — foco em sustentar a excelência'
       : 'Roadmap recomendado — iniciativas do Nível '+next+' · '+nextLvl.nome)+'</h4>'+
@@ -1079,42 +1142,62 @@ function renderMaturity(prod, el){
 // ------- resultado: fit -------
 function renderFit(prod, el){
   const p=DATA.prods.pmgo, vals=wiz.pmgo.answers;
-  const A=[],B=[];
-  vals.forEach((v,i)=>(p.qs[i].eixo==='A'?A:B).push(v));
-  const avgA=A.reduce((a,b)=>a+b,0)/A.length;
-  const avgB=B.reduce((a,b)=>a+b,0)/B.length;
-  const avgAll=vals.reduce((a,b)=>a+b,0)/vals.length;
-  const hiA=avgA>=p.cortes.eixoAlto, hiB=avgB>=p.cortes.eixoAlto;
-  let rec, desc, alvo;
-  if(hiA&&hiB){ rec='PM&GO'; alvo='pmgo'; desc='Necessidade alta nos dois eixos: governança integrada de entrega + adoção sob um único modelo.'; }
-  else if(hiA){ rec='EPP'; alvo='epp'; desc='Necessidade concentrada em entrega: estruturar método, portfólio, processos e indicadores — operado por um PMO.'; }
-  else if(hiB){ rec='GMO'; alvo='gmo'; desc='Necessidade concentrada em adoção: tratar o lado humano da transformação — engajamento, capacitação e sustentação.'; }
-  else { rec='Suporte leve'; alvo=null; desc='Necessidade baixa nos dois eixos: aconselhamento pontual, métodos e templates, sem estrutura dedicada.'; }
+  const A=[],B=[],Cc=[];
+  vals.forEach((v,i)=>{ const e=p.qs[i].eixo; (e==='A'?A:e==='B'?B:Cc).push(v); });
+  const avgA=mean(A), avgB=mean(B), avgC=mean(Cc), avgAll=mean(vals);
+  const cut=p.cortes.eixoAlto, cutC=p.cortes.integracaoAlta;
+  const hiA=avgA>=cut, hiB=avgB>=cut, hiC=avgC>=cutC;
+  let rec, desc, porque, alvos, primeiros=null;
+  if(hiA&&hiB&&hiC){
+    rec='PM&GO'; alvos=[['pmgo','PM&GO']]; primeiros='pmgo';
+    desc='Governança integrada de entrega + adoção sob um único modelo, com um sponsor único.';
+    porque='Entrega ('+fmt(avgA)+'), adoção ('+fmt(avgB)+') e interdependência ('+fmt(avgC)+') <b>todas altas</b>: as duas frentes se condicionam no mesmo cronograma e exigem governança única. É o caso do <b>PM&GO integrado</b> — não faz sentido separá-las.';
+  } else if(hiA&&hiB){
+    rec='EPP + GMO'; alvos=[['epp','EPP'],['gmo','GMO']];
+    desc='As duas frentes são necessárias, mas independentes: ofertar EPP e GMO como trilhas separadas, cada uma no seu ritmo.';
+    porque='Entrega ('+fmt(avgA)+') e adoção ('+fmt(avgB)+') altas, mas <b>interdependência baixa ('+fmt(avgC)+')</b>: sem cronograma comum nem trade-offs constantes, a governança única do PM&GO não se justifica. Melhor oferta são <b>EPP e GMO apartados</b>.';
+  } else if(hiA){
+    rec='EPP'; alvos=[['epp','EPP']];
+    desc='Necessidade concentrada em entrega: método, portfólio, processos e indicadores — operado por um PMO.';
+    porque='Só a <b>entrega</b> aparece alta ('+fmt(avgA)+'); adoção ('+fmt(avgB)+') não é crítica agora. O foco é estruturar a entrega com o <b>EPP</b>.';
+  } else if(hiB){
+    rec='GMO'; alvos=[['gmo','GMO']];
+    desc='Necessidade concentrada em adoção: engajamento, capacitação e sustentação.';
+    porque='Só a <b>adoção</b> aparece alta ('+fmt(avgB)+'); entrega ('+fmt(avgA)+') não é crítica agora. O foco é o lado humano com o <b>GMO</b>.';
+  } else {
+    rec='Suporte leve'; alvos=[];
+    desc='Aconselhamento pontual, métodos e templates, sem estrutura dedicada.';
+    porque='Nenhum eixo aparece alto (A '+fmt(avgA)+' · B '+fmt(avgB)+' · C '+fmt(avgC)+'): o momento pede <b>suporte leve</b>, não uma frente dedicada.';
+  }
   const modo = avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0);
-  store.pmgo={tipo:'fit',rec,modo,avgA:+avgA.toFixed(2),avgB:+avgB.toFixed(2),answers:vals.slice()};
+  store.pmgo={tipo:'fit',rec,modo,avgA:+avgA.toFixed(2),avgB:+avgB.toFixed(2),avgC:+avgC.toFixed(2),answers:vals.slice()};
+  const axis=(nm,sub,val,hi,c)=>'<div class="axis-card'+(hi?' hi':'')+'"><h5>'+nm+'</h5><div class="v">'+fmt(val)+'</div>'+
+    '<div class="'+(hi?'tag-hi':'tag-lo')+'">'+(hi?'Alta':'Baixa/moderada')+'</div>'+
+    '<div style="font-size:11px;color:var(--gray)">'+sub+' · corte '+fmt(c)+'</div></div>';
   el.innerHTML =
     '<div class="kicker">Recomendação PM&GO — fit</div>'+
     '<div class="res-grid">'+
-      '<div>'+quadSVG(avgA,avgB,p.cortes.eixoAlto)+'</div>'+
+      '<div>'+quadSVG(avgA,avgB,cut)+
+        '<p style="font-size:11px;color:var(--gray);text-align:center;margin-top:6px">Posição no plano entrega × adoção. O eixo de <b>integração</b> ('+fmt(avgC)+') decide, no canto superior, entre PM&GO integrado e EPP + GMO apartados.</p></div>'+
       '<div>'+
-        '<div class="score" style="font-size:38px">'+rec+'</div>'+
+        '<div class="score" style="font-size:36px;line-height:1.05">'+rec+'</div>'+
         '<p style="font-size:14px;max-width:520px;margin-top:6px">'+desc+'</p>'+
+        '<div class="why"><b>Por que esta recomendação</b><p>'+porque+'</p></div>'+
         '<div class="axes">'+
-          '<div class="axis-card"><h5>Eixo A · entrega</h5><div class="v">'+fmt(avgA)+'</div>'+
-          '<div style="font-size:12px;color:var(--gray)">'+(hiA?'Alta':'Baixa/moderada')+' (corte: '+fmt(p.cortes.eixoAlto)+')</div></div>'+
-          '<div class="axis-card"><h5>Eixo B · adoção</h5><div class="v">'+fmt(avgB)+'</div>'+
-          '<div style="font-size:12px;color:var(--gray)">'+(hiB?'Alta':'Baixa/moderada')+' (corte: '+fmt(p.cortes.eixoAlto)+')</div></div>'+
+          axis('Eixo A · entrega','necessidade de entrega',avgA,hiA,cut)+
+          axis('Eixo B · adoção','necessidade de adoção',avgB,hiB,cut)+
+          axis('Eixo C · integração','interdependência',avgC,hiC,cutC)+
         '</div>'+
         '<h4 style="font-family:Fraunces;color:var(--navy);margin:10px 0 4px">Modo de atuação recomendado</h4>'+
         '<div class="modo-strip">'+DATA.modos.map((m,i)=>
           '<div class="m'+(i===modo?' on':'')+'"><b>'+m.nome+'</b>'+m.desc+'</div>').join('')+'</div>'+
       '</div>'+
     '</div>'+
-    (rec==='PM&GO'
+    (primeiros
       ? '<div class="reco"><h4>Primeiros passos — Nível 1 do roadmap PM&GO</h4><ul class="clean">'+
         p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>' : '')+
     '<div class="res-actions">'+
-      (alvo ? '<button class="btn gold" onclick="showTab(\\''+alvo+'\\')">Conhecer o '+rec+' →</button>' : '')+
+      alvos.map(a=>'<button class="btn gold" onclick="showTab(\\''+a[0]+'\\')">Conhecer o '+a[1]+' →</button>').join('')+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
       '<button class="btn ghost" onclick="wizReset(\\'pmgo\\')">Refazer</button>'+
@@ -1284,7 +1367,7 @@ updateClientBar();
     }catch(e){}
     return;
   }
-  const m=location.hash.match(/#d=(epp|gmo|pmgo):([1-5]{6})/);
+  const m=location.hash.match(/#d=(epp|gmo|pmgo):([1-5]{5,10})/);
   if(!m) return;
   const prod=m[1];
   createClient('Diagnóstico compartilhado');
@@ -1326,7 +1409,7 @@ function pageHTML() {
   <div class="wrap">
     <div class="brand">${esc(WORDMARK.split(' ')[0])} <b>${esc(WORDMARK.split(' ').slice(1).join(' '))}</b></div>
     <h1>Metodologia Governança,<br>Projetos e Mudança</h1>
-    <p class="sub">Ativo interno de consultoria · orienta o que ofertar em cada disciplina e como posicionar o cliente na régua de maturidade.</p>
+    <p class="sub">A metodologia da Obliant para governar projetos e mudança: unifica EPP, GMO e PM&amp;GO em uma régua única de maturidade e orienta o que ofertar em cada disciplina.</p>
   </div>
 </header>
 <div class="navbar">
@@ -1345,7 +1428,7 @@ function pageHTML() {
 <footer>
   <div class="wrap">
     <span>${esc(WORDMARK)} · Metodologia Governança, Projetos e Mudança</span>
-    <span>Material interno · uso comercial e de consultoria</span>
+    <span>Material interno e exclusivo Obliant · uso comercial e de consultoria</span>
   </div>
 </footer>
 <script>${js()}</script>

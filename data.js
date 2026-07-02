@@ -348,7 +348,7 @@ const PRODUCTS = {
     ],
     assessment: {
       tipo: 'fit',
-      intro: 'Para o PM&GO o assessment mede adequação (fit), não só maturidade: 6 perguntas em dois eixos — A (necessidade de entrega) e B (necessidade de adoção). O resultado recomenda o produto certo e o modo de atuação.',
+      intro: 'Para o PM&GO o assessment mede adequação (fit), não maturidade: 8 perguntas em três eixos — A (necessidade de entrega), B (necessidade de adoção) e C (interdependência e criticidade). O resultado recomenda a oferta certa — só EPP, só GMO, EPP + GMO apartados, PM&GO integrado ou suporte leve — e o modo de atuação.',
       perguntas: [
         { eixo: 'A', nome: 'Complexidade de entrega', pergunta: 'O projeto tem alta complexidade de escopo, prazo ou orçamento (multiáreas, fornecedores, dependências)?' },
         { eixo: 'A', nome: 'Histórico de entrega', pergunta: 'A organização tem histórico de atrasos, estouros de custo ou projetos abandonados?' },
@@ -356,10 +356,13 @@ const PRODUCTS = {
         { eixo: 'B', nome: 'Impacto nas pessoas', pergunta: 'A mudança altera de forma significativa rotinas, papéis ou a forma de trabalhar das pessoas?' },
         { eixo: 'B', nome: 'Risco de resistência', pergunta: 'Há risco relevante de resistência, baixa adesão ou regressão ao modo antigo?' },
         { eixo: 'B', nome: 'Dependência de adoção', pergunta: 'O retorno do projeto depende diretamente de as pessoas usarem/adotarem o novo modelo?' },
+        { eixo: 'C', nome: 'Interdependência', pergunta: 'Entrega e adoção compartilham o mesmo cronograma e marcos — o go-live depende de as pessoas estarem prontas para usar o novo modelo?' },
+        { eixo: 'C', nome: 'Governança e criticidade', pergunta: 'As decisões precisam ser tomadas de forma integrada, sob um sponsor único, com trade-offs frequentes entre prazo de entrega e prontidão das pessoas?' },
       ],
       // Notas de corte do fit (média por eixo, escala 1–5)
       cortes: {
-        eixoAlto: 3.4,        // média do eixo >= 3.4 → necessidade alta
+        eixoAlto: 3.4,        // média A ou B >= 3.4 → necessidade alta
+        integracaoAlta: 3.4,  // média C >= 3.4 → interdependência alta (separa PM&GO integrado de EPP+GMO apartado)
         modoDiretivo: 4.0,    // média geral >= 4.0 → Diretivo
         modoControle: 2.8,    // média geral >= 2.8 → Controle; abaixo → Suporte
       },

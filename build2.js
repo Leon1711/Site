@@ -39,8 +39,8 @@ function wordmark(s, light, x, y) {
 }
 
 function footer(s) {
-  s.addText('Metodologia Governança, Projetos e Mudança  ·  material interno', {
-    x: MX, y: H - 0.42, w: 8, h: 0.3, fontFace: SANS, fontSize: 8, color: C.gray,
+  s.addText('Metodologia Governança, Projetos e Mudança  ·  material interno e exclusivo Obliant', {
+    x: MX, y: H - 0.42, w: 9.5, h: 0.3, fontFace: SANS, fontSize: 8, color: C.gray,
   });
   s.addText(WORDMARK, {
     x: W - 3.6, y: H - 0.42, w: 3, h: 0.3, align: 'right', fontFace: SANS, fontSize: 8, color: C.gray, charSpacing: 2,
@@ -76,7 +76,7 @@ function cover() {
   s.addText('EPP  ·  GMO  ·  PM&GO   —   Framework + Roadmap + Diagnóstico, na mesma régua de maturidade', {
     x: MX, y: 4.5, w: 10.5, h: 0.4, fontFace: SANS, fontSize: 14, color: C.gold,
   });
-  s.addText('Ativo interno · times comercial e de consultoria', {
+  s.addText('Uso comercial e de consultoria · material exclusivo Obliant', {
     x: MX, y: 6.5, w: 8, h: 0.3, fontFace: SANS, fontSize: 11, color: 'B9C3D0',
   });
 }
@@ -257,39 +257,51 @@ function assessment(prodKey) {
       s.addText(d.pergunta, { x: x + 0.15, y: y + 0.38, w: gw - 0.3, h: gh - 0.5, fontFace: SANS, fontSize: 9, color: C.ink, valign: 'top' });
     });
   } else {
-    const y0 = header(s, `${p.sigla} · Bloco D`, 'Assessment de fit — dois eixos, produto e modo certos', a.intro);
-    // eixos A e B
-    const colW = (W - 2 * MX - 0.3) / 2;
-    ['A', 'B'].forEach((eixo, k) => {
-      const x = MX + k * (colW + 0.3);
-      card(s, x, y0 + 0.15, colW, 2.5);
-      s.addText(eixo === 'A' ? 'EIXO A · NECESSIDADE DE ENTREGA' : 'EIXO B · NECESSIDADE DE ADOÇÃO', {
-        x: x + 0.18, y: y0 + 0.28, w: colW - 0.36, h: 0.28, fontFace: SANS, fontSize: 10, bold: true, color: C.gold, charSpacing: 2,
-      });
-      const qs = a.perguntas.filter(q => q.eixo === eixo).map(q => ({
-        text: `${q.nome} — ${q.pergunta}`, options: { bullet: { code: '2022', indent: 8 }, color: C.ink },
+    const y0 = header(s, `${p.sigla} · Bloco D`, 'Assessment de fit — três eixos, oferta e modo certos', a.intro);
+    // eixos A, B e C
+    const eixos = [
+      { id: 'A', tit: 'EIXO A · ENTREGA' },
+      { id: 'B', tit: 'EIXO B · ADOÇÃO' },
+      { id: 'C', tit: 'EIXO C · INTEGRAÇÃO' },
+    ];
+    const colW = (W - 2 * MX - 2 * 0.25) / 3;
+    eixos.forEach((e, k) => {
+      const x = MX + k * (colW + 0.25);
+      card(s, x, y0 + 0.08, colW, 1.5, { fill: e.id === 'C' ? 'FBF9F2' : C.white, line: e.id === 'C' ? C.gold : C.line });
+      s.addText(e.tit, { x: x + 0.16, y: y0 + 0.2, w: colW - 0.32, h: 0.26, fontFace: SANS, fontSize: 9.5, bold: true, color: C.gold, charSpacing: 1 });
+      const qs = a.perguntas.filter(q => q.eixo === e.id).map(q => ({
+        text: q.nome, options: { bullet: { code: '2022', indent: 8 }, color: C.ink },
       }));
-      s.addText(qs, { x: x + 0.18, y: y0 + 0.62, w: colW - 0.36, h: 1.9, fontFace: SANS, fontSize: 9, valign: 'top', lineSpacing: 13 });
+      s.addText(qs, { x: x + 0.16, y: y0 + 0.5, w: colW - 0.32, h: 1.0, fontFace: SANS, fontSize: 9, valign: 'top', lineSpacing: 13 });
     });
-    // matriz de recomendação + modos
-    const my = y0 + 2.9;
+    s.addText('O eixo C (interdependência + criticidade) separa PM&GO integrado de EPP + GMO apartados.', {
+      x: MX, y: y0 + 1.66, w: W - 2 * MX, h: 0.26, fontFace: SANS, fontSize: 9, italic: true, color: C.gray,
+    });
+    // recomendação (5 saídas)
+    const my = y0 + 2.05;
     const recs = [
-      ['A alto · B baixo', 'EPP'], ['A alto · B alto', 'PM&GO'],
-      ['A baixo · B baixo', 'Suporte leve'], ['A baixo · B alto', 'GMO'],
+      ['A alta · B baixa', 'Só EPP', false],
+      ['A baixa · B alta', 'Só GMO', false],
+      ['A+B altas · C baixa', 'EPP + GMO apartados', false],
+      ['A+B+C altas', 'PM&GO integrado', true],
+      ['Todas baixas', 'Suporte leve', false],
     ];
     s.addText('RECOMENDAÇÃO', { x: MX, y: my, w: 4, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 3 });
+    const rw = (W - 2 * MX - 4 * 0.14) / 5;
     recs.forEach((r, i) => {
-      const x = MX + (i % 2) * 3.15, y = my + 0.3 + Math.floor(i / 2) * 0.78;
-      card(s, x, y, 3.0, 0.68, { fill: r[1] === 'PM&GO' ? C.navy : C.white });
-      s.addText(r[0], { x: x + 0.14, y: y + 0.07, w: 2.7, h: 0.24, fontFace: SANS, fontSize: 8, color: r[1] === 'PM&GO' ? 'B9C3D0' : C.gray });
-      s.addText(r[1], { x: x + 0.14, y: y + 0.3, w: 2.7, h: 0.32, fontFace: SERIF, fontSize: 13, color: r[1] === 'PM&GO' ? C.cream : C.navy });
+      const x = MX + i * (rw + 0.14), y = my + 0.3;
+      card(s, x, y, rw, 0.92, { fill: r[2] ? C.navy : C.white, line: r[2] ? C.navy : C.line });
+      s.addText(r[0], { x: x + 0.12, y: y + 0.1, w: rw - 0.24, h: 0.36, fontFace: SANS, fontSize: 7.5, color: r[2] ? 'B9C3D0' : C.gray, valign: 'top' });
+      s.addText(r[1], { x: x + 0.12, y: y + 0.44, w: rw - 0.24, h: 0.42, fontFace: SERIF, fontSize: 11, color: r[2] ? C.cream : C.navy, valign: 'top' });
     });
-    s.addText('MODO DE ATUAÇÃO (INTENSIDADE)', { x: 7.4, y: my, w: 5, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 3 });
+    // modo de atuação
+    const yy = my + 1.4;
+    s.addText('MODO DE ATUAÇÃO (INTENSIDADE) — ortogonal à oferta', { x: MX, y: yy, w: 8, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 2 });
     MODOS_ATUACAO.forEach((m, i) => {
-      const y = my + 0.3 + i * 0.52;
-      s.addShape('roundRect', { x: 7.4, y, w: 1.5, h: 0.42, rectRadius: 0.06, fill: { color: C.navy } });
-      s.addText(m.nome, { x: 7.4, y, w: 1.5, h: 0.42, align: 'center', valign: 'middle', fontFace: SANS, fontSize: 9.5, bold: true, color: C.cream });
-      s.addText(m.quando, { x: 9.05, y, w: 3.68, h: 0.42, fontFace: SANS, fontSize: 8, color: C.gray, valign: 'middle' });
+      const y = yy + 0.3 + i * 0.4;
+      s.addShape('roundRect', { x: MX, y, w: 1.5, h: 0.32, rectRadius: 0.06, fill: { color: C.navy } });
+      s.addText(m.nome, { x: MX, y, w: 1.5, h: 0.32, align: 'center', valign: 'middle', fontFace: SANS, fontSize: 9.5, bold: true, color: C.cream });
+      s.addText(m.quando, { x: MX + 1.65, y, w: W - 2 * MX - 1.65, h: 0.32, fontFace: SANS, fontSize: 8.5, color: C.gray, valign: 'middle' });
     });
   }
 }
@@ -323,8 +335,8 @@ function raci(prodKey) {
 function venn() {
   const v = PRODUCTS.pmgo.venn;
   const s = baseSlide();
-  const y0 = header(s, 'PM&GO · Venn', 'O que é do PMO, o que é do GMO, o que é compartilhado',
-    'Cada entregável e atividade do PM&GO é etiquetado (PMO / GMO / compartilhado) para o Venn ser operacional, não só conceitual.');
+  const y0 = header(s, 'PM&GO · PMO × GMO', 'O que é do PMO, o que é do GMO, o que é compartilhado',
+    'Cada entregável e atividade do PM&GO é etiquetado (PMO / GMO / compartilhado) para a divisão PMO × GMO ser operacional, não só conceitual.');
   // círculos
   const cy = y0 + 0.15, d = 2.3;
   s.addShape('ellipse', { x: 4.6, y: cy, w: d, h: d, fill: { color: C.navy, transparency: 18 } });
