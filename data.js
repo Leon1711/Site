@@ -348,7 +348,7 @@ const PRODUCTS = {
     ],
     assessment: {
       tipo: 'fit',
-      intro: 'Para o PM&GO o assessment mede adequação (fit), não maturidade: 8 perguntas em três eixos — A (necessidade de entrega), B (necessidade de adoção) e C (interdependência e criticidade). O resultado recomenda a oferta certa — só EPP, só GMO, EPP + GMO apartados, PM&GO integrado ou suporte leve — e o modo de atuação.',
+      intro: 'Este assessment é um portão de fit para o PM&GO: 8 perguntas em três eixos — A (necessidade de entrega), B (necessidade de adoção) e C (interdependência e criticidade). Se houver fit, recomenda o PM&GO e o modo de atuação (Suporte, Controle ou Diretivo). Se não houver, aponta uma frente a avaliar — EPP ou GMO — ou suporte leve.',
       perguntas: [
         { eixo: 'A', nome: 'Complexidade de entrega', pergunta: 'O projeto tem alta complexidade de escopo, prazo ou orçamento (multiáreas, fornecedores, dependências)?' },
         { eixo: 'A', nome: 'Histórico de entrega', pergunta: 'A organização tem histórico de atrasos, estouros de custo ou projetos abandonados?' },

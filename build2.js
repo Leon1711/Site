@@ -257,7 +257,7 @@ function assessment(prodKey) {
       s.addText(d.pergunta, { x: x + 0.15, y: y + 0.38, w: gw - 0.3, h: gh - 0.5, fontFace: SANS, fontSize: 9, color: C.ink, valign: 'top' });
     });
   } else {
-    const y0 = header(s, `${p.sigla} · Bloco D`, 'Assessment de fit — três eixos, oferta e modo certos', a.intro);
+    const y0 = header(s, `${p.sigla} · Bloco D`, 'Assessment de fit — há fit para o PM&GO?', a.intro);
     // eixos A, B e C
     const eixos = [
       { id: 'A', tit: 'EIXO A · ENTREGA' },
@@ -274,19 +274,19 @@ function assessment(prodKey) {
       }));
       s.addText(qs, { x: x + 0.16, y: y0 + 0.5, w: colW - 0.32, h: 1.0, fontFace: SANS, fontSize: 9, valign: 'top', lineSpacing: 13 });
     });
-    s.addText('O eixo C (interdependência + criticidade) separa PM&GO integrado de EPP + GMO apartados.', {
+    s.addText('Há fit para o PM&GO só quando A, B e C são altos. Sem fit, avalia-se UMA frente — EPP ou GMO — nunca as duas juntas.', {
       x: MX, y: y0 + 1.66, w: W - 2 * MX, h: 0.26, fontFace: SANS, fontSize: 9, italic: true, color: C.gray,
     });
-    // recomendação (5 saídas)
+    // saídas do portão de fit (5)
     const my = y0 + 2.05;
     const recs = [
-      ['A alta · B baixa', 'Só EPP', false],
-      ['A baixa · B alta', 'Só GMO', false],
-      ['A+B altas · C baixa', 'EPP + GMO apartados', false],
-      ['A+B+C altas', 'PM&GO integrado', true],
+      ['A+B+C altas', 'PM&GO + modo', true],
+      ['A+B altas · C baixa', 'Sem fit → EPP ou GMO', false],
+      ['A alta · B baixa', 'Sem fit → EPP', false],
+      ['A baixa · B alta', 'Sem fit → GMO', false],
       ['Todas baixas', 'Suporte leve', false],
     ];
-    s.addText('RECOMENDAÇÃO', { x: MX, y: my, w: 4, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 3 });
+    s.addText('SAÍDAS DO PORTÃO DE FIT', { x: MX, y: my, w: 5, h: 0.26, fontFace: SANS, fontSize: 9, bold: true, color: C.gold, charSpacing: 3 });
     const rw = (W - 2 * MX - 4 * 0.14) / 5;
     recs.forEach((r, i) => {
       const x = MX + i * (rw + 0.14), y = my + 0.3;

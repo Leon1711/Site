@@ -281,6 +281,13 @@ td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
 .reco h4{color:var(--navy);font-family:'Fraunces';font-size:16px;margin-bottom:8px}
 .res-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .res-actions .btn{font-size:13px;padding:11px 20px}
+.fitverdict{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:2px 0 18px;padding:12px 18px;border-radius:12px}
+.fitverdict.yes{background:#fbf9f2;border:1px solid var(--gold)}
+.fitverdict.no{background:var(--ice);border:1px solid var(--line)}
+.fitverdict .fv-tag{font-family:'Fraunces';font-size:18px;font-weight:600}
+.fitverdict.yes .fv-tag{color:var(--gold)}
+.fitverdict.no .fv-tag{color:var(--gray)}
+.fitverdict .fv-rec{font-size:13px;font-weight:700;color:var(--navy);border-left:1px solid var(--line);padding-left:14px}
 .axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}
 .axis-card.hi{border-color:var(--gold);background:#fbf9f2}
 .axis-card .tag-hi{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--gold);text-transform:uppercase}
@@ -1010,7 +1017,7 @@ h3.sect:first-child{margin-top:0}
     </div>
   </div></div><div class="subpane" data-pane="pmgo-assessment">
   <div class="kicker">Assessment de fit — bloco D</div>
-  <p class="lead">Para o PM&amp;GO o assessment mede adequação (fit), não maturidade: 8 perguntas em três eixos — A (necessidade de entrega), B (necessidade de adoção) e C (interdependência e criticidade). O resultado recomenda a oferta certa — só EPP, só GMO, EPP + GMO apartados, PM&amp;GO integrado ou suporte leve — e o modo de atuação.</p>
+  <p class="lead">Este assessment é um portão de fit para o PM&amp;GO: 8 perguntas em três eixos — A (necessidade de entrega), B (necessidade de adoção) e C (interdependência e criticidade). Se houver fit, recomenda o PM&amp;GO e o modo de atuação (Suporte, Controle ou Diretivo). Se não houver, aponta uma frente a avaliar — EPP ou GMO — ou suporte leve.</p>
   <div class="grid c3">
     <div class="card"><h3>Eixo A — entrega</h3><ul class="clean">
       <li><b>Complexidade de entrega.</b> O projeto tem alta complexidade de escopo, prazo ou orçamento (multiáreas, fornecedores, dependências)?</li><li><b>Histórico de entrega.</b> A organização tem histórico de atrasos, estouros de custo ou projetos abandonados?</li><li><b>Capacidade de gestão.</b> Falta hoje método, papéis ou governança para conduzir esse projeto internamente?</li></ul></div>
@@ -1019,7 +1026,7 @@ h3.sect:first-child{margin-top:0}
     <div class="card mid"><h3>Eixo C — integração</h3><ul class="clean">
       <li><b>Interdependência.</b> Entrega e adoção compartilham o mesmo cronograma e marcos — o go-live depende de as pessoas estarem prontas para usar o novo modelo?</li><li><b>Governança e criticidade.</b> As decisões precisam ser tomadas de forma integrada, sob um sponsor único, com trade-offs frequentes entre prazo de entrega e prontidão das pessoas?</li></ul></div>
   </div>
-  <p class="note">É o eixo C (interdependência + criticidade) que separa <b>PM&amp;GO integrado</b> de <b>EPP + GMO apartados</b>: as duas frentes altas só justificam a governança única quando dependem uma da outra.</p>
+  <p class="note">Este assessment é um <b>portão de fit para o PM&amp;GO</b>: só há fit quando entrega, adoção e interdependência (eixo C) são altas — aí define-se o modo (Suporte / Controle / Diretivo). Sem fit, o diagnóstico aponta <b>uma</b> frente a avaliar: EPP <b>ou</b> GMO.</p>
   <div style="margin-top:20px"><button class="btn" onclick="goAssessment('pmgo')">Preencher o assessment interativo →</button></div></div><div class="subpane" data-pane="pmgo-raci">
   <div class="kicker">RACI — bloco E</div>
   <div style="overflow-x:auto">
@@ -1084,7 +1091,7 @@ h3.sect:first-child{margin-top:0}
   <div class="ass-pick">
     <button data-pick="epp" onclick="pickAssessment('epp')"><span class="done" style="display:none"></span><div class="t">EPP — maturidade</div><div class="d">6 dimensões de entrega · posiciona na régua e recomenda o próximo nível</div></button>
     <button data-pick="gmo" onclick="pickAssessment('gmo')"><span class="done" style="display:none"></span><div class="t">GMO — maturidade</div><div class="d">6 dimensões de adoção · posiciona na régua e recomenda o próximo nível</div></button>
-    <button data-pick="pmgo" onclick="pickAssessment('pmgo')"><span class="done" style="display:none"></span><div class="t">PM&amp;GO — fit</div><div class="d">8 perguntas em 3 eixos · recomenda a oferta certa e o modo de atuação</div></button>
+    <button data-pick="pmgo" onclick="pickAssessment('pmgo')"><span class="done" style="display:none"></span><div class="t">PM&amp;GO — fit</div><div class="d">8 perguntas em 3 eixos · há fit para o PM&amp;GO? se sim, o modo; se não, EPP ou GMO</div></button>
   </div>
   <details class="howread">
     <summary>Como lemos o diagnóstico</summary>
@@ -1096,12 +1103,12 @@ h3.sect:first-child{margin-top:0}
       </div>
       <div>
         <h4>Fit — PM&amp;GO</h4>
-        <p>Três eixos (1–5): <b>A</b> entrega, <b>B</b> adoção, <b>C</b> interdependência. Alto = média ≥ 3,4. O eixo C é o que separa <b>integrado</b> de <b>apartado</b>.</p>
+        <p>É um <b>portão de fit</b>: só há fit para o PM&amp;GO quando os três eixos (1–5) são altos — <b>A</b> entrega, <b>B</b> adoção e <b>C</b> interdependência (alto = média ≥ 3,4). Sem fit, aponta <b>uma</b> frente a avaliar.</p>
         <ul class="hr-matrix">
-          <li><b>A alta</b> · B baixa → <span>Só EPP</span></li>
-          <li>A baixa · <b>B alta</b> → <span>Só GMO</span></li>
-          <li><b>A + B altas</b> · C baixa → <span>EPP + GMO apartados</span></li>
-          <li><b>A + B + C altas</b> → <span>PM&amp;GO integrado</span></li>
+          <li><b>A + B + C altas</b> → <span>Há fit: PM&amp;GO</span> + modo</li>
+          <li><b>A + B altas</b> · C baixa → <span>Sem fit → EPP ou GMO</span> (a predominante)</li>
+          <li><b>A alta</b> · B baixa → <span>Sem fit → EPP</span></li>
+          <li>A baixa · <b>B alta</b> → <span>Sem fit → GMO</span></li>
           <li>Todas baixas → <span>Suporte leve</span></li>
         </ul>
       </div>
@@ -1287,11 +1294,12 @@ function refreshPicks(){
 }
 
 // ------- barra do cliente ativo -------
+function fitYes(d){ return d.fit!==undefined ? d.fit : d.rec==='PM&GO'; }
 function statusChip(prod,c){
   const d=c.diag[prod], sig=DATA.prods[prod].sigla;
   let v='—';
   if(d&&d.tipo==='maturidade') v='Nível '+d.nivel;
-  else if(d&&d.tipo==='fit') v=d.rec;
+  else if(d&&d.tipo==='fit') v=fitYes(d)?'com fit':'sem fit';
   return '<span class="cchip"><b>'+sig+'</b>'+v+'</span>';
 }
 function updateClientBar(){
@@ -1410,7 +1418,7 @@ function quadSVG(a,b,cut){
     '<rect x="'+P+'" y="'+P+'" width="'+w+'" height="'+w+'" fill="none" stroke="'+LINE+'"/>'+
     '<line x1="'+xc+'" y1="'+P+'" x2="'+xc+'" y2="'+(S-P)+'" stroke="'+GOLD+'" stroke-dasharray="4 4"/>'+
     '<line x1="'+P+'" y1="'+yc+'" x2="'+(S-P)+'" y2="'+yc+'" stroke="'+GOLD+'" stroke-dasharray="4 4"/>'+
-    lbl((xc+S-P)/2, (P+yc)/2 - 4, 'PM&GO', 1)+ lbl((xc+S-P)/2, (P+yc)/2+12, 'ou apartado')+
+    lbl((xc+S-P)/2, (P+yc)/2 - 4, 'PM&GO', 1)+ lbl((xc+S-P)/2, (P+yc)/2+12, 'se integração')+
     lbl((xc+S-P)/2, (yc+S-P)/2+2, 'EPP', 1)+
     lbl((P+xc)/2, (P+yc)/2+2, 'GMO', 1)+
     lbl((P+xc)/2, (yc+S-P)/2+2, 'Suporte leve', 1)+
@@ -1506,34 +1514,38 @@ function renderFit(prod, el){
   const avgA=mean(A), avgB=mean(B), avgC=mean(Cc), avgAll=mean(vals);
   const cut=p.cortes.eixoAlto, cutC=p.cortes.integracaoAlta;
   const hiA=avgA>=cut, hiB=avgB>=cut, hiC=avgC>=cutC;
-  let rec, desc, porque, alvos, primeiros=null;
-  if(hiA&&hiB&&hiC){
-    rec='PM&GO'; alvos=[['pmgo','PM&GO']]; primeiros='pmgo';
-    desc='Governança integrada de entrega + adoção sob um único modelo, com um sponsor único.';
-    porque='Entrega ('+fmt(avgA)+'), adoção ('+fmt(avgB)+') e interdependência ('+fmt(avgC)+') <b>todas altas</b>: as duas frentes se condicionam no mesmo cronograma e exigem governança única. É o caso do <b>PM&GO integrado</b> — não faz sentido separá-las.';
-  } else if(hiA&&hiB){
-    rec='EPP + GMO'; alvos=[['epp','EPP'],['gmo','GMO']];
-    desc='As duas frentes são necessárias, mas independentes: ofertar EPP e GMO como trilhas separadas, cada uma no seu ritmo.';
-    porque='Entrega ('+fmt(avgA)+') e adoção ('+fmt(avgB)+') altas, mas <b>interdependência baixa ('+fmt(avgC)+')</b>: sem cronograma comum nem trade-offs constantes, a governança única do PM&GO não se justifica. Melhor oferta são <b>EPP e GMO apartados</b>.';
-  } else if(hiA){
-    rec='EPP'; alvos=[['epp','EPP']];
-    desc='Necessidade concentrada em entrega: método, portfólio, processos e indicadores — operado por um PMO.';
-    porque='Só a <b>entrega</b> aparece alta ('+fmt(avgA)+'); adoção ('+fmt(avgB)+') não é crítica agora. O foco é estruturar a entrega com o <b>EPP</b>.';
-  } else if(hiB){
-    rec='GMO'; alvos=[['gmo','GMO']];
-    desc='Necessidade concentrada em adoção: engajamento, capacitação e sustentação.';
-    porque='Só a <b>adoção</b> aparece alta ('+fmt(avgB)+'); entrega ('+fmt(avgA)+') não é crítica agora. O foco é o lado humano com o <b>GMO</b>.';
+  // O assessment do PM&GO é um PORTÃO DE FIT: há fit apenas quando entrega,
+  // adoção e interdependência são altas. Sem fit, aponta UMA frente (EPP ou GMO).
+  const fit = hiA && hiB && hiC;
+  let rec, alvo, desc, porque;
+  if(fit){
+    rec='PM&GO'; alvo=['pmgo','PM&GO'];
+    desc='Há fit para a governança integrada: entrega e adoção sob um único modelo, com sponsor único.';
+    porque='Entrega ('+fmt(avgA)+'), adoção ('+fmt(avgB)+') e interdependência ('+fmt(avgC)+') <b>todas altas</b>: as frentes se condicionam no mesmo cronograma e exigem governança única. É o caso do <b>PM&GO</b> — resta definir o modo de atuação.';
+  } else if(!hiA && !hiB){
+    rec='Suporte leve'; alvo=null;
+    desc='Sem fit para o PM&GO e sem frente crítica: aconselhamento pontual, métodos e templates.';
+    porque='Nenhum eixo aparece alto (A '+fmt(avgA)+' · B '+fmt(avgB)+' · C '+fmt(avgC)+'): não é caso de PM&GO nem de uma frente dedicada agora — <b>suporte leve</b>.';
   } else {
-    rec='Suporte leve'; alvos=[];
-    desc='Aconselhamento pontual, métodos e templates, sem estrutura dedicada.';
-    porque='Nenhum eixo aparece alto (A '+fmt(avgA)+' · B '+fmt(avgB)+' · C '+fmt(avgC)+'): o momento pede <b>suporte leve</b>, não uma frente dedicada.';
+    // sem fit para o PM&GO → apontar a frente predominante (uma só)
+    const entregaMaior = avgA>=avgB;
+    rec = entregaMaior ? 'EPP' : 'GMO';
+    alvo = entregaMaior ? ['epp','EPP'] : ['gmo','GMO'];
+    const semInt = hiA && hiB; // duas necessidades altas, mas sem interdependência
+    desc = entregaMaior
+      ? 'Sem fit para o PM&GO: avaliar o EPP — método, portfólio, processos e indicadores, operado por um PMO.'
+      : 'Sem fit para o PM&GO: avaliar o GMO — engajamento, capacitação e sustentação da mudança.';
+    porque = semInt
+      ? 'Entrega ('+fmt(avgA)+') e adoção ('+fmt(avgB)+') pesam, mas a <b>interdependência é baixa ('+fmt(avgC)+')</b>: não há governança integrada a fazer. A frente predominante é <b>'+rec+'</b> — avalie-a com o assessment de maturidade; a outra pode ser tratada à parte, se necessário.'
+      : (entregaMaior
+          ? 'Só a <b>entrega</b> aparece alta ('+fmt(avgA)+'); adoção ('+fmt(avgB)+') não é crítica. Sem fit para o PM&GO — avaliar o <b>EPP</b>.'
+          : 'Só a <b>adoção</b> aparece alta ('+fmt(avgB)+'); entrega ('+fmt(avgA)+') não é crítica. Sem fit para o PM&GO — avaliar o <b>GMO</b>.');
   }
-  // modo de atuação é EXCLUSIVO do PM&GO integrado — só existe quando a oferta é PM&GO
-  const isPmgo = rec==='PM&GO';
-  const modo = isPmgo ? (avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0)) : null;
-  store.pmgo={tipo:'fit',rec,modo,avgA:+avgA.toFixed(2),avgB:+avgB.toFixed(2),avgC:+avgC.toFixed(2),answers:vals.slice()};
-  const modoHTML = isPmgo
-    ? '<h4 style="font-family:Fraunces;color:var(--navy);margin:10px 0 4px">Modo de atuação recomendado <span style="font-size:11px;color:var(--gray);font-weight:400">— intensidade da Obliant no PM&GO</span></h4>'+
+  // modo de atuação é EXCLUSIVO do PM&GO — só existe quando há fit
+  const modo = fit ? (avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0)) : null;
+  store.pmgo={tipo:'fit',fit,rec,modo,avgA:+avgA.toFixed(2),avgB:+avgB.toFixed(2),avgC:+avgC.toFixed(2),answers:vals.slice()};
+  const modoHTML = fit
+    ? '<h4 style="font-family:Fraunces;color:var(--navy);margin:12px 0 4px">Modo de atuação <span style="font-size:11px;color:var(--gray);font-weight:400">— intensidade da Obliant no PM&GO</span></h4>'+
       '<div class="modo-strip">'+DATA.modos.map((m,i)=>
         '<div class="m'+(i===modo?' on':'')+'"><b>'+m.nome+'</b>'+m.desc+'</div>').join('')+'</div>'
     : '';
@@ -1541,14 +1553,15 @@ function renderFit(prod, el){
     '<div class="'+(hi?'tag-hi':'tag-lo')+'">'+(hi?'Alta':'Baixa/moderada')+'</div>'+
     '<div style="font-size:11px;color:var(--gray)">'+sub+' · corte '+fmt(c)+'</div></div>';
   el.innerHTML =
-    '<div class="kicker">Recomendação PM&GO — fit</div>'+
+    '<div class="kicker">Assessment de fit — PM&GO</div>'+
+    '<div class="fitverdict '+(fit?'yes':'no')+'"><span class="fv-tag">'+(fit?'✓ Há fit para o PM&GO':'✕ Sem fit para o PM&GO')+'</span>'+
+      '<span class="fv-rec">'+(fit?'Recomendação: PM&GO':(alvo?'Avaliar: '+rec:'Recomendação: suporte leve'))+'</span></div>'+
     '<div class="res-grid">'+
       '<div>'+quadSVG(avgA,avgB,cut)+
-        '<p style="font-size:11px;color:var(--gray);text-align:center;margin-top:6px">Posição no plano entrega × adoção. O eixo de <b>integração</b> ('+fmt(avgC)+') decide, no canto superior, entre PM&GO integrado e EPP + GMO apartados.</p></div>'+
+        '<p style="font-size:11px;color:var(--gray);text-align:center;margin-top:6px">Posição no plano entrega × adoção. O <b>fit do PM&GO</b> exige também interdependência alta (eixo C = '+fmt(avgC)+'); sem ela, avalia-se EPP ou GMO.</p></div>'+
       '<div>'+
-        '<div class="score" style="font-size:36px;line-height:1.05">'+rec+'</div>'+
-        '<p style="font-size:14px;max-width:520px;margin-top:6px">'+desc+'</p>'+
-        '<div class="why"><b>Por que esta recomendação</b><p>'+porque+'</p></div>'+
+        '<p style="font-size:14px;max-width:520px">'+desc+'</p>'+
+        '<div class="why"><b>Por que</b><p>'+porque+'</p></div>'+
         '<div class="axes">'+
           axis('Eixo A · entrega','necessidade de entrega',avgA,hiA,cut)+
           axis('Eixo B · adoção','necessidade de adoção',avgB,hiB,cut)+
@@ -1557,11 +1570,12 @@ function renderFit(prod, el){
         modoHTML+
       '</div>'+
     '</div>'+
-    (primeiros
+    (fit
       ? '<div class="reco"><h4>Primeiros passos — Nível 1 do roadmap PM&GO</h4><ul class="clean">'+
         p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>' : '')+
     '<div class="res-actions">'+
-      alvos.map(a=>'<button class="btn gold" onclick="showTab(\''+a[0]+'\')">Conhecer o '+a[1]+' →</button>').join('')+
+      (alvo ? '<button class="btn gold" onclick="showTab(\''+alvo[0]+'\')">'+(fit?'Conhecer o PM&GO':'Conhecer o '+alvo[1])+' →</button>' : '')+
+      (!fit && alvo ? '<button class="btn gold" onclick="goAssessment(\''+alvo[0]+'\')">Avaliar maturidade '+alvo[1]+' →</button>' : '')+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
       '<button class="btn ghost" onclick="wizReset(\'pmgo\')">Refazer</button>'+
@@ -1586,7 +1600,7 @@ function renderRoster(){
       const dd=c.diag[p], sig=DATA.prods[p].sigla;
       let bar='', lab='—';
       if(dd&&dd.tipo==='maturidade'){ lab='Nível '+dd.nivel; bar='<i style="width:'+(dd.nivel*20)+'%"></i>'; }
-      else if(dd&&dd.tipo==='fit'){ lab=dd.rec; bar='<i style="width:100%"></i>'; }
+      else if(dd&&dd.tipo==='fit'){ const f=fitYes(dd); lab=f?'PM&GO':'sem fit'; bar='<i style="width:'+(f?100:40)+'%"></i>'; }
       return '<div class="rc-front"><span class="rc-sig">'+sig+'</span><div class="rc-bar">'+bar+'</div><span class="rc-lab">'+lab+'</span></div>';
     }).join('');
     const meta=[esc2(c.setor),esc2(c.responsavel)].filter(Boolean).join(' · ')+(c.atualizado?(((c.setor||c.responsavel)?' · ':'')+'atualizado '+fmtDate(c.atualizado)):'');
@@ -1644,9 +1658,10 @@ function dossieFront(c,p){
       '<div class="df-lvl">Nível '+dd.nivel+' · '+lvl.nome+'</div>'+
       gaugeHTML(dd.avg)+'</div>';
   }
+  const f=fitYes(dd);
   return '<div class="dfront"><div class="df-sig">'+P.sigla+' · fit</div>'+
-    '<div class="df-rec">'+dd.rec+'</div>'+
-    (dd.modo!=null ? '<div class="df-lvl">Modo '+DATA.modos[dd.modo].nome+'</div>' : '')+
+    '<div class="df-rec">'+(f?'Com fit':'Sem fit')+'</div>'+
+    '<div class="df-lvl">'+(f?(dd.modo!=null?'PM&GO · Modo '+DATA.modos[dd.modo].nome:'PM&GO'):'Avaliar '+dd.rec)+'</div>'+
     '<div class="df-axes">A '+fmt(dd.avgA)+' · B '+fmt(dd.avgB)+(dd.avgC!=null?' · C '+fmt(dd.avgC):'')+'</div></div>';
 }
 function renderDossie(id){
