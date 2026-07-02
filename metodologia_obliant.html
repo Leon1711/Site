@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Obliant — Metodologia Governança, Projetos e Mudança</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#4A5C72; --cream:#FFFDF6; --gold:#998D67; --ice:#EDF0F4;
+  --gray:#7A8494; --ink:#2E3947; --line:#D9DDE3; --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;font-size:15px}
+h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:600}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ---------- header ---------- */
+header{background:var(--navy);color:var(--cream);padding:34px 0 0}
+.brand{display:flex;align-items:baseline;gap:12px;letter-spacing:.28em;font-size:13px;font-weight:600}
+.brand b{color:var(--gold)}
+header h1{font-size:clamp(26px,4vw,40px);margin:18px 0 6px;font-weight:600}
+header p.sub{color:#c9d2de;max-width:640px;font-size:15px}
+.chip-row{display:flex;gap:8px;margin:16px 0 26px;flex-wrap:wrap}
+.chip{border:1px solid rgba(255,253,246,.35);color:var(--cream);border-radius:999px;padding:4px 14px;font-size:12px;letter-spacing:.06em}
+.chip em{color:var(--gold);font-style:normal;font-weight:600}
+
+/* ---------- top tabs ---------- */
+nav.top{display:flex;gap:2px;flex-wrap:wrap}
+nav.top button{appearance:none;border:0;cursor:pointer;font:inherit;font-size:13.5px;font-weight:600;
+  padding:12px 20px;background:transparent;color:#b9c3d0;border-radius:10px 10px 0 0;letter-spacing:.02em}
+nav.top button:hover{color:var(--cream)}
+nav.top button.on{background:var(--cream);color:var(--navy)}
+
+/* ---------- sections ---------- */
+main{padding:34px 0 70px}
+section.tab{display:none}
+section.tab.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.prod-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+.prod-head h2{font-size:30px;color:var(--navy)}
+.badge{background:var(--navy);color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.12em;
+  padding:4px 12px;border-radius:999px;text-transform:uppercase}
+.badge.gold{background:var(--gold)}
+p.lead{color:var(--gray);max-width:720px;margin:6px 0 20px}
+p.note{font-size:12.5px;color:var(--gray);font-style:italic;margin-top:10px}
+
+/* ---------- sub tabs ---------- */
+nav.sub{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:10px 0 24px}
+nav.sub button{appearance:none;border:0;background:none;cursor:pointer;font:inherit;font-size:13px;font-weight:600;
+  color:var(--gray);padding:9px 14px;border-bottom:2px solid transparent;margin-bottom:-1px}
+nav.sub button.on{color:var(--navy);border-color:var(--gold)}
+.subpane{display:none}
+.subpane.on{display:block;animation:fade .2s ease}
+
+/* ---------- cards / grids ---------- */
+.grid{display:grid;gap:14px}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid.c4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{color:var(--navy);font-size:17px;margin-bottom:8px}
+.card h4{font-size:13px;color:var(--navy);margin-bottom:4px;font-family:'Inter';font-weight:700}
+.card p{font-size:13px;color:var(--gray)}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.num{font-family:'Fraunces';font-size:26px;color:var(--gold);line-height:1}
+
+/* pilares */
+.pillars{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.pill{background:var(--navy);color:var(--cream);border-radius:10px;padding:12px 18px;font-size:13.5px;font-weight:600;
+  display:flex;align-items:center;gap:8px}
+.pill span{color:var(--gold);font-family:'Fraunces';font-size:15px}
+
+ul.clean{list-style:none}
+ul.clean li{padding:8px 0 8px 22px;position:relative;border-bottom:1px solid var(--ice);font-size:13.5px}
+ul.clean li:last-child{border-bottom:0}
+ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+/* ---------- roadmap ---------- */
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:900px){.road{grid-template-columns:1fr}}
+.road .col{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.road .col header{background:var(--ice);color:var(--navy);padding:12px 14px}
+.road .col header .lvl{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
+.road .col header .nm{font-family:'Fraunces';font-size:17px}
+.road .col.hot header{background:var(--navy);color:var(--cream)}
+.road ul{list-style:none;padding:8px 14px 14px}
+.road li{font-size:12.5px;padding:7px 0 7px 16px;position:relative;border-bottom:1px solid var(--ice);color:var(--ink)}
+.road li:last-child{border-bottom:0}
+.road li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* ---------- maturity ---------- */
+.mat{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white)}
+@media(max-width:900px){.mat{grid-template-columns:1fr}}
+.mat .step{padding:20px 16px;border-right:1px solid var(--line);position:relative}
+.mat .step:last-child{border-right:0}
+.mat .step .bar{height:6px;border-radius:3px;background:var(--ice);margin-bottom:14px;overflow:hidden}
+.mat .step .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--navy))}
+.mat .step h4{font-family:'Fraunces';font-size:16px;color:var(--navy);font-weight:600}
+.mat .step .rs{font-size:12px;font-weight:600;color:var(--gold);margin:2px 0 8px}
+.mat .step p{font-size:12px;color:var(--gray)}
+
+/* ---------- venn ---------- */
+.venn-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:900px){.venn-cols{grid-template-columns:1fr}}
+.venn-cols .card{border-top:4px solid var(--navy)}
+.venn-cols .card.mid{border-top-color:var(--gold);background:#fbf9f2}
+.vennfig{display:flex;justify-content:center;margin:8px 0 22px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:1px}
+.tag.pmo{background:var(--navy);color:var(--cream)}
+.tag.gmo{background:var(--gold);color:var(--white)}
+.tag.compartilhado{background:var(--ice);color:var(--navy);border:1px solid var(--line)}
+
+/* ---------- table / raci ---------- */
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px}
+th,td{padding:11px 13px;border-bottom:1px solid var(--ice);text-align:left;vertical-align:top}
+thead th{background:var(--navy);color:var(--cream);font-size:12px;letter-spacing:.05em;font-weight:600}
+tbody tr:last-child td{border-bottom:0}
+td.rc{text-align:center;font-weight:700}
+td.rc span{display:inline-block;width:26px;height:26px;line-height:26px;border-radius:50%;font-size:12px}
+td.rc .R{background:var(--navy);color:var(--cream)}
+td.rc .A{background:var(--gold);color:#fff}
+td.rc .C{background:var(--ice);color:var(--navy)}
+td.rc .I{background:transparent;color:var(--gray);border:1px solid var(--line)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--gray);margin-top:10px}
+.legend b{color:var(--navy)}
+
+/* ---------- assessment ---------- */
+.ass-pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:26px}
+.ass-pick button{appearance:none;font:inherit;cursor:pointer;text-align:left;background:var(--white);
+  border:1px solid var(--line);border-radius:14px;padding:18px}
+.ass-pick button.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.ass-pick .t{font-family:'Fraunces';font-size:17px;color:var(--navy);font-weight:600}
+.ass-pick .d{font-size:12.5px;color:var(--gray);margin-top:4px}
+.qcard{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.qcard .qn{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.qcard .qt{font-size:14px;font-weight:600;color:var(--ink);margin:4px 0 12px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale label{flex:1;min-width:52px;text-align:center;border:1px solid var(--line);border-radius:10px;
+  padding:9px 4px;font-size:12.5px;cursor:pointer;user-select:none;background:var(--cream)}
+.scale input{display:none}
+.scale input:checked+span{color:var(--cream)}
+.scale label:has(input:checked){background:var(--navy);border-color:var(--navy);color:var(--cream);font-weight:700}
+.scale-hint{display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-top:6px}
+.ass-actions{display:flex;gap:12px;align-items:center;margin:20px 0}
+.btn{appearance:none;border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px;border-radius:12px;
+  padding:13px 28px;background:var(--navy);color:var(--cream);letter-spacing:.03em}
+.btn:hover{background:#3c4c60}
+.btn.ghost{background:transparent;color:var(--gray);border:1px solid var(--line)}
+.warn{color:#a3562f;font-size:13px;display:none}
+
+/* resultado */
+.result{display:none;border:1px solid var(--gold);border-radius:16px;background:var(--white);padding:26px;margin-top:8px}
+.result.on{display:block;animation:fade .3s ease}
+.result .big{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.result .score{font-family:'Fraunces';font-size:52px;color:var(--navy);line-height:1}
+.result .lvl-name{font-family:'Fraunces';font-size:24px;color:var(--gold)}
+.dimbars{display:grid;gap:10px;margin:14px 0 6px}
+.dimbar{display:grid;grid-template-columns:180px 1fr 34px;gap:12px;align-items:center;font-size:13px}
+@media(max-width:640px){.dimbar{grid-template-columns:1fr;gap:4px}}
+.dimbar .tr{height:8px;background:var(--ice);border-radius:4px;overflow:hidden}
+.dimbar .tr i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--navy));border-radius:4px}
+.dimbar b{text-align:right;color:var(--navy)}
+.reco{background:var(--ice);border-radius:12px;padding:18px;margin-top:16px}
+.reco h4{color:var(--navy);font-family:'Fraunces';font-size:16px;margin-bottom:8px}
+.axes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
+@media(max-width:640px){.axes{grid-template-columns:1fr}}
+.axis-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--cream)}
+.axis-card h5{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.axis-card .v{font-family:'Fraunces';font-size:30px;color:var(--navy)}
+.modo-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:640px){.modo-strip{grid-template-columns:1fr}}
+.modo-strip .m{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--white);font-size:12.5px}
+.modo-strip .m.on{border-color:var(--gold);background:#fbf9f2;box-shadow:0 0 0 2px var(--gold)}
+.modo-strip .m b{display:block;font-family:'Fraunces';font-size:15px;color:var(--navy);margin-bottom:4px}
+
+/* ---------- overview ---------- */
+.arch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:900px){.arch{grid-template-columns:1fr}}
+.arch .p{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;border-top:4px solid var(--navy)}
+.arch .p.mid{border-top-color:var(--gold)}
+.arch .p .role{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.arch .p h3{font-size:22px;color:var(--navy);margin:4px 0 2px}
+.arch .p .full{font-size:12.5px;color:var(--gray);margin-bottom:10px}
+.layers{display:grid;gap:10px;max-width:560px;margin:16px 0}
+.layers .l{background:var(--white);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:14px 18px}
+.layers .l b{font-family:'Fraunces';color:var(--navy);font-size:15px}
+.layers .l span{display:block;font-size:12.5px;color:var(--gray)}
+.howto{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:900px){.howto{grid-template-columns:1fr 1fr}}
+.howto .b{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px}
+.howto .b .id{font-family:'Fraunces';color:var(--gold);font-size:20px}
+.howto .b b{display:block;font-size:13px;color:var(--navy)}
+.howto .b span{font-size:11.5px;color:var(--gray)}
+
+/* glossário */
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:800px){.gloss{grid-template-columns:1fr}}
+.gloss .g{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px}
+.gloss .g b{font-family:'Fraunces';color:var(--navy);font-size:15px}
+.gloss .g p{font-size:13px;color:var(--gray);margin-top:2px}
+
+footer{background:var(--navy);color:#b9c3d0;padding:26px 0;font-size:12px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h3.sect{color:var(--navy);font-size:19px;margin:26px 0 12px}
+h3.sect:first-child{margin-top:0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">OBLIANT <b>DIGITAL</b></div>
+    <h1>Metodologia Governança,<br>Projetos e Mudança</h1>
+    <p class="sub">Ativo interno · orienta os times comercial e de consultoria sobre o que ofertar em cada disciplina e como posicionar o cliente na régua de maturidade.</p>
+    <div class="chip-row">
+      <span class="chip"><em>EPP</em> · Entrega</span>
+      <span class="chip"><em>GMO</em> · Adoção</span>
+      <span class="chip"><em>PM&amp;GO</em> · Integração</span>
+      <span class="chip">Framework + Roadmap + Diagnóstico</span>
+      <span class="chip">Régua única · 5 níveis</span>
+    </div>
+    <nav class="top">
+      <button class="on" data-tab="visao">Visão geral</button><button class="" data-tab="epp">EPP</button><button class="" data-tab="gmo">GMO</button><button class="" data-tab="pmgo">PM&GO</button><button class="" data-tab="assessment">Assessment</button><button class="" data-tab="glossario">Glossário</button>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <section class="tab on" data-tab="visao">
+  <div class="kicker">Arquitetura da metodologia</div>
+  <h2 class="serif" style="color:var(--navy);font-size:28px">Três produtos, uma metodologia, uma régua</h2>
+  <p class="lead">Material interno para os times comercial e de consultoria: o que ofertar em cada disciplina e como identificar em que nível o cliente está. Cada produto se descreve em três camadas empilhadas — <b>Framework + Roadmap + Diagnóstico</b> — e todos correm na mesma régua de maturidade.</p>
+
+  <div class="arch">
+    
+    <div class="p">
+      <div class="role">Entrega</div>
+      <h3>EPP</h3>
+      <div class="full">Escritório de Projetos e Processos</div>
+      <p style="font-size:13px">Estrutura, controla e entrega: método, portfólio, processos e indicadores.</p>
+      <p class="note">O EPP é o produto; quem o opera é um PMO (time/estrutura).</p>
+    </div>
+    <div class="p mid">
+      <div class="role">Integração</div>
+      <h3>PM&amp;GO</h3>
+      <div class="full">Governança Integrada de Projetos e Mudança</div>
+      <p style="font-size:13px">Governa um projeto combinando EPP (entrega) + GMO (adoção).</p>
+      <p class="note">Eixo exclusivo: modo de atuação da Obliant — Suporte → Controle → Diretivo.</p>
+    </div>
+    <div class="p">
+      <div class="role">Adoção</div>
+      <h3>GMO</h3>
+      <div class="full">Gestão da Mudança Organizacional</div>
+      <p style="font-size:13px">Trata o lado humano da transformação — adoção e sustentação.</p>
+      <p class="note">Pilares proprietários Obliant. Referências de mercado (ADKAR, Kotter, ACMP, SAP/Oracle OCM) apenas como base conceitual.</p>
+    </div>
+  </div>
+
+  <h3 class="sect">As três camadas de cada produto</h3>
+  <p class="lead" style="margin-top:-6px">Não é "framework = roadmap = diagnóstico". São <b>três camadas distintas</b> que se empilham e juntas formam o documento completo.</p>
+  <div class="layers">
+    <div class="l"><b>1 · Framework</b><span>Objetivo, escopo, pilares e entregáveis</span></div>
+    <div class="l"><b>2 · Roadmap</b><span>Iniciativas organizadas por nível de maturidade — jornada de evolução, não lista de serviços</span></div>
+    <div class="l"><b>3 · Diagnóstico (Assessment)</b><span>Posiciona o cliente na régua e devolve o roadmap recomendado</span></div>
+  </div>
+
+  <h3 class="sect">Régua de maturidade única</h3>
+  <p class="lead" style="margin-top:-6px">As três frentes usam a mesma escala — é isso que transforma três roadmaps soltos em uma metodologia: com escala compartilhada dá para posicionar o cliente e comparar as frentes entre si.</p>
+  
+  <div class="mat">
+    
+    <div class="step">
+      <div class="bar"><i style="width:20%"></i></div>
+      <h4>1 · Inicial</h4>
+      <div class="rs">Práticas ad hoc, dependentes de pessoas</div>
+      <p>Iniciativas conduzidas caso a caso, sem método comum. Resultados dependem de esforço individual; pouca visibilidade e previsibilidade.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:40%"></i></div>
+      <h4>2 · Emergente</h4>
+      <div class="rs">Primeiras práticas definidas, aplicação irregular</div>
+      <p>Métodos e papéis básicos existem, mas a aplicação é inconsistente entre áreas e projetos. Padrões começam a se formar.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:60%"></i></div>
+      <h4>3 · Estruturado</h4>
+      <div class="rs">Método padronizado e adotado</div>
+      <p>Método único, papéis claros e ritos de governança operando. A organização executa de forma consistente e comparável.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:80%"></i></div>
+      <h4>4 · Integrado</h4>
+      <div class="rs">Gestão integrada e orientada a dados</div>
+      <p>Disciplinas conectadas entre si e ao planejamento da organização. Decisões apoiadas por indicadores; capacidade e portfólio geridos em conjunto.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:100%"></i></div>
+      <h4>5 · Excelência</h4>
+      <div class="rs">Melhoria contínua e valor estratégico</div>
+      <p>A disciplina é vantagem competitiva: melhoria contínua institucionalizada, análise preditiva e referência externa (benchmark).</p>
+    </div>
+  </div>
+
+  <h3 class="sect">Como ler cada produto — 5 blocos padrão</h3>
+  <div class="howto">
+    <div class="b"><div class="id">A</div><b>Framework</b><span>Objetivo, escopo, pilares e entregáveis do produto</span></div><div class="b"><div class="id">B</div><b>Roadmap</b><span>Iniciativas organizadas por nível de maturidade — uma jornada, não uma lista de serviços</span></div><div class="b"><div class="id">C</div><b>Maturidade</b><span>A régua única de 5 níveis aplicada à frente</span></div><div class="b"><div class="id">D</div><b>Assessment</b><span>Diagnóstico que posiciona o cliente na régua e devolve o roadmap recomendado</span></div><div class="b"><div class="id">E</div><b>RACI</b><span>Papéis e responsabilidades entre Obliant, cliente e estruturas de governança</span></div>
+  </div>
+
+  <h3 class="sect">Eixo exclusivo do PM&amp;GO — modo de atuação</h3>
+  <p class="lead" style="margin-top:-6px">Além da maturidade, o PM&amp;GO define a <b>intensidade</b> com que a Obliant atua — de leve a mão na massa — em função da maturidade <b>e</b> da criticidade do momento.</p>
+  <div class="grid c3">
+    
+    <div class="card"><div class="kicker">Modo 1</div><h3>Suporte</h3><p>Atuação leve: aconselhamento, métodos e templates. O cliente conduz; a Obliant orienta.</p><p class="note">Maturidade razoável e criticidade baixa a média.</p></div>
+    <div class="card"><div class="kicker">Modo 2</div><h3>Controle</h3><p>Atuação estruturante: a Obliant opera a governança, ritos e indicadores lado a lado com o cliente.</p><p class="note">Maturidade em construção ou criticidade relevante.</p></div>
+    <div class="card"><div class="kicker">Modo 3</div><h3>Diretivo</h3><p>Atuação mão na massa: a Obliant assume a condução da entrega e da adoção até a estabilização.</p><p class="note">Baixa maturidade e alta criticidade — momentos decisivos.</p></div>
+  </div></section><section class="tab" data-tab="epp">
+  <div class="prod-head">
+    <h2>EPP</h2>
+    <span class="badge">Entrega</span>
+    <span style="color:var(--gray);font-size:14px">Escritório de Projetos e Processos</span>
+  </div>
+  <p class="lead">Estrutura, controla e entrega: método, portfólio, processos e indicadores. <i style="color:var(--gold)">O EPP é o produto; quem o opera é um PMO (time/estrutura).</i></p>
+  <nav class="sub" data-prod="epp">
+    <button class="on" data-sub="framework">Framework</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
+  </nav>
+  <div class="subpane on" data-pane="epp-framework">
+  <div class="kicker">Framework — bloco A</div>
+  <div class="grid c2" style="margin-bottom:14px">
+    <div class="card">
+      <h3>Objetivo</h3>
+      <p style="font-size:14px;color:var(--ink)">Dar à organização capacidade estável de priorizar, executar e medir projetos e processos — operado por um PMO.</p>
+      <div class="pillars">
+        <div class="pill"><span>1</span>Método</div><div class="pill"><span>2</span>Portfólio</div><div class="pill"><span>3</span>Processos</div><div class="pill"><span>4</span>Indicadores</div>
+      </div>
+      
+    </div>
+    <div class="card">
+      <h3>Entregáveis</h3>
+      <ul class="clean"><li>Portfólio priorizado de iniciativas</li><li>Metodologia de gestão de projetos (ciclo de vida + templates)</li><li>Mapa e redesenho de processos críticos</li><li>Modelo de governança (ritos, alçadas e comitês)</li><li>Painel de indicadores de entrega</li><li>Modelo de gestão de riscos e mudanças</li></ul>
+    </div>
+  </div>
+  <h3 class="sect">8 dimensões do framework</h3>
+  <div class="grid c4">
+    
+    <div class="card"><div class="num">01</div><h4>Estratégia &amp; Portfólio</h4><p>Seleção e priorização de iniciativas conectadas à estratégia</p></div>
+    <div class="card"><div class="num">02</div><h4>Metodologia &amp; Métodos</h4><p>Ciclo de vida, práticas e templates de gestão de projetos</p></div>
+    <div class="card"><div class="num">03</div><h4>Processos &amp; Fluxos</h4><p>Mapeamento, redesenho e padronização de processos de negócio</p></div>
+    <div class="card"><div class="num">04</div><h4>Governança &amp; Papéis</h4><p>Ritos, alçadas, comitês e papéis de decisão</p></div>
+    <div class="card"><div class="num">05</div><h4>Indicadores &amp; Desempenho</h4><p>KPIs de entrega, painéis e rotina de gestão à vista</p></div>
+    <div class="card"><div class="num">06</div><h4>Ferramentas &amp; Tecnologia</h4><p>Plataformas de gestão, automação e integração de dados</p></div>
+    <div class="card"><div class="num">07</div><h4>Pessoas &amp; Competências</h4><p>Capacidades do time de projetos e trilhas de desenvolvimento</p></div>
+    <div class="card"><div class="num">08</div><h4>Riscos &amp; Qualidade</h4><p>Gestão de riscos, mudanças de escopo e garantia de qualidade</p></div>
+  </div>
+  </div><div class="subpane" data-pane="epp-roadmap">
+  <div class="kicker">Roadmap — bloco B</div>
+  <p class="lead">Iniciativas organizadas por nível de maturidade: uma jornada de evolução, não uma lista de serviços. O assessment indica em qual coluna o cliente está — e a coluna seguinte é o plano recomendado.</p>
+  <div class="road">
+    
+      <div class="col">
+        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <ul><li>Inventário de projetos e processos existentes</li><li>Definição de patrocínio e papéis mínimos de gestão</li><li>Padrão único de status report para iniciativas prioritárias</li><li>Quick wins de padronização (templates essenciais)</li><li>Canvas de escopo para os projetos críticos</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <ul><li>Metodologia básica de projetos (ciclo de vida em fases)</li><li>Kit de templates: TAP, cronograma, matriz de riscos, status report</li><li>Ritos de acompanhamento (reunião de status e comitê mensal)</li><li>Mapeamento dos processos críticos (AS-IS)</li><li>Indicadores essenciais de prazo e custo por projeto</li></ul>
+      </div>
+      <div class="col hot">
+        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <ul><li>Gestão de portfólio com critérios de priorização</li><li>Formalização do PMO (mandato, time e cadência)</li><li>Gestão estruturada de riscos e mudanças de escopo</li><li>Redesenho dos processos críticos (TO-BE) com donos definidos</li><li>Painel executivo de indicadores de entrega</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <ul><li>Integração portfólio ↔ orçamento e planejamento anual</li><li>Gestão de capacidade e alocação de recursos</li><li>Automação de fluxos de trabalho e coleta de indicadores</li><li>Gestão de benefícios: metas de valor por iniciativa</li><li>Auditorias periódicas de qualidade de método</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <ul><li>Gestão por valor: portfólio dirigido por benefícios realizados</li><li>Analytics preditivo de prazo, custo e risco</li><li>Melhoria contínua institucionalizada do método</li><li>Inovação de práticas (ágil, híbrido, IA aplicada à gestão)</li><li>Benchmark externo e certificação de excelência</li></ul>
+      </div>
+  </div></div><div class="subpane" data-pane="epp-maturidade">
+  <div class="kicker">Maturidade — bloco C</div>
+  <p class="lead">A régua única de 5 níveis, compartilhada pelas três frentes. Posicione o cliente aqui e leia o roadmap a partir do nível seguinte.</p>
+  
+  <div class="mat">
+    
+    <div class="step">
+      <div class="bar"><i style="width:20%"></i></div>
+      <h4>1 · Inicial</h4>
+      <div class="rs">Práticas ad hoc, dependentes de pessoas</div>
+      <p>Iniciativas conduzidas caso a caso, sem método comum. Resultados dependem de esforço individual; pouca visibilidade e previsibilidade.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:40%"></i></div>
+      <h4>2 · Emergente</h4>
+      <div class="rs">Primeiras práticas definidas, aplicação irregular</div>
+      <p>Métodos e papéis básicos existem, mas a aplicação é inconsistente entre áreas e projetos. Padrões começam a se formar.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:60%"></i></div>
+      <h4>3 · Estruturado</h4>
+      <div class="rs">Método padronizado e adotado</div>
+      <p>Método único, papéis claros e ritos de governança operando. A organização executa de forma consistente e comparável.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:80%"></i></div>
+      <h4>4 · Integrado</h4>
+      <div class="rs">Gestão integrada e orientada a dados</div>
+      <p>Disciplinas conectadas entre si e ao planejamento da organização. Decisões apoiadas por indicadores; capacidade e portfólio geridos em conjunto.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:100%"></i></div>
+      <h4>5 · Excelência</h4>
+      <div class="rs">Melhoria contínua e valor estratégico</div>
+      <p>A disciplina é vantagem competitiva: melhoria contínua institucionalizada, análise preditiva e referência externa (benchmark).</p>
+    </div>
+  </div></div><div class="subpane" data-pane="epp-assessment">
+    <div class="kicker">Assessment — bloco D</div>
+    <p class="lead">Avalie cada dimensão de 1 (inexistente/ad hoc) a 5 (excelência). O resultado posiciona o cliente na régua e recomenda as iniciativas do próximo nível.</p>
+    <div class="grid c3">
+      <div class="card"><div class="num">01</div><h4>Metodologia</h4><p>Existe um método único de gestão de projetos, com ciclo de vida e templates, aplicado de forma consistente?</p></div><div class="card"><div class="num">02</div><h4>Portfólio</h4><p>As iniciativas são priorizadas com critérios claros e conectadas à estratégia?</p></div><div class="card"><div class="num">03</div><h4>Processos</h4><p>Os processos críticos estão mapeados, padronizados e têm donos definidos?</p></div><div class="card"><div class="num">04</div><h4>Governança &amp; Papéis</h4><p>Ritos, comitês e alçadas de decisão funcionam com cadência e consequência?</p></div><div class="card"><div class="num">05</div><h4>Indicadores</h4><p>A entrega é medida por indicadores confiáveis, usados de fato na tomada de decisão?</p></div><div class="card"><div class="num">06</div><h4>Ferramentas</h4><p>As plataformas de gestão sustentam o método e dão visibilidade integrada do portfólio?</p></div>
+    </div>
+    <div class="ass-actions"><button class="btn" onclick="goAssessment('epp')">Preencher o assessment interativo →</button></div></div><div class="subpane" data-pane="epp-raci">
+  <div class="kicker">RACI — bloco E</div>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th style="min-width:240px">Atividade</th><th style="text-align:center">Obliant</th><th style="text-align:center">PMO (cliente)</th><th style="text-align:center">Sponsor</th><th style="text-align:center">Gestores de área</th><th style="text-align:center">Equipes de projeto</th></tr></thead>
+    <tbody>
+    
+      <tr><td>Desenho do método e do modelo de governança</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Priorização do portfólio</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Condução dos ritos de acompanhamento</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Mapeamento e redesenho de processos</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Gestão de riscos e mudanças de escopo</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td></tr>
+      <tr><td>Painel de indicadores e gestão à vista</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Evolução contínua do método</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span><b>R</b> Responsável</span><span><b>A</b> Aprovador</span><span><b>C</b> Consultado</span><span><b>I</b> Informado</span></div></div></section><section class="tab" data-tab="gmo">
+  <div class="prod-head">
+    <h2>GMO</h2>
+    <span class="badge">Adoção</span>
+    <span style="color:var(--gray);font-size:14px">Gestão da Mudança Organizacional</span>
+  </div>
+  <p class="lead">Trata o lado humano da transformação — adoção e sustentação. <i style="color:var(--gold)">Pilares proprietários Obliant. Referências de mercado (ADKAR, Kotter, ACMP, SAP/Oracle OCM) apenas como base conceitual.</i></p>
+  <nav class="sub" data-prod="gmo">
+    <button class="on" data-sub="framework">Framework</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
+  </nav>
+  <div class="subpane on" data-pane="gmo-framework">
+  <div class="kicker">Framework — bloco A</div>
+  <div class="grid c2" style="margin-bottom:14px">
+    <div class="card">
+      <h3>Objetivo</h3>
+      <p style="font-size:14px;color:var(--ink)">Garantir que as pessoas adotem e sustentem a transformação — reduzindo resistência e acelerando o retorno das iniciativas.</p>
+      <div class="pillars">
+        <div class="pill"><span>1</span>Diagnosticar</div><div class="pill"><span>2</span>Preparar</div><div class="pill"><span>3</span>Engajar</div><div class="pill"><span>4</span>Capacitar</div><div class="pill"><span>5</span>Sustentar</div>
+      </div>
+      <p class="note">Base conceitual: ADKAR, Kotter, ACMP, SAP/Oracle OCM.</p>
+    </div>
+    <div class="card">
+      <h3>Entregáveis</h3>
+      <ul class="clean"><li>Change Readiness Assessment (prontidão para mudança)</li><li>Impact Assessment (avaliação de impactos organizacionais)</li><li>Estratégia de stakeholders &amp; plano de comunicação</li><li>Plano de capacitação e treinamento por perfil</li><li>Plano de gestão de resistências</li><li>Painel de métricas de adoção</li><li>Plano de sustentação e reforço</li></ul>
+    </div>
+  </div>
+  <h3 class="sect">8 dimensões do framework</h3>
+  <div class="grid c4">
+    
+    <div class="card"><div class="num">01</div><h4>Patrocínio &amp; Liderança</h4><p>Sponsors ativos e coalizão de líderes visíveis na mudança</p></div>
+    <div class="card"><div class="num">02</div><h4>Prontidão para Mudança</h4><p>Change readiness: histórico, cultura e disposição da organização</p></div>
+    <div class="card"><div class="num">03</div><h4>Impactos Organizacionais</h4><p>Impact assessment: o que muda para quem, em processo, sistema e papel</p></div>
+    <div class="card"><div class="num">04</div><h4>Stakeholders &amp; Comunicação</h4><p>Mapeamento de públicos e estratégia de comunicação segmentada</p></div>
+    <div class="card"><div class="num">05</div><h4>Capacitação &amp; Treinamento</h4><p>Trilhas de treinamento por perfil e avaliação de aprendizagem</p></div>
+    <div class="card"><div class="num">06</div><h4>Gestão de Resistências</h4><p>Identificação, escuta e tratamento ativo de resistências</p></div>
+    <div class="card"><div class="num">07</div><h4>Métricas de Adoção</h4><p>Indicadores de uso, adesão e comportamento pós-implantação</p></div>
+    <div class="card"><div class="num">08</div><h4>Sustentação &amp; Reforço</h4><p>Mecanismos de reforço para a mudança não regredir</p></div>
+  </div>
+  </div><div class="subpane" data-pane="gmo-roadmap">
+  <div class="kicker">Roadmap — bloco B</div>
+  <p class="lead">Iniciativas organizadas por nível de maturidade: uma jornada de evolução, não uma lista de serviços. O assessment indica em qual coluna o cliente está — e a coluna seguinte é o plano recomendado.</p>
+  <div class="road">
+    
+      <div class="col">
+        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <ul><li>Mapeamento inicial de stakeholders e públicos impactados</li><li>Avaliação de prontidão para mudança (change readiness)</li><li>Alinhamento e ativação do patrocínio executivo</li><li>Comunicação de partida (kick-off) da transformação</li><li>Levantamento do histórico de mudanças da organização</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <ul><li>Plano de comunicação estruturado por público e canal</li><li>Avaliação de impactos organizacionais (impact assessment)</li><li>Formação da rede de agentes de mudança</li><li>Plano de engajamento de lideranças intermediárias</li><li>Canais de escuta e FAQ vivos da transformação</li></ul>
+      </div>
+      <div class="col hot">
+        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <ul><li>Estratégia integrada de stakeholders com plano por segmento</li><li>Trilhas de capacitação por perfil e papel</li><li>Gestão ativa de resistências (identificação e tratamento)</li><li>Rituais de reforço com lideranças e times</li><li>Pesquisa de pulso periódica de engajamento</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <ul><li>Métricas de adoção e uso integradas aos projetos (gates de adoção)</li><li>Programa de champions e multiplicadores</li><li>Painel de sustentação pós-implantação</li><li>Ciclo de feedback estruturado com ajustes de rota</li><li>Integração da GMO ao ciclo de vida de todo projeto</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <ul><li>Cultura de mudança contínua institucionalizada</li><li>Capacidade interna de OCM formada e autônoma</li><li>Análise preditiva de adoção e risco de regressão</li><li>Comunidade de prática de gestão da mudança</li><li>Melhoria contínua do método com benchmark externo</li></ul>
+      </div>
+  </div></div><div class="subpane" data-pane="gmo-maturidade">
+  <div class="kicker">Maturidade — bloco C</div>
+  <p class="lead">A régua única de 5 níveis, compartilhada pelas três frentes. Posicione o cliente aqui e leia o roadmap a partir do nível seguinte.</p>
+  
+  <div class="mat">
+    
+    <div class="step">
+      <div class="bar"><i style="width:20%"></i></div>
+      <h4>1 · Inicial</h4>
+      <div class="rs">Práticas ad hoc, dependentes de pessoas</div>
+      <p>Iniciativas conduzidas caso a caso, sem método comum. Resultados dependem de esforço individual; pouca visibilidade e previsibilidade.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:40%"></i></div>
+      <h4>2 · Emergente</h4>
+      <div class="rs">Primeiras práticas definidas, aplicação irregular</div>
+      <p>Métodos e papéis básicos existem, mas a aplicação é inconsistente entre áreas e projetos. Padrões começam a se formar.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:60%"></i></div>
+      <h4>3 · Estruturado</h4>
+      <div class="rs">Método padronizado e adotado</div>
+      <p>Método único, papéis claros e ritos de governança operando. A organização executa de forma consistente e comparável.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:80%"></i></div>
+      <h4>4 · Integrado</h4>
+      <div class="rs">Gestão integrada e orientada a dados</div>
+      <p>Disciplinas conectadas entre si e ao planejamento da organização. Decisões apoiadas por indicadores; capacidade e portfólio geridos em conjunto.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:100%"></i></div>
+      <h4>5 · Excelência</h4>
+      <div class="rs">Melhoria contínua e valor estratégico</div>
+      <p>A disciplina é vantagem competitiva: melhoria contínua institucionalizada, análise preditiva e referência externa (benchmark).</p>
+    </div>
+  </div></div><div class="subpane" data-pane="gmo-assessment">
+    <div class="kicker">Assessment — bloco D</div>
+    <p class="lead">Avalie cada dimensão de 1 (inexistente/ad hoc) a 5 (excelência). O resultado posiciona o cliente na régua e recomenda as iniciativas do próximo nível.</p>
+    <div class="grid c3">
+      <div class="card"><div class="num">01</div><h4>Patrocínio</h4><p>Os sponsors são ativos e visíveis, dedicando tempo real à mudança?</p></div><div class="card"><div class="num">02</div><h4>Comunicação</h4><p>A comunicação é planejada por público, com canais definidos e mensagem consistente?</p></div><div class="card"><div class="num">03</div><h4>Impactos &amp; Prontidão</h4><p>Os impactos da mudança são avaliados formalmente e a prontidão da organização é conhecida?</p></div><div class="card"><div class="num">04</div><h4>Capacitação</h4><p>Existem trilhas de treinamento por perfil, com avaliação de aprendizagem?</p></div><div class="card"><div class="num">05</div><h4>Resistências</h4><p>As resistências são identificadas e tratadas de forma ativa e estruturada?</p></div><div class="card"><div class="num">06</div><h4>Adoção &amp; Sustentação</h4><p>A adoção é medida após a implantação e existem mecanismos de reforço?</p></div>
+    </div>
+    <div class="ass-actions"><button class="btn" onclick="goAssessment('gmo')">Preencher o assessment interativo →</button></div></div><div class="subpane" data-pane="gmo-raci">
+  <div class="kicker">RACI — bloco E</div>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th style="min-width:240px">Atividade</th><th style="text-align:center">Obliant</th><th style="text-align:center">Time GMO (cliente)</th><th style="text-align:center">Sponsor</th><th style="text-align:center">Líderes / Gestores</th><th style="text-align:center">Colaboradores</th></tr></thead>
+    <tbody>
+    
+      <tr><td>Change readiness e avaliação de impactos</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Estratégia de stakeholders e comunicação</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Execução do plano de comunicação</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Capacitação e treinamento</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td></tr>
+      <tr><td>Gestão de resistências</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Medição de adoção e sustentação</td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Ativação e coaching de sponsors</td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span><b>R</b> Responsável</span><span><b>A</b> Aprovador</span><span><b>C</b> Consultado</span><span><b>I</b> Informado</span></div></div></section><section class="tab" data-tab="pmgo">
+  <div class="prod-head">
+    <h2>PM&amp;GO</h2>
+    <span class="badge gold">Integração</span>
+    <span style="color:var(--gray);font-size:14px">Governança Integrada de Projetos e Mudança</span>
+  </div>
+  <p class="lead">Governa um projeto combinando EPP (entrega) + GMO (adoção). <i style="color:var(--gold)">Eixo exclusivo: modo de atuação da Obliant — Suporte → Controle → Diretivo.</i></p>
+  <nav class="sub" data-prod="pmgo">
+    <button class="on" data-sub="framework">Framework</button><button class="" data-sub="venn">Venn</button><button class="" data-sub="roadmap">Roadmap</button><button class="" data-sub="maturidade">Maturidade</button><button class="" data-sub="assessment">Assessment</button><button class="" data-sub="raci">RACI</button>
+  </nav>
+  <div class="subpane on" data-pane="pmgo-framework">
+  <div class="kicker">Framework — bloco A</div>
+  <div class="grid c2" style="margin-bottom:14px">
+    <div class="card">
+      <h3>Objetivo</h3>
+      <p style="font-size:14px;color:var(--ink)">Governar um projeto crítico de ponta a ponta, unindo a disciplina de entrega (EPP) e a disciplina de adoção (GMO) sob uma única governança.</p>
+      <div class="pillars">
+        <div class="pill"><span>1</span>Entrega</div><div class="pill"><span>2</span>Adoção</div><div class="pill"><span>3</span>Governança única</div><div class="pill"><span>4</span>Modo de atuação</div>
+      </div>
+      
+    </div>
+    <div class="card">
+      <h3>Entregáveis</h3>
+      <ul class="clean"><li>Modelo de governança integrada do projeto<span class="tag compartilhado">Compartilhado</span></li><li>Plano integrado de projeto (escopo, prazo, custo)<span class="tag pmo">PMO</span></li><li>Matriz integrada de riscos (entrega + adoção)<span class="tag compartilhado">Compartilhado</span></li><li>Impact assessment e plano de adoção<span class="tag gmo">GMO</span></li><li>Plano de comunicação e stakeholders do projeto<span class="tag gmo">GMO</span></li><li>Painel duplo: entrega × adoção<span class="tag compartilhado">Compartilhado</span></li><li>Controle de escopo, cronograma e custos<span class="tag pmo">PMO</span></li><li>Definição do modo de atuação (Suporte/Controle/Diretivo)<span class="tag compartilhado">Compartilhado</span></li></ul>
+    </div>
+  </div>
+  <h3 class="sect">8 dimensões do framework</h3>
+  <div class="grid c4">
+    
+    <div class="card"><div class="num">01</div><h4>Governança Integrada</h4><p>Um único modelo de decisão para entrega e adoção</p></div>
+    <div class="card"><div class="num">02</div><h4>Planejamento &amp; Entrega</h4><p>Escopo, prazo, custo e qualidade do projeto (lado EPP)</p></div>
+    <div class="card"><div class="num">03</div><h4>Adoção &amp; Pessoas</h4><p>Prontidão, engajamento e sustentação (lado GMO)</p></div>
+    <div class="card"><div class="num">04</div><h4>Patrocínio Executivo</h4><p>Sponsor único respondendo pelos dois eixos</p></div>
+    <div class="card"><div class="num">05</div><h4>Stakeholders &amp; Comunicação</h4><p>Gestão compartilhada de públicos e mensagens</p></div>
+    <div class="card"><div class="num">06</div><h4>Riscos Integrados</h4><p>Riscos de entrega e riscos de adoção na mesma matriz</p></div>
+    <div class="card"><div class="num">07</div><h4>Indicadores Duplos</h4><p>Painel único: % de entrega × % de adoção</p></div>
+    <div class="card"><div class="num">08</div><h4>Modo de Atuação</h4><p>Intensidade Obliant: Suporte, Controle ou Diretivo</p></div>
+  </div>
+  <p class="note" style="margin-top:14px">Cada entregável e atividade do PM&amp;GO é etiquetado — <span class="tag pmo">PMO</span> <span class="tag gmo">GMO</span> <span class="tag compartilhado">Compartilhado</span> — para o Venn ser operacional, não só conceitual.</p></div><div class="subpane" data-pane="pmgo-venn">
+  <div class="kicker">Venn — o que é de quem</div>
+  <p class="lead">O PM&amp;GO opera na intersecção: o que é só do PMO (entrega), o que é só do GMO (adoção) e o que é governado em conjunto. Cada entregável e atividade é etiquetado para o Venn ser operacional.</p>
+  <div class="vennfig">
+  <svg width="440" height="250" viewBox="0 0 440 250" role="img" aria-label="Diagrama de Venn PMO × GMO">
+    <circle cx="165" cy="125" r="105" fill="#4A5C72" fill-opacity="0.82"/>
+    <circle cx="275" cy="125" r="105" fill="#998D67" fill-opacity="0.82"/>
+    <text x="112" y="125" fill="#FFFDF6" font-family="Fraunces,serif" font-size="20" text-anchor="middle" font-weight="600">PMO</text>
+    <text x="112" y="146" fill="#FFFDF6" font-family="Inter,sans-serif" font-size="11" text-anchor="middle">entrega</text>
+    <text x="328" y="125" fill="#fff" font-family="Fraunces,serif" font-size="20" text-anchor="middle" font-weight="600">GMO</text>
+    <text x="328" y="146" fill="#fff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle">adoção</text>
+    <text x="220" y="118" fill="#fff" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" font-weight="700">COMPAR-</text>
+    <text x="220" y="132" fill="#fff" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" font-weight="700">TILHADO</text>
+  </svg></div>
+  <div class="venn-cols">
+    <div class="card"><h3>Só PMO <span class="tag pmo">entrega</span></h3><ul class="clean"><li>Escopo, prazo e custo</li><li>Cronograma e dependências</li><li>Gestão de riscos de entrega</li><li>Qualidade e aceite técnico</li><li>Gestão de fornecedores</li></ul></div>
+    <div class="card mid"><h3>Compartilhado <span class="tag compartilhado">governança</span></h3><ul class="clean"><li>Governança e ritos do projeto</li><li>Patrocínio executivo</li><li>Mapa de stakeholders</li><li>Painel entrega × adoção</li><li>Gestão integrada de riscos</li></ul></div>
+    <div class="card"><h3>Só GMO <span class="tag gmo">adoção</span></h3><ul class="clean"><li>Comunicação e engajamento</li><li>Impactos organizacionais</li><li>Capacitação e treinamento</li><li>Gestão de resistências</li><li>Métricas de adoção e sustentação</li></ul></div>
+  </div></div><div class="subpane" data-pane="pmgo-roadmap">
+  <div class="kicker">Roadmap — bloco B</div>
+  <p class="lead">Iniciativas organizadas por nível de maturidade: uma jornada de evolução, não uma lista de serviços. O assessment indica em qual coluna o cliente está — e a coluna seguinte é o plano recomendado.</p>
+  <div class="road">
+    
+      <div class="col">
+        <header><div class="lvl">NÍVEL 1</div><div class="nm">Inicial</div></header>
+        <ul><li>Diagnóstico rápido do projeto: entrega e adoção</li><li>Definição de sponsor único e mandato da governança</li><li>Mapa unificado de stakeholders do projeto</li><li>Ritos mínimos de governança integrada</li><li>Definição inicial do modo de atuação da Obliant</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 2</div><div class="nm">Emergente</div></header>
+        <ul><li>Plano integrado de projeto (entrega + adoção)</li><li>Matriz de riscos unificada (entrega e adoção)</li><li>Plano de comunicação do projeto por público</li><li>Cadência de comitês com pauta dupla (entrega × adoção)</li><li>Etiquetagem das atividades: PMO, GMO ou compartilhado</li></ul>
+      </div>
+      <div class="col hot">
+        <header><div class="lvl">NÍVEL 3</div><div class="nm">Estruturado</div></header>
+        <ul><li>Painel duplo operante: % entrega × % adoção</li><li>Gates de fase condicionados a critérios de adoção</li><li>Gestão ativa de resistências dentro do projeto</li><li>Trilhas de capacitação sincronizadas ao cronograma</li><li>Revisão periódica do modo de atuação</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 4</div><div class="nm">Integrado</div></header>
+        <ul><li>Integração do projeto ao portfólio e ao orçamento</li><li>Métricas de benefício: valor entregue × valor adotado</li><li>Programa de champions dentro do projeto</li><li>Auditoria integrada de qualidade (método + adoção)</li><li>Playbook de transição para operação</li></ul>
+      </div>
+      <div class="col">
+        <header><div class="lvl">NÍVEL 5</div><div class="nm">Excelência</div></header>
+        <ul><li>Governança integrada como padrão de todo projeto crítico</li><li>Analytics preditivo de entrega e de adoção</li><li>Transferência de capacidade: cliente autônomo no modelo</li><li>Melhoria contínua do playbook integrado</li><li>Benchmark externo de governança de projetos</li></ul>
+      </div>
+  </div></div><div class="subpane" data-pane="pmgo-maturidade">
+  <div class="kicker">Maturidade — bloco C</div>
+  <p class="lead">A régua única de 5 níveis, compartilhada pelas três frentes. Posicione o cliente aqui e leia o roadmap a partir do nível seguinte.</p>
+  
+  <div class="mat">
+    
+    <div class="step">
+      <div class="bar"><i style="width:20%"></i></div>
+      <h4>1 · Inicial</h4>
+      <div class="rs">Práticas ad hoc, dependentes de pessoas</div>
+      <p>Iniciativas conduzidas caso a caso, sem método comum. Resultados dependem de esforço individual; pouca visibilidade e previsibilidade.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:40%"></i></div>
+      <h4>2 · Emergente</h4>
+      <div class="rs">Primeiras práticas definidas, aplicação irregular</div>
+      <p>Métodos e papéis básicos existem, mas a aplicação é inconsistente entre áreas e projetos. Padrões começam a se formar.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:60%"></i></div>
+      <h4>3 · Estruturado</h4>
+      <div class="rs">Método padronizado e adotado</div>
+      <p>Método único, papéis claros e ritos de governança operando. A organização executa de forma consistente e comparável.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:80%"></i></div>
+      <h4>4 · Integrado</h4>
+      <div class="rs">Gestão integrada e orientada a dados</div>
+      <p>Disciplinas conectadas entre si e ao planejamento da organização. Decisões apoiadas por indicadores; capacidade e portfólio geridos em conjunto.</p>
+    </div>
+    <div class="step">
+      <div class="bar"><i style="width:100%"></i></div>
+      <h4>5 · Excelência</h4>
+      <div class="rs">Melhoria contínua e valor estratégico</div>
+      <p>A disciplina é vantagem competitiva: melhoria contínua institucionalizada, análise preditiva e referência externa (benchmark).</p>
+    </div>
+  </div></div><div class="subpane" data-pane="pmgo-assessment">
+  <div class="kicker">Assessment de fit — bloco D</div>
+  <p class="lead">Para o PM&amp;GO o assessment mede adequação (fit), não só maturidade: 6 perguntas em dois eixos — A (necessidade de entrega) e B (necessidade de adoção). O resultado recomenda o produto certo e o modo de atuação.</p>
+  <div class="grid c2">
+    <div class="card"><h3>Eixo A — necessidade de entrega</h3><ul class="clean">
+      <li><b>Complexidade de entrega.</b> O projeto tem alta complexidade de escopo, prazo ou orçamento (multiáreas, fornecedores, dependências)?</li><li><b>Histórico de entrega.</b> A organização tem histórico de atrasos, estouros de custo ou projetos abandonados?</li><li><b>Capacidade de gestão.</b> Falta hoje método, papéis ou governança para conduzir esse projeto internamente?</li></ul></div>
+    <div class="card"><h3>Eixo B — necessidade de adoção</h3><ul class="clean">
+      <li><b>Impacto nas pessoas.</b> A mudança altera de forma significativa rotinas, papéis ou a forma de trabalhar das pessoas?</li><li><b>Risco de resistência.</b> Há risco relevante de resistência, baixa adesão ou regressão ao modo antigo?</li><li><b>Dependência de adoção.</b> O retorno do projeto depende diretamente de as pessoas usarem/adotarem o novo modelo?</li></ul></div>
+  </div>
+  <div class="ass-actions"><button class="btn" onclick="goAssessment('pmgo')">Preencher o assessment interativo →</button></div></div><div class="subpane" data-pane="pmgo-raci">
+  <div class="kicker">RACI — bloco E</div>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th style="min-width:240px">Atividade</th><th style="text-align:center">Obliant</th><th style="text-align:center">PMO do projeto</th><th style="text-align:center">Time GMO</th><th style="text-align:center">Sponsor</th><th style="text-align:center">Líderes / Equipes</th></tr></thead>
+    <tbody>
+    
+      <tr><td>Governança integrada e ritos do projeto<span class="tag compartilhado">Compartilhado</span></td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Planejamento e controle de entrega<span class="tag pmo">PMO</span></td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Plano e execução da adoção<span class="tag gmo">GMO</span></td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="R">R</span></td></tr>
+      <tr><td>Matriz integrada de riscos<span class="tag compartilhado">Compartilhado</span></td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Comunicação e stakeholders<span class="tag gmo">GMO</span></td>
+      <td class="rc"><span class="C">C</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="C">C</span></td></tr>
+      <tr><td>Painel duplo entrega × adoção<span class="tag compartilhado">Compartilhado</span></td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="R">R</span></td><td class="rc"><span class="I">I</span></td><td class="rc"><span class="I">I</span></td></tr>
+      <tr><td>Definição e revisão do modo de atuação<span class="tag compartilhado">Compartilhado</span></td>
+      <td class="rc"><span class="R">R</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="C">C</span></td><td class="rc"><span class="A">A</span></td><td class="rc"><span class="I">I</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span><b>R</b> Responsável</span><span><b>A</b> Aprovador</span><span><b>C</b> Consultado</span><span><b>I</b> Informado</span></div></div></section><section class="tab" data-tab="assessment">
+  <div class="kicker">Diagnóstico interativo</div>
+  <h2 class="serif" style="color:var(--navy);font-size:28px">Assessment</h2>
+  <p class="lead">Para preencher <b>ao vivo com o cliente</b>: escolha a frente, responda às perguntas e receba na hora o diagnóstico de maturidade + o roadmap recomendado.</p>
+  <div class="ass-pick">
+    <button data-pick="epp" onclick="pickAssessment('epp')"><div class="t">EPP — maturidade</div><div class="d">6 dimensões de entrega · posiciona na régua e recomenda o próximo nível</div></button>
+    <button data-pick="gmo" onclick="pickAssessment('gmo')"><div class="t">GMO — maturidade</div><div class="d">6 dimensões de adoção · posiciona na régua e recomenda o próximo nível</div></button>
+    <button data-pick="pmgo" onclick="pickAssessment('pmgo')"><div class="t">PM&amp;GO — fit</div><div class="d">6 perguntas em 2 eixos · recomenda o produto certo e o modo de atuação</div></button>
+  </div>
+  
+    <form class="ass-form" data-form="epp" style="display:none" onsubmit="return false">
+      <p class="lead">Avalie cada dimensão de 1 (inexistente/ad hoc) a 5 (excelência). O resultado posiciona o cliente na régua e recomenda as iniciativas do próximo nível.</p>
+      
+      <div class="qcard">
+        <div class="qn">Dimensão 1 · Metodologia</div>
+        <div class="qt">Existe um método único de gestão de projetos, com ciclo de vida e templates, aplicado de forma consistente?</div>
+        <div class="scale"><label><input type="radio" name="epp-d0" value="1"><span>1</span></label><label><input type="radio" name="epp-d0" value="2"><span>2</span></label><label><input type="radio" name="epp-d0" value="3"><span>3</span></label><label><input type="radio" name="epp-d0" value="4"><span>4</span></label><label><input type="radio" name="epp-d0" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 2 · Portfólio</div>
+        <div class="qt">As iniciativas são priorizadas com critérios claros e conectadas à estratégia?</div>
+        <div class="scale"><label><input type="radio" name="epp-d1" value="1"><span>1</span></label><label><input type="radio" name="epp-d1" value="2"><span>2</span></label><label><input type="radio" name="epp-d1" value="3"><span>3</span></label><label><input type="radio" name="epp-d1" value="4"><span>4</span></label><label><input type="radio" name="epp-d1" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 3 · Processos</div>
+        <div class="qt">Os processos críticos estão mapeados, padronizados e têm donos definidos?</div>
+        <div class="scale"><label><input type="radio" name="epp-d2" value="1"><span>1</span></label><label><input type="radio" name="epp-d2" value="2"><span>2</span></label><label><input type="radio" name="epp-d2" value="3"><span>3</span></label><label><input type="radio" name="epp-d2" value="4"><span>4</span></label><label><input type="radio" name="epp-d2" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 4 · Governança &amp; Papéis</div>
+        <div class="qt">Ritos, comitês e alçadas de decisão funcionam com cadência e consequência?</div>
+        <div class="scale"><label><input type="radio" name="epp-d3" value="1"><span>1</span></label><label><input type="radio" name="epp-d3" value="2"><span>2</span></label><label><input type="radio" name="epp-d3" value="3"><span>3</span></label><label><input type="radio" name="epp-d3" value="4"><span>4</span></label><label><input type="radio" name="epp-d3" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 5 · Indicadores</div>
+        <div class="qt">A entrega é medida por indicadores confiáveis, usados de fato na tomada de decisão?</div>
+        <div class="scale"><label><input type="radio" name="epp-d4" value="1"><span>1</span></label><label><input type="radio" name="epp-d4" value="2"><span>2</span></label><label><input type="radio" name="epp-d4" value="3"><span>3</span></label><label><input type="radio" name="epp-d4" value="4"><span>4</span></label><label><input type="radio" name="epp-d4" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 6 · Ferramentas</div>
+        <div class="qt">As plataformas de gestão sustentam o método e dão visibilidade integrada do portfólio?</div>
+        <div class="scale"><label><input type="radio" name="epp-d5" value="1"><span>1</span></label><label><input type="radio" name="epp-d5" value="2"><span>2</span></label><label><input type="radio" name="epp-d5" value="3"><span>3</span></label><label><input type="radio" name="epp-d5" value="4"><span>4</span></label><label><input type="radio" name="epp-d5" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="ass-actions">
+        <button class="btn" onclick="calcMaturity('epp')">Gerar diagnóstico</button>
+        <button class="btn ghost" type="reset" onclick="resetForm('epp')">Limpar</button>
+        <span class="warn" data-warn="epp">Responda todas as dimensões antes de gerar o diagnóstico.</span>
+      </div>
+      <div class="result" data-result="epp"></div>
+    </form>
+    <form class="ass-form" data-form="gmo" style="display:none" onsubmit="return false">
+      <p class="lead">Avalie cada dimensão de 1 (inexistente/ad hoc) a 5 (excelência). O resultado posiciona o cliente na régua e recomenda as iniciativas do próximo nível.</p>
+      
+      <div class="qcard">
+        <div class="qn">Dimensão 1 · Patrocínio</div>
+        <div class="qt">Os sponsors são ativos e visíveis, dedicando tempo real à mudança?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d0" value="1"><span>1</span></label><label><input type="radio" name="gmo-d0" value="2"><span>2</span></label><label><input type="radio" name="gmo-d0" value="3"><span>3</span></label><label><input type="radio" name="gmo-d0" value="4"><span>4</span></label><label><input type="radio" name="gmo-d0" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 2 · Comunicação</div>
+        <div class="qt">A comunicação é planejada por público, com canais definidos e mensagem consistente?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d1" value="1"><span>1</span></label><label><input type="radio" name="gmo-d1" value="2"><span>2</span></label><label><input type="radio" name="gmo-d1" value="3"><span>3</span></label><label><input type="radio" name="gmo-d1" value="4"><span>4</span></label><label><input type="radio" name="gmo-d1" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 3 · Impactos &amp; Prontidão</div>
+        <div class="qt">Os impactos da mudança são avaliados formalmente e a prontidão da organização é conhecida?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d2" value="1"><span>1</span></label><label><input type="radio" name="gmo-d2" value="2"><span>2</span></label><label><input type="radio" name="gmo-d2" value="3"><span>3</span></label><label><input type="radio" name="gmo-d2" value="4"><span>4</span></label><label><input type="radio" name="gmo-d2" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 4 · Capacitação</div>
+        <div class="qt">Existem trilhas de treinamento por perfil, com avaliação de aprendizagem?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d3" value="1"><span>1</span></label><label><input type="radio" name="gmo-d3" value="2"><span>2</span></label><label><input type="radio" name="gmo-d3" value="3"><span>3</span></label><label><input type="radio" name="gmo-d3" value="4"><span>4</span></label><label><input type="radio" name="gmo-d3" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 5 · Resistências</div>
+        <div class="qt">As resistências são identificadas e tratadas de forma ativa e estruturada?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d4" value="1"><span>1</span></label><label><input type="radio" name="gmo-d4" value="2"><span>2</span></label><label><input type="radio" name="gmo-d4" value="3"><span>3</span></label><label><input type="radio" name="gmo-d4" value="4"><span>4</span></label><label><input type="radio" name="gmo-d4" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="qcard">
+        <div class="qn">Dimensão 6 · Adoção &amp; Sustentação</div>
+        <div class="qt">A adoção é medida após a implantação e existem mecanismos de reforço?</div>
+        <div class="scale"><label><input type="radio" name="gmo-d5" value="1"><span>1</span></label><label><input type="radio" name="gmo-d5" value="2"><span>2</span></label><label><input type="radio" name="gmo-d5" value="3"><span>3</span></label><label><input type="radio" name="gmo-d5" value="4"><span>4</span></label><label><input type="radio" name="gmo-d5" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+      </div>
+      <div class="ass-actions">
+        <button class="btn" onclick="calcMaturity('gmo')">Gerar diagnóstico</button>
+        <button class="btn ghost" type="reset" onclick="resetForm('gmo')">Limpar</button>
+        <span class="warn" data-warn="gmo">Responda todas as dimensões antes de gerar o diagnóstico.</span>
+      </div>
+      <div class="result" data-result="gmo"></div>
+    </form>
+  
+  <form class="ass-form" data-form="pmgo" style="display:none" onsubmit="return false">
+    <p class="lead">Para o PM&amp;GO o assessment mede adequação (fit), não só maturidade: 6 perguntas em dois eixos — A (necessidade de entrega) e B (necessidade de adoção). O resultado recomenda o produto certo e o modo de atuação.</p>
+    
+    <div class="qcard">
+      <div class="qn">Eixo A · Complexidade de entrega</div>
+      <div class="qt">O projeto tem alta complexidade de escopo, prazo ou orçamento (multiáreas, fornecedores, dependências)?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q0" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q0" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q0" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q0" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q0" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="qcard">
+      <div class="qn">Eixo A · Histórico de entrega</div>
+      <div class="qt">A organização tem histórico de atrasos, estouros de custo ou projetos abandonados?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q1" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q1" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q1" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q1" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q1" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="qcard">
+      <div class="qn">Eixo A · Capacidade de gestão</div>
+      <div class="qt">Falta hoje método, papéis ou governança para conduzir esse projeto internamente?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q2" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q2" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q2" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q2" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q2" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="qcard">
+      <div class="qn">Eixo B · Impacto nas pessoas</div>
+      <div class="qt">A mudança altera de forma significativa rotinas, papéis ou a forma de trabalhar das pessoas?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q3" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q3" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q3" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q3" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q3" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="qcard">
+      <div class="qn">Eixo B · Risco de resistência</div>
+      <div class="qt">Há risco relevante de resistência, baixa adesão ou regressão ao modo antigo?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q4" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q4" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q4" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q4" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q4" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="qcard">
+      <div class="qn">Eixo B · Dependência de adoção</div>
+      <div class="qt">O retorno do projeto depende diretamente de as pessoas usarem/adotarem o novo modelo?</div>
+      <div class="scale"><label><input type="radio" name="pmgo-q5" value="1"><span>1</span></label><label><input type="radio" name="pmgo-q5" value="2"><span>2</span></label><label><input type="radio" name="pmgo-q5" value="3"><span>3</span></label><label><input type="radio" name="pmgo-q5" value="4"><span>4</span></label><label><input type="radio" name="pmgo-q5" value="5"><span>5</span></label></div>
+  <div class="scale-hint"><span>1 · inexistente / discordo</span><span>5 · excelência / concordo totalmente</span></div>
+    </div>
+    <div class="ass-actions">
+      <button class="btn" onclick="calcFit()">Gerar recomendação</button>
+      <button class="btn ghost" type="reset" onclick="resetForm('pmgo')">Limpar</button>
+      <span class="warn" data-warn="pmgo">Responda todas as perguntas antes de gerar a recomendação.</span>
+    </div>
+    <div class="result" data-result="pmgo"></div>
+  </form></section><section class="tab" data-tab="glossario">
+  <div class="kicker">Termos e definições</div>
+  <h2 class="serif" style="color:var(--navy);font-size:28px">Glossário</h2>
+  <p class="lead">Vocabulário comum do material — o mesmo no deck e no site.</p>
+  <div class="gloss">
+    <div class="g"><b>EPP</b><p>Escritório de Projetos e Processos — o produto de entrega. Operado por um PMO.</p></div><div class="g"><b>PMO</b><p>Project Management Office: time/estrutura que opera o EPP e conduz projetos.</p></div><div class="g"><b>GMO</b><p>Gestão da Mudança Organizacional: trata o lado humano da transformação — adoção e sustentação.</p></div><div class="g"><b>PM&amp;GO</b><p>Governança integrada de um projeto, combinando EPP (entrega) + GMO (adoção).</p></div><div class="g"><b>Assessment</b><p>Diagnóstico que posiciona o cliente na régua de maturidade e gera o roadmap recomendado.</p></div><div class="g"><b>Maturidade</b><p>Régua de 5 níveis (Inicial → Excelência) comum aos três produtos.</p></div><div class="g"><b>RACI</b><p>Matriz de papéis: Responsável, Aprovador, Consultado, Informado.</p></div><div class="g"><b>OCM</b><p>Organizational Change Management; base conceitual do GMO (ADKAR, Kotter, ACMP).</p></div><div class="g"><b>Modo de atuação</b><p>Intensidade da atuação Obliant no PM&amp;GO: Suporte → Controle → Diretivo.</p></div><div class="g"><b>Framework</b><p>Primeira camada de cada produto: objetivo, escopo, pilares e entregáveis.</p></div><div class="g"><b>Roadmap</b><p>Segunda camada: iniciativas organizadas por nível de maturidade — jornada de evolução.</p></div><div class="g"><b>Fit</b><p>Adequação: o assessment do PM&amp;GO mede necessidade de entrega × necessidade de adoção.</p></div>
+  </div></section>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>OBLIANT DIGITAL · Metodologia Governança, Projetos e Mudança</span>
+    <span>Material interno · uso comercial e de consultoria</span>
+  </div>
+</footer>
+<script>
+const DATA = {"levels":[{"n":1,"nome":"Inicial","resumo":"Práticas ad hoc, dependentes de pessoas","desc":"Iniciativas conduzidas caso a caso, sem método comum. Resultados dependem de esforço individual; pouca visibilidade e previsibilidade."},{"n":2,"nome":"Emergente","resumo":"Primeiras práticas definidas, aplicação irregular","desc":"Métodos e papéis básicos existem, mas a aplicação é inconsistente entre áreas e projetos. Padrões começam a se formar."},{"n":3,"nome":"Estruturado","resumo":"Método padronizado e adotado","desc":"Método único, papéis claros e ritos de governança operando. A organização executa de forma consistente e comparável."},{"n":4,"nome":"Integrado","resumo":"Gestão integrada e orientada a dados","desc":"Disciplinas conectadas entre si e ao planejamento da organização. Decisões apoiadas por indicadores; capacidade e portfólio geridos em conjunto."},{"n":5,"nome":"Excelência","resumo":"Melhoria contínua e valor estratégico","desc":"A disciplina é vantagem competitiva: melhoria contínua institucionalizada, análise preditiva e referência externa (benchmark)."}],"thresholds":[{"max":1.8,"nivel":1},{"max":2.6,"nivel":2},{"max":3.4,"nivel":3},{"max":4.2,"nivel":4},{"max":5.01,"nivel":5}],"modos":[{"nome":"Suporte","desc":"Atuação leve: aconselhamento, métodos e templates. O cliente conduz; a Obliant orienta.","quando":"Maturidade razoável e criticidade baixa a média."},{"nome":"Controle","desc":"Atuação estruturante: a Obliant opera a governança, ritos e indicadores lado a lado com o cliente.","quando":"Maturidade em construção ou criticidade relevante."},{"nome":"Diretivo","desc":"Atuação mão na massa: a Obliant assume a condução da entrega e da adoção até a estabilização.","quando":"Baixa maturidade e alta criticidade — momentos decisivos."}],"prods":{"epp":{"sigla":"EPP","dims":["Metodologia","Portfólio","Processos","Governança & Papéis","Indicadores","Ferramentas"],"roadmap":[{"nivel":1,"iniciativas":["Inventário de projetos e processos existentes","Definição de patrocínio e papéis mínimos de gestão","Padrão único de status report para iniciativas prioritárias","Quick wins de padronização (templates essenciais)","Canvas de escopo para os projetos críticos"]},{"nivel":2,"iniciativas":["Metodologia básica de projetos (ciclo de vida em fases)","Kit de templates: TAP, cronograma, matriz de riscos, status report","Ritos de acompanhamento (reunião de status e comitê mensal)","Mapeamento dos processos críticos (AS-IS)","Indicadores essenciais de prazo e custo por projeto"]},{"nivel":3,"iniciativas":["Gestão de portfólio com critérios de priorização","Formalização do PMO (mandato, time e cadência)","Gestão estruturada de riscos e mudanças de escopo","Redesenho dos processos críticos (TO-BE) com donos definidos","Painel executivo de indicadores de entrega"]},{"nivel":4,"iniciativas":["Integração portfólio ↔ orçamento e planejamento anual","Gestão de capacidade e alocação de recursos","Automação de fluxos de trabalho e coleta de indicadores","Gestão de benefícios: metas de valor por iniciativa","Auditorias periódicas de qualidade de método"]},{"nivel":5,"iniciativas":["Gestão por valor: portfólio dirigido por benefícios realizados","Analytics preditivo de prazo, custo e risco","Melhoria contínua institucionalizada do método","Inovação de práticas (ágil, híbrido, IA aplicada à gestão)","Benchmark externo e certificação de excelência"]}]},"gmo":{"sigla":"GMO","dims":["Patrocínio","Comunicação","Impactos & Prontidão","Capacitação","Resistências","Adoção & Sustentação"],"roadmap":[{"nivel":1,"iniciativas":["Mapeamento inicial de stakeholders e públicos impactados","Avaliação de prontidão para mudança (change readiness)","Alinhamento e ativação do patrocínio executivo","Comunicação de partida (kick-off) da transformação","Levantamento do histórico de mudanças da organização"]},{"nivel":2,"iniciativas":["Plano de comunicação estruturado por público e canal","Avaliação de impactos organizacionais (impact assessment)","Formação da rede de agentes de mudança","Plano de engajamento de lideranças intermediárias","Canais de escuta e FAQ vivos da transformação"]},{"nivel":3,"iniciativas":["Estratégia integrada de stakeholders com plano por segmento","Trilhas de capacitação por perfil e papel","Gestão ativa de resistências (identificação e tratamento)","Rituais de reforço com lideranças e times","Pesquisa de pulso periódica de engajamento"]},{"nivel":4,"iniciativas":["Métricas de adoção e uso integradas aos projetos (gates de adoção)","Programa de champions e multiplicadores","Painel de sustentação pós-implantação","Ciclo de feedback estruturado com ajustes de rota","Integração da GMO ao ciclo de vida de todo projeto"]},{"nivel":5,"iniciativas":["Cultura de mudança contínua institucionalizada","Capacidade interna de OCM formada e autônoma","Análise preditiva de adoção e risco de regressão","Comunidade de prática de gestão da mudança","Melhoria contínua do método com benchmark externo"]}]},"pmgo":{"sigla":"PM&GO","perguntas":[{"eixo":"A","nome":"Complexidade de entrega"},{"eixo":"A","nome":"Histórico de entrega"},{"eixo":"A","nome":"Capacidade de gestão"},{"eixo":"B","nome":"Impacto nas pessoas"},{"eixo":"B","nome":"Risco de resistência"},{"eixo":"B","nome":"Dependência de adoção"}],"cortes":{"eixoAlto":3.4,"modoDiretivo":4,"modoControle":2.8},"roadmap":[{"nivel":1,"iniciativas":["Diagnóstico rápido do projeto: entrega e adoção","Definição de sponsor único e mandato da governança","Mapa unificado de stakeholders do projeto","Ritos mínimos de governança integrada","Definição inicial do modo de atuação da Obliant"]},{"nivel":2,"iniciativas":["Plano integrado de projeto (entrega + adoção)","Matriz de riscos unificada (entrega e adoção)","Plano de comunicação do projeto por público","Cadência de comitês com pauta dupla (entrega × adoção)","Etiquetagem das atividades: PMO, GMO ou compartilhado"]},{"nivel":3,"iniciativas":["Painel duplo operante: % entrega × % adoção","Gates de fase condicionados a critérios de adoção","Gestão ativa de resistências dentro do projeto","Trilhas de capacitação sincronizadas ao cronograma","Revisão periódica do modo de atuação"]},{"nivel":4,"iniciativas":["Integração do projeto ao portfólio e ao orçamento","Métricas de benefício: valor entregue × valor adotado","Programa de champions dentro do projeto","Auditoria integrada de qualidade (método + adoção)","Playbook de transição para operação"]},{"nivel":5,"iniciativas":["Governança integrada como padrão de todo projeto crítico","Analytics preditivo de entrega e de adoção","Transferência de capacidade: cliente autônomo no modelo","Melhoria contínua do playbook integrado","Benchmark externo de governança de projetos"]}]}}};
+
+// ------- abas de topo -------
+function showTab(id){
+  document.querySelectorAll('nav.top button').forEach(b=>b.classList.toggle('on', b.dataset.tab===id));
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.dataset.tab===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('nav.top button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+
+// ------- sub-abas -------
+document.querySelectorAll('nav.sub').forEach(nav=>{
+  const prod = nav.dataset.prod;
+  nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    nav.querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b));
+    document.querySelectorAll('[data-pane^="'+prod+'-"]').forEach(p=>
+      p.classList.toggle('on', p.dataset.pane===prod+'-'+b.dataset.sub));
+  }));
+});
+
+// ------- assessment -------
+function pickAssessment(prod){
+  document.querySelectorAll('.ass-pick button').forEach(b=>b.classList.toggle('on', b.dataset.pick===prod));
+  document.querySelectorAll('.ass-form').forEach(f=>f.style.display = f.dataset.form===prod?'block':'none');
+}
+function goAssessment(prod){ showTab('assessment'); pickAssessment(prod); }
+function resetForm(prod){
+  const r=document.querySelector('[data-result="'+prod+'"]'); r.classList.remove('on'); r.innerHTML='';
+  document.querySelector('[data-warn="'+prod+'"]').style.display='none';
+}
+function answers(prefix,n){
+  const vals=[];
+  for(let i=0;i<n;i++){
+    const el=document.querySelector('input[name="'+prefix+i+'"]:checked');
+    if(!el) return null;
+    vals.push(+el.value);
+  }
+  return vals;
+}
+function levelFor(avg){
+  for(const t of DATA.thresholds){ if(avg < t.max) return t.nivel; }
+  return 5;
+}
+function fmt(x){ return x.toFixed(1).replace('.',','); }
+
+function calcMaturity(prod){
+  const p=DATA.prods[prod];
+  const vals=answers(prod+'-d', p.dims.length);
+  const warn=document.querySelector('[data-warn="'+prod+'"]');
+  if(!vals){ warn.style.display='inline'; return; }
+  warn.style.display='none';
+  const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
+  const nivel=levelFor(avg);
+  const lvl=DATA.levels[nivel-1];
+  const next=Math.min(nivel+1,5);
+  const nextLvl=DATA.levels[next-1];
+  const inits=p.roadmap.find(r=>r.nivel===next).iniciativas;
+  const atTop = nivel===5;
+  const el=document.querySelector('[data-result="'+prod+'"]');
+  el.innerHTML =
+    '<div class="kicker">Diagnóstico '+p.sigla+'</div>'+
+    '<div class="big"><div class="score">'+fmt(avg)+'</div>'+
+    '<div><div class="lvl-name">Nível '+nivel+' · '+lvl.nome+'</div>'+
+    '<div style="color:var(--gray);font-size:13px;max-width:520px">'+lvl.desc+'</div></div></div>'+
+    '<h4 style="font-family:Fraunces;color:var(--navy);margin-bottom:6px">Detalhamento por dimensão</h4>'+
+    '<div class="dimbars">'+vals.map((v,i)=>
+      '<div class="dimbar"><span>'+p.dims[i]+'</span><div class="tr"><i style="width:'+(v*20)+'%"></i></div><b>'+v+'</b></div>'
+    ).join('')+'</div>'+
+    '<div class="reco"><h4>'+(atTop
+      ? 'Nível máximo — foco em sustentar a excelência'
+      : 'Roadmap recomendado — iniciativas do Nível '+next+' · '+nextLvl.nome)+'</h4>'+
+    '<ul class="clean">'+inits.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>';
+  el.classList.add('on');
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function calcFit(){
+  const p=DATA.prods.pmgo;
+  const vals=answers('pmgo-q', p.perguntas.length);
+  const warn=document.querySelector('[data-warn="pmgo"]');
+  if(!vals){ warn.style.display='inline'; return; }
+  warn.style.display='none';
+  const A=[],B=[];
+  vals.forEach((v,i)=>(p.perguntas[i].eixo==='A'?A:B).push(v));
+  const avgA=A.reduce((a,b)=>a+b,0)/A.length;
+  const avgB=B.reduce((a,b)=>a+b,0)/B.length;
+  const avgAll=vals.reduce((a,b)=>a+b,0)/vals.length;
+  const hiA=avgA>=p.cortes.eixoAlto, hiB=avgB>=p.cortes.eixoAlto;
+  let rec, desc;
+  if(hiA&&hiB){ rec='PM&GO'; desc='Necessidade alta nos dois eixos: governança integrada de entrega + adoção sob um único modelo.'; }
+  else if(hiA){ rec='EPP'; desc='Necessidade concentrada em entrega: estruturar método, portfólio, processos e indicadores — operado por um PMO.'; }
+  else if(hiB){ rec='GMO'; desc='Necessidade concentrada em adoção: tratar o lado humano da transformação — engajamento, capacitação e sustentação.'; }
+  else { rec='Suporte leve'; desc='Necessidade baixa nos dois eixos: aconselhamento pontual, métodos e templates, sem estrutura dedicada.'; }
+  const modo = avgAll>=p.cortes.modoDiretivo?2:(avgAll>=p.cortes.modoControle?1:0);
+  const el=document.querySelector('[data-result="pmgo"]');
+  el.innerHTML =
+    '<div class="kicker">Recomendação PM&GO — fit</div>'+
+    '<div class="big"><div class="score" style="font-size:38px">'+rec+'</div></div>'+
+    '<p style="font-size:14px;max-width:640px">'+desc+'</p>'+
+    '<div class="axes">'+
+      '<div class="axis-card"><h5>Eixo A · necessidade de entrega</h5><div class="v">'+fmt(avgA)+'</div>'+
+      '<div style="font-size:12px;color:var(--gray)">'+(hiA?'Alta':'Baixa/moderada')+' (corte: '+fmt(p.cortes.eixoAlto)+')</div></div>'+
+      '<div class="axis-card"><h5>Eixo B · necessidade de adoção</h5><div class="v">'+fmt(avgB)+'</div>'+
+      '<div style="font-size:12px;color:var(--gray)">'+(hiB?'Alta':'Baixa/moderada')+' (corte: '+fmt(p.cortes.eixoAlto)+')</div></div>'+
+    '</div>'+
+    '<h4 style="font-family:Fraunces;color:var(--navy);margin:14px 0 4px">Modo de atuação recomendado</h4>'+
+    '<div class="modo-strip">'+DATA.modos.map((m,i)=>
+      '<div class="m'+(i===modo?' on':'')+'"><b>'+m.nome+'</b>'+m.desc+'</div>').join('')+'</div>'+
+    (rec==='PM&GO'
+      ? '<div class="reco" style="margin-top:16px"><h4>Primeiros passos — Nível 1 do roadmap PM&GO</h4><ul class="clean">'+
+        p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>'
+      : '');
+  el.classList.add('on');
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
