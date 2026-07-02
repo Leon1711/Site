@@ -24,8 +24,11 @@ Para revisar o site: abrir `metodologia_obliant.html` no navegador.
 
 ## Assessment interativo
 
-- **EPP e GMO (maturidade):** 6 dimensões, escala 1–5 → nível médio na régua + detalhamento por dimensão + iniciativas do próximo nível (puxadas do roadmap).
-- **PM&GO (fit):** 6 perguntas em dois eixos — A (necessidade de entrega) e B (necessidade de adoção) → recomenda **EPP**, **GMO**, **PM&GO** ou **suporte leve**, e define o **modo de atuação** (Suporte / Controle / Diretivo).
+- **Formato wizard:** uma pergunta por vez, com auto-avanço, barra de progresso, voltar/refazer e modo demonstração (para o comercial apresentar).
+- **EPP e GMO (maturidade):** 6 dimensões, escala 1–5 → **gráfico radar animado**, régua (gauge) com o nível médio, detalhamento por dimensão + iniciativas do próximo nível (puxadas do roadmap).
+- **PM&GO (fit):** 6 perguntas em dois eixos → **quadrante A×B animado** que recomenda **EPP**, **GMO**, **PM&GO** ou **suporte leve**, e define o **modo de atuação** (Suporte / Controle / Diretivo).
+- **Ponte com o roadmap:** após o diagnóstico, as colunas do roadmap marcam "Você está aqui" e "Recomendado".
+- **Compartilhar e imprimir:** o resultado gera um link (`#d=epp:232323`) que reabre o diagnóstico em qualquer navegador, além de impressão/PDF. O último diagnóstico fica salvo no navegador (localStorage).
 - Notas de corte em `data.js` (`MATURITY_THRESHOLDS` e `PRODUCTS.pmgo.assessment.cortes`) — calibráveis em um único lugar.
 
 ## Publicação
