@@ -1215,7 +1215,7 @@ function renderFit(prod, el){
       ? '<div class="reco"><h4>Primeiros passos — Nível 1 do roadmap PM&GO</h4><ul class="clean">'+
         p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>' : '')+
     '<div class="res-actions">'+
-      (alvo ? '<button class="btn gold" onclick="showTab(\\''+alvo[0]+'\\')">'+(fit?'Conhecer o PM&GO':'Conhecer o '+alvo[1])+' →</button>' : '')+
+      (fit ? '<button class="btn gold" onclick="goRoadmap(\\'pmgo\\')">Ver roadmap PM&GO →</button>' : '')+
       (!fit && alvo ? '<button class="btn gold" onclick="goAssessment(\\''+alvo[0]+'\\')">Avaliar maturidade '+alvo[1]+' →</button>' : '')+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
