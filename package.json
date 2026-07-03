@@ -1,0 +1,17 @@
+{
+  "name": "obliant-metodologia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Obliant — Metodologia Governança, Projetos e Mudança (site + deck gerados por código)",
+  "scripts": {
+    "build": "node genhtml.js && node build2.js",
+    "build:site": "node genhtml.js",
+    "build:deck": "node build2.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}
