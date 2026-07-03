@@ -130,6 +130,20 @@ ul.clean li{padding:8px 0 8px 22px;position:relative;border-bottom:1px solid var
 ul.clean li:last-child{border-bottom:0}
 ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 
+/* ---------- método (fases) ---------- */
+.method{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:900px){.method{grid-template-columns:1fr}}
+.method .ph{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:14px;padding:16px;position:relative;transition:transform .25s,box-shadow .25s}
+.method .ph:hover{transform:translateY(-3px);box-shadow:0 12px 26px -16px rgba(46,57,71,.4)}
+.method .ph:not(:last-child)::after{content:'›';position:absolute;right:-13px;top:20px;z-index:2;font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
+@media(max-width:900px){.method .ph:not(:last-child)::after{content:'⌄';right:auto;left:50%;top:auto;bottom:-16px}}
+.method .ph .n{font-family:'Fraunces';font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.method .ph h4{font-family:'Fraunces';font-size:17px;color:var(--navy);margin:2px 0 2px;font-weight:600}
+.method .ph .foco{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.method .ph p{font-size:12px;color:var(--gray);margin-bottom:10px}
+.method .ph .ent{list-style:none;display:flex;flex-direction:column;gap:5px}
+.method .ph .ent li{font-size:11px;color:var(--navy);background:var(--ice);border-radius:6px;padding:4px 8px}
+
 /* ---------- roadmap ---------- */
 .road{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media(max-width:900px){.road{grid-template-columns:1fr}}
@@ -600,6 +614,7 @@ h3.sect:first-child{margin-top:0}
       <ul class="clean"><li>Portfólio priorizado de iniciativas</li><li>Metodologia de gestão de projetos (ciclo de vida + templates)</li><li>Mapa e redesenho de processos críticos</li><li>Modelo de governança (ritos, alçadas e comitês)</li><li>Painel de indicadores de entrega</li><li>Modelo de gestão de riscos e mudanças</li></ul>
     </div>
   </div>
+  
   <h3 class="sect">8 dimensões do framework</h3>
   <div class="grid c4">
     
@@ -744,13 +759,58 @@ h3.sect:first-child{margin-top:0}
       <div class="pillars">
         <div class="pill"><span>1</span>Diagnosticar</div><div class="pill"><span>2</span>Preparar</div><div class="pill"><span>3</span>Engajar</div><div class="pill"><span>4</span>Capacitar</div><div class="pill"><span>5</span>Sustentar</div>
       </div>
-      <p class="note">Base conceitual: ADKAR, Kotter, ACMP, SAP/Oracle OCM.</p>
+      
     </div>
     <div class="card">
       <h3>Entregáveis</h3>
       <ul class="clean"><li>Change Readiness Assessment (prontidão para mudança)</li><li>Impact Assessment (avaliação de impactos organizacionais)</li><li>Estratégia de stakeholders &amp; plano de comunicação</li><li>Plano de capacitação e treinamento por perfil</li><li>Plano de gestão de resistências</li><li>Painel de métricas de adoção</li><li>Plano de sustentação e reforço</li></ul>
     </div>
   </div>
+  
+  <div class="sect-head">
+    <div class="kicker">Metodologia</div>
+    <h3 class="serif">Método Obliant de gestão da mudança</h3>
+    <p>As cinco fases não são teoria: cada uma tem entregáveis e frentes de trabalho próprias, aplicadas ao longo do projeto.</p>
+  </div>
+  <div class="method">
+    
+    <div class="ph">
+      <div class="n">Fase 1</div>
+      <h4>Diagnosticar</h4>
+      <div class="foco">Entender o ponto de partida</div>
+      <p>Mapear stakeholders e impactos, avaliar a prontidão para mudança e o histórico da organização.</p>
+      <ul class="ent"><li>Change Readiness</li><li>Impact Assessment</li><li>Mapa de stakeholders</li></ul>
+    </div>
+    <div class="ph">
+      <div class="n">Fase 2</div>
+      <h4>Preparar</h4>
+      <div class="foco">Desenhar a estratégia</div>
+      <p>Definir a estratégia de mudança e o patrocínio; estruturar comunicação, capacitação e a rede de agentes.</p>
+      <ul class="ent"><li>Estratégia de mudança</li><li>Plano de comunicação</li><li>Rede de agentes</li></ul>
+    </div>
+    <div class="ph">
+      <div class="n">Fase 3</div>
+      <h4>Engajar</h4>
+      <div class="foco">Mobilizar as pessoas</div>
+      <p>Comunicar por público, ativar lideranças e agentes e tratar resistências de forma ativa.</p>
+      <ul class="ent"><li>Execução da comunicação</li><li>Ativação de sponsors</li><li>Gestão de resistências</li></ul>
+    </div>
+    <div class="ph">
+      <div class="n">Fase 4</div>
+      <h4>Capacitar</h4>
+      <div class="foco">Preparar para operar</div>
+      <p>Treinar por perfil e transferir conhecimento para as pessoas operarem o novo modelo com autonomia.</p>
+      <ul class="ent"><li>Trilhas por perfil</li><li>Treinamento</li><li>Avaliação de aprendizagem</li></ul>
+    </div>
+    <div class="ph">
+      <div class="n">Fase 5</div>
+      <h4>Sustentar</h4>
+      <div class="foco">Fixar a mudança</div>
+      <p>Medir a adoção, reforçar comportamentos, corrigir a rota e institucionalizar a mudança.</p>
+      <ul class="ent"><li>Métricas de adoção</li><li>Reforço e sustentação</li><li>Ajuste de rota</li></ul>
+    </div>
+  </div>
+  <p class="note" style="margin-top:12px">Método proprietário Obliant. ADKAR, Kotter, ACMP e SAP/Oracle OCM são base conceitual — não a metodologia.</p>
   <h3 class="sect">8 dimensões do framework</h3>
   <div class="grid c4">
     
@@ -902,6 +962,7 @@ h3.sect:first-child{margin-top:0}
       <ul class="clean"><li>Modelo de governança integrada do projeto<span class="tag compartilhado">Compartilhado</span></li><li>Plano integrado de projeto (escopo, prazo, custo)<span class="tag pmo">PMO</span></li><li>Matriz integrada de riscos (entrega + adoção)<span class="tag compartilhado">Compartilhado</span></li><li>Impact assessment e plano de adoção<span class="tag gmo">GMO</span></li><li>Plano de comunicação e stakeholders do projeto<span class="tag gmo">GMO</span></li><li>Painel duplo: entrega × adoção<span class="tag compartilhado">Compartilhado</span></li><li>Controle de escopo, cronograma e custos<span class="tag pmo">PMO</span></li><li>Definição do modo de atuação (Suporte/Controle/Diretivo)<span class="tag compartilhado">Compartilhado</span></li></ul>
     </div>
   </div>
+  
   <h3 class="sect">8 dimensões do framework</h3>
   <div class="grid c4">
     

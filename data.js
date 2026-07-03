@@ -191,7 +191,18 @@ const PRODUCTS = {
     nota: 'Pilares proprietários Obliant. Referências de mercado (ADKAR, Kotter, ACMP, SAP/Oracle OCM) apenas como base conceitual.',
     objetivo: 'Garantir que as pessoas adotem e sustentem a transformação — reduzindo resistência e acelerando o retorno das iniciativas.',
     pilares: ['Diagnosticar', 'Preparar', 'Engajar', 'Capacitar', 'Sustentar'],
-    pilaresNota: 'Base conceitual: ADKAR, Kotter, ACMP, SAP/Oracle OCM.',
+    pilaresNota: 'Método proprietário Obliant. ADKAR, Kotter, ACMP e SAP/Oracle OCM são base conceitual — não a metodologia.',
+    metodo: {
+      titulo: 'Método Obliant de gestão da mudança',
+      intro: 'As cinco fases não são teoria: cada uma tem entregáveis e frentes de trabalho próprias, aplicadas ao longo do projeto.',
+      fases: [
+        { nome: 'Diagnosticar', foco: 'Entender o ponto de partida', desc: 'Mapear stakeholders e impactos, avaliar a prontidão para mudança e o histórico da organização.', entregas: ['Change Readiness', 'Impact Assessment', 'Mapa de stakeholders'] },
+        { nome: 'Preparar', foco: 'Desenhar a estratégia', desc: 'Definir a estratégia de mudança e o patrocínio; estruturar comunicação, capacitação e a rede de agentes.', entregas: ['Estratégia de mudança', 'Plano de comunicação', 'Rede de agentes'] },
+        { nome: 'Engajar', foco: 'Mobilizar as pessoas', desc: 'Comunicar por público, ativar lideranças e agentes e tratar resistências de forma ativa.', entregas: ['Execução da comunicação', 'Ativação de sponsors', 'Gestão de resistências'] },
+        { nome: 'Capacitar', foco: 'Preparar para operar', desc: 'Treinar por perfil e transferir conhecimento para as pessoas operarem o novo modelo com autonomia.', entregas: ['Trilhas por perfil', 'Treinamento', 'Avaliação de aprendizagem'] },
+        { nome: 'Sustentar', foco: 'Fixar a mudança', desc: 'Medir a adoção, reforçar comportamentos, corrigir a rota e institucionalizar a mudança.', entregas: ['Métricas de adoção', 'Reforço e sustentação', 'Ajuste de rota'] },
+      ],
+    },
     dimensoes: [
       { nome: 'Patrocínio & Liderança', desc: 'Sponsors ativos e coalizão de líderes visíveis na mudança' },
       { nome: 'Prontidão para Mudança', desc: 'Change readiness: histórico, cultura e disposição da organização' },

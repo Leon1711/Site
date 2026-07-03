@@ -144,6 +144,20 @@ ul.clean li{padding:8px 0 8px 22px;position:relative;border-bottom:1px solid var
 ul.clean li:last-child{border-bottom:0}
 ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 
+/* ---------- método (fases) ---------- */
+.method{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:900px){.method{grid-template-columns:1fr}}
+.method .ph{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:14px;padding:16px;position:relative;transition:transform .25s,box-shadow .25s}
+.method .ph:hover{transform:translateY(-3px);box-shadow:0 12px 26px -16px rgba(46,57,71,.4)}
+.method .ph:not(:last-child)::after{content:'›';position:absolute;right:-13px;top:20px;z-index:2;font-family:'Fraunces';font-size:22px;color:var(--gold);line-height:1}
+@media(max-width:900px){.method .ph:not(:last-child)::after{content:'⌄';right:auto;left:50%;top:auto;bottom:-16px}}
+.method .ph .n{font-family:'Fraunces';font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.method .ph h4{font-family:'Fraunces';font-size:17px;color:var(--navy);margin:2px 0 2px;font-weight:600}
+.method .ph .foco{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.method .ph p{font-size:12px;color:var(--gray);margin-bottom:10px}
+.method .ph .ent{list-style:none;display:flex;flex-direction:column;gap:5px}
+.method .ph .ent li{font-size:11px;color:var(--navy);background:var(--ice);border-radius:6px;padding:4px 8px}
+
 /* ---------- roadmap ---------- */
 .road{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media(max-width:900px){.road{grid-template-columns:1fr}}
@@ -549,13 +563,30 @@ function frameworkHTML(prod) {
       <div class="pillars">
         ${p.pilares.map((pi, i) => `<div class="pill"><span>${i + 1}</span>${esc(pi)}</div>`).join('')}
       </div>
-      ${p.pilaresNota ? `<p class="note">${esc(p.pilaresNota)}</p>` : ''}
+      ${p.pilaresNota && !p.metodo ? `<p class="note">${esc(p.pilaresNota)}</p>` : ''}
     </div>
     <div class="card">
       <h3>Entregáveis</h3>
       <ul class="clean">${entregaveis}</ul>
     </div>
   </div>
+  ${p.metodo ? `
+  <div class="sect-head">
+    <div class="kicker">Metodologia</div>
+    <h3 class="serif">${esc(p.metodo.titulo)}</h3>
+    <p>${esc(p.metodo.intro)}</p>
+  </div>
+  <div class="method">
+    ${p.metodo.fases.map((f, i) => `
+    <div class="ph">
+      <div class="n">Fase ${i + 1}</div>
+      <h4>${esc(f.nome)}</h4>
+      <div class="foco">${esc(f.foco)}</div>
+      <p>${esc(f.desc)}</p>
+      <ul class="ent">${f.entregas.map(e => `<li>${esc(e)}</li>`).join('')}</ul>
+    </div>`).join('')}
+  </div>
+  <p class="note" style="margin-top:12px">${esc(p.pilaresNota)}</p>` : ''}
   <h3 class="sect">8 dimensões do framework</h3>
   <div class="grid c4">
     ${p.dimensoes.map((d, i) => `
