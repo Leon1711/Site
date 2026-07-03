@@ -755,7 +755,7 @@ function assessmentHTML() {
       <span class="spacer"></span>
       <button class="linkish" data-see style="display:none" onclick="seeResult('${prod}')">Ver resultado salvo →</button>
       <button class="linkish" onclick="wizDemo('${prod}')">Preencher exemplo (demo)</button>
-      <button class="linkish" onclick="wizReset('${prod}')">Recomeçar</button>
+      <button class="linkish" onclick="wizReset('${prod}')">Recomeçar esta frente</button>
     </div>
   </div>
   <div class="result" data-result="${prod}"></div>`).join('')}
@@ -1016,6 +1016,7 @@ function answer(prod, val){
 function wizBack(prod){
   const w=wiz[prod];
   if(w.i>0){ w.i--; renderStep(prod); }
+  else backToProducts(); // na 1ª pergunta, "Voltar" retorna à visualização dos produtos
 }
 function wizReset(prod){
   wiz[prod]={i:0,answers:[]};
@@ -1149,9 +1150,10 @@ function renderMaturity(prod, el){
     '<ul class="clean">'+inits.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>'+
     '<div class="res-actions">'+
       '<button class="btn gold" onclick="goRoadmap(\\''+prod+'\\')">Ver no roadmap →</button>'+
+      '<button class="btn ghost" onclick="backToProducts()">← Voltar aos produtos</button>'+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
-      '<button class="btn ghost" onclick="wizReset(\\''+prod+'\\')">Refazer</button>'+
+      '<button class="btn ghost" onclick="wizReset(\\''+prod+'\\')">Zerar '+p.sigla+'</button>'+
     '</div>';
 }
 
@@ -1224,10 +1226,19 @@ function renderFit(prod, el){
         p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>' : '')+
     '<div class="res-actions">'+
       (fit ? '<button class="btn gold" onclick="goRoadmap(\\'pmgo\\')">Ver roadmap PM&GO →</button>' : '')+
+      '<button class="btn ghost" onclick="backToProducts()">← Voltar aos produtos</button>'+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
-      '<button class="btn ghost" onclick="wizReset(\\'pmgo\\')">Refazer</button>'+
+      '<button class="btn ghost" onclick="wizReset(\\'pmgo\\')">Zerar PM&GO</button>'+
     '</div>';
+}
+
+// ------- voltar à visualização dos 3 produtos + zerar tudo -------
+function backToProducts(){
+  $$('.wizard').forEach(w=>w.style.display='none');
+  $$('.result').forEach(r=>r.classList.remove('on'));
+  $$('.ass-pick button').forEach(b=>b.classList.remove('on'));
+  const pick=$('.ass-pick'); if(pick) pick.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 // ------- ponte resultado → roadmap -------
@@ -1331,6 +1342,7 @@ function renderDossie(id){
         '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
         '<button class="btn ghost" onclick="shareClient(\\''+id+'\\')">Copiar link</button>'+
         '<button class="btn ghost" onclick="exportClient(\\''+id+'\\')">Exportar</button>'+
+        '<button class="btn ghost" onclick="clearClientDiag(\\''+id+'\\')">Zerar diagnósticos</button>'+
       '</div>'+
     '</div>'+
     '<div class="doss-grid">'+['epp','gmo','pmgo'].map(p=>dossieFront(c,p)).join('')+'</div>'+
@@ -1339,6 +1351,14 @@ function renderDossie(id){
   el.querySelectorAll('.gauge-marker').forEach(m=>{ m.style.left=m.dataset.pos+'%'; });
 }
 function editClient(id,field,val){ const c=DB.clients[id]; if(!c) return; c[field]=val; c.atualizado=stamp(); saveDB(); if(field==='nome') updateClientBar(); }
+function clearClientDiag(id){
+  const c=DB.clients[id]; if(!c) return;
+  if(!confirm('Zerar os diagnósticos (EPP, GMO e PM&GO) de "'+c.nome+'"? Os dados do cliente são mantidos.')) return;
+  c.diag={}; c.atualizado=stamp();
+  if(id===DB.activeId) syncStore();
+  saveDB(); resetWizards(); updateClientBar(); refreshPicks(); ['epp','gmo','pmgo'].forEach(paintRoadmap);
+  renderDossie(id); toast('Diagnósticos zerados');
+}
 
 // ------- exportar / importar / compartilhar -------
 function download(name,obj){
