@@ -753,6 +753,7 @@ function assessmentHTML() {
     <div class="wiz-nav">
       <button class="linkish" onclick="wizBack('${prod}')">← Voltar</button>
       <span class="spacer"></span>
+      <button class="linkish" data-see style="display:none" onclick="seeResult('${prod}')">Ver resultado salvo →</button>
       <button class="linkish" onclick="wizDemo('${prod}')">Preencher exemplo (demo)</button>
       <button class="linkish" onclick="wizReset('${prod}')">Recomeçar</button>
     </div>
@@ -914,14 +915,21 @@ function paintRoadmap(prod){
 // ------- seletor do assessment -------
 function pickAssessment(prod){
   $$('.ass-pick button').forEach(b=>b.classList.toggle('on', b.dataset.pick===prod));
+  $$('.result').forEach(r=>r.classList.remove('on'));
   $$('.wizard').forEach(w=>w.style.display = w.dataset.wizard===prod?'block':'none');
-  $$('.result').forEach(r=>{ if(r.dataset.result!==prod){ r.classList.remove('on'); } });
-  const w=wiz[prod];
-  if(store[prod] && store[prod].answers && !$('[data-result="'+prod+'"]').classList.contains('on')){
-    w.answers = store[prod].answers.slice(); finish(prod, false);
-  } else if(!$('[data-result="'+prod+'"]').classList.contains('on')){
-    renderStep(prod);
-  }
+  // sempre abre as PERGUNTAS; pré-carrega respostas anteriores (se houver) para revisão
+  const prev = (store[prod] && store[prod].answers) ? store[prod].answers.slice() : [];
+  wiz[prod] = { i:0, answers: prev };
+  renderStep(prod);
+  // atalho para o resultado já salvo deste cliente
+  const seeBtn = $('[data-wizard="'+prod+'"] [data-see]');
+  if(seeBtn) seeBtn.style.display = (prev.length===DATA.prods[prod].qs.length) ? 'inline' : 'none';
+}
+function seeResult(prod){
+  const d=store[prod]; if(!d || !d.answers) return;
+  wiz[prod].answers = d.answers.slice();
+  wiz[prod].i = DATA.prods[prod].qs.length-1;
+  finish(prod, false);
 }
 function goAssessment(prod){ showTab('assessment'); pickAssessment(prod); }
 function refreshPicks(){
@@ -929,7 +937,7 @@ function refreshPicks(){
     const el=$('.ass-pick button[data-pick="'+prod+'"] .done'); if(!el) return;
     const d=store[prod];
     if(d && d.tipo==='maturidade'){ el.textContent='Nível '+d.nivel; el.style.display='block'; }
-    else if(d && d.tipo==='fit'){ el.textContent=d.rec; el.style.display='block'; }
+    else if(d && d.tipo==='fit'){ el.textContent=fitYes(d)?'com fit':'sem fit'; el.style.display='block'; }
     else el.style.display='none';
   });
 }
@@ -1216,7 +1224,6 @@ function renderFit(prod, el){
         p.roadmap[0].iniciativas.map(i=>'<li>'+i+'</li>').join('')+'</ul></div>' : '')+
     '<div class="res-actions">'+
       (fit ? '<button class="btn gold" onclick="goRoadmap(\\'pmgo\\')">Ver roadmap PM&GO →</button>' : '')+
-      (!fit && alvo ? '<button class="btn gold" onclick="goAssessment(\\''+alvo[0]+'\\')">Avaliar maturidade '+alvo[1]+' →</button>' : '')+
       '<button class="btn ghost" onclick="openActiveDossie()">Dossiê do cliente →</button>'+
       '<button class="btn ghost" onclick="window.print()">Imprimir / PDF</button>'+
       '<button class="btn ghost" onclick="wizReset(\\'pmgo\\')">Refazer</button>'+
